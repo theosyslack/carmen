@@ -1,0 +1,15 @@
+# Dependancies and Dist
+node_modules/
+dist/
+
+#Config Files
+.vscode
+urls.json
+nodemon.json
+user-data/
+
+#screenshots
+/screenshots
+
+#logs
+*.log

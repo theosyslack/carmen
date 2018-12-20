@@ -19,6 +19,7 @@
     "compile": "tsc && npx nexe ./dist/main.js -o carmen && chmod +x carmen"
   },
   "devDependencies": {
+    "@types/puppeteer": "^1.11.1",
     "nexe": "^2.0.0-rc.34",
     "ts-node": "^7.0.1",
     "typescript": "~3.1.0"

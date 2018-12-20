@@ -1,18 +1,16 @@
-const destinations = ['http://retail.johnsonville.com'];
-
-const missions = {
-    beforeAll: ({ url }) => {
-        updateTravelLog(`Traveling to ${url}`);
-    },
-    afterAll: async ({ url }, page) => {
-        takeScreenshot();
+const destinations = [
+    {
+        url: "http://retail.johnsonville.com",
+        missions: [
+            "takeScreenshot",
+            async page => {
+                const title = await page.title();
+                console.log(title);
+            }
+        ]
     }
-};
-
-const moments = ['master', 'develop', '9ae64ea'];
+];
 
 export default {
-    destinations,
-    missions,
-    moments
+    destinations
 };

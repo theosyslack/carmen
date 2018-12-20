@@ -1,18 +1,13 @@
 import takeScreenshot from "./src/missions/takeScreenshot";
 import find404s from "./src/missions/find404s";
-import { isRegExp } from "util";
-
-
-function traveledTo(destination: string) {
-    return `traveled to ${destination}`;
-}
+import getPageSize from "./src/missions/getPageSize";
 
 const allLinks = [
-    'https://retail.johnsonville.com'
+    "https://retail.johnsonville.com/products/irish-o-garlic.html",
+    "https://retail.johnsonville.com/products/hot-italian-links.html",
+    "https://retail.johnsonville.com/products/hot-italian-ground-sausage.html",
+    "https://retail.johnsonville.com/products/garlic-summer-sausage.html"
     // ,
-    // 'https://retail.johnsonville.com/products/hot-italian-links.html',
-    // 'https://retail.johnsonville.com/products/hot-italian-ground-sausage.html',
-    // 'https://retail.johnsonville.com/products/garlic-summer-sausage.html',
     // 'https://retail.johnsonville.com/products/four-cheese-italian-sausage.html',
     // 'https://retail.johnsonville.com/products/chicken-sausage-3-cheese.html',
     // 'https://retail.johnsonville.com/products/cheddar-and-beer.html',
@@ -490,7 +485,7 @@ const allLinks = [
     // 'https://retail.johnsonville.com/recipe/flavorful-three-cheese-italian-stir-fry.html',
     // 'https://retail.johnsonville.com/recipe/apple-sausage-and-rice-casserole.html',
     // 'https://retail.johnsonville.com/recipe/zesty-pizza-casserole-pork-and-chicken-mild-italian-sausage.html'
-]
+];
 
 export default {
     // destinations: [
@@ -499,5 +494,7 @@ export default {
     //         missions: [takeScreenshot]
     //     }
     // ]
-    destinations: allLinks.map(link => { return { url: link, missions: [find404s] } })
+    destinations: allLinks.map(link => {
+        return { url: link, missions: [getPageSize] };
+    })
 };

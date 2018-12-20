@@ -3,9 +3,8 @@ import { URL } from 'url';
 import * as path from 'path';
 import * as fs from 'fs';
 
-const takeScreenshot = async () => {
-
-    let url = "https://retail.johnsonville.com/recipe/brat-hot-tub.html";
+export default async (url) => {
+    console.log(url)
     let { hostname, pathname } = new URL(url);
     let folderPath = pathname.replace(path.extname(pathname), "");
     let lastIndex = folderPath.lastIndexOf("/");
@@ -22,7 +21,7 @@ const takeScreenshot = async () => {
         .split(path.sep)
         .reduce((prevPath, folder) => {
             const currentPath = path.join(prevPath, folder, path.sep);
-            if (!fs.existsSync(currentPath)){
+            if (!fs.existsSync(currentPath)) {
                 fs.mkdirSync(currentPath);
             }
             return currentPath;
@@ -40,5 +39,3 @@ const takeScreenshot = async () => {
     await page.close();
     await browser.close();
 };
-
-takeScreenshot();

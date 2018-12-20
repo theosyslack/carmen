@@ -430,6 +430,14 @@ cacheable-request@^2.1.1:
     normalize-url "2.0.1"
     responselike "1.0.2"
 
+canvas@2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/canvas/-/canvas-2.2.0.tgz#d86ed3a61527de855a8f0d3d7b926f72267c956a"
+  integrity sha512-4blMi2I2DuHh9UZNrmvU0hyY4dZJFOjNuqaZpI/66pKCyX1HPstvK+f2fIdc+NaF8b6wiuhvwXEFNkm7jIKYSA==
+  dependencies:
+    nan "^2.11.1"
+    node-pre-gyp "^0.11.0"
+
 caseless@~0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
@@ -2157,7 +2165,14 @@ mute-stream@0.0.7:
   resolved "https://registry.yarnpkg.com/mute-stream/-/mute-stream-0.0.7.tgz#3075ce93bc21b8fab43e1bc4da7e8115ed1e7bab"
   integrity sha1-MHXOk7whuPq0PhvE2n6BFe0ee6s=
 
-nan@^2.9.2:
+mx@^1.0.0-0:
+  version "1.0.0-0"
+  resolved "https://registry.yarnpkg.com/mx/-/mx-1.0.0-0.tgz#3ed77ad7165e40a38c2029f318e9835420841559"
+  integrity sha512-nG4XhVr7P4O0wlfAel3gjpR8MogBDe9zYUSenuoBCeVm696Iavnv1h6Y8zO7o9bqRFPIdzKhnSn0VSWl3HJX/A==
+  dependencies:
+    source-map "^0.5.6"
+
+nan@^2.11.1, nan@^2.9.2:
   version "2.12.1"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.12.1.tgz#7b1aa193e9aa86057e3c7bbd0ac448e770925552"
   integrity sha512-JY7V6lRkStKcKTvHO5NVSQRv+RV+FIL5pvDoLiAtSL9pKlC5x9PKQcZDsq7m4FO4d57mkhC6Z+QhAh3Jdk5JFw==
@@ -2223,6 +2238,22 @@ node-pre-gyp@^0.10.0:
   version "0.10.3"
   resolved "https://registry.yarnpkg.com/node-pre-gyp/-/node-pre-gyp-0.10.3.tgz#3070040716afdc778747b61b6887bf78880b80fc"
   integrity sha512-d1xFs+C/IPS8Id0qPTZ4bUT8wWryfR/OzzAFxweG+uLN85oPzyo2Iw6bVlLQ/JOdgNonXLCoRyqDzDWq4iw72A==
+  dependencies:
+    detect-libc "^1.0.2"
+    mkdirp "^0.5.1"
+    needle "^2.2.1"
+    nopt "^4.0.1"
+    npm-packlist "^1.1.6"
+    npmlog "^4.0.2"
+    rc "^1.2.7"
+    rimraf "^2.6.1"
+    semver "^5.3.0"
+    tar "^4"
+
+node-pre-gyp@^0.11.0:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/node-pre-gyp/-/node-pre-gyp-0.11.0.tgz#db1f33215272f692cd38f03238e3e9b47c5dd054"
+  integrity sha512-TwWAOZb0j7e9eGaf9esRx3ZcLaE5tQ2lvYy1pb5IAaG1a2e2Kv5Lms1Y4hpj+ciXJRofIxxlt5haeQ/2ANeE0Q==
   dependencies:
     detect-libc "^1.0.2"
     mkdirp "^0.5.1"
@@ -2428,11 +2459,6 @@ p-is-promise@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/p-is-promise/-/p-is-promise-1.1.0.tgz#9c9456989e9f6588017b0434d56097675c3da05e"
   integrity sha1-nJRWmJ6fZYgBewQ01WCXZ1w9oF4=
-
-p-queue@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/p-queue/-/p-queue-3.0.0.tgz#0ef247082f0dd5a21b66e2cfe8fb7b06db13fb52"
-  integrity sha512-2tv/MRmPXfmfnjLLJAHl+DdU8p2DhZafAnlpm/C/T5BpF5L9wKz5tMin4A4N2zVpJL2YMhPlRmtO7s5EtNrjfA==
 
 p-timeout@^1.1.1:
   version "1.2.1"
@@ -2797,6 +2823,13 @@ request@^2.79.0:
     tough-cookie "~2.4.3"
     tunnel-agent "^0.6.0"
     uuid "^3.3.2"
+
+resemblejs@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/resemblejs/-/resemblejs-3.0.0.tgz#610f691ea6a09aab00492042b8fa43626a38ffd3"
+  integrity sha512-CLvvcUxacYyLcIRjWH4K5j8VvSngAX1puDnVeVolUm7LPlOdtSpwyPxtjh+41QKapg5FYyBvCoBS3cCdRgo/yg==
+  dependencies:
+    canvas "2.2.0"
 
 resolve-url@^0.2.1:
   version "0.2.1"
@@ -3492,13 +3525,6 @@ ws@^5.1.1:
   version "5.2.2"
   resolved "https://registry.yarnpkg.com/ws/-/ws-5.2.2.tgz#dffef14866b8e8dc9133582514d1befaf96e980f"
   integrity sha512-jaHFD6PFv6UgoIVda6qZllptQsMlDEJkTQcybzzXDYM1XO9Y8em691FGMPmM46WGyLU4z9KMgQN+qrux/nhlHA==
-  dependencies:
-    async-limiter "~1.0.0"
-
-ws@^6.1.2:
-  version "6.1.2"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-6.1.2.tgz#3cc7462e98792f0ac679424148903ded3b9c3ad8"
-  integrity sha512-rfUqzvz0WxmSXtJpPMX2EeASXabOrSMk1ruMOV3JBTBjo4ac2lDjGGsbQSyxj8Odhw5fBib8ZKEjDNvgouNKYw==
   dependencies:
     async-limiter "~1.0.0"
 

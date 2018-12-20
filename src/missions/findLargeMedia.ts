@@ -1,7 +1,3 @@
-// export default async (page: Page) => {
-//
-// }
-
 import * as puppeteer from "puppeteer";
 
 const sizeLimit = 2000000;

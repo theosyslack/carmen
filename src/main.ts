@@ -1,11 +1,10 @@
-import chalk from "chalk";
-import log, { globe } from "./actions/log";
+import takeScreenshot from "./missions/takeScreenshot";
+
 const main = async (args: string[]) => {
   const [action] = args;
 
   switch (action) {
     default:
-      globe();
       break;
   }
 };

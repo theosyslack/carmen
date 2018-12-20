@@ -1,10 +1,12 @@
 import * as puppeteer from "puppeteer";
 import { URL } from "url";
 import log from "../actions/log";
+import * as fs from 'fs';
 
 export default async targetPage => {
     let failedStatus: any[] = [];
     let errorPages: any[] = [];
+    let pageOrigin;
 
     const browser = await puppeteer.launch({
         headless: true
@@ -21,10 +23,13 @@ export default async targetPage => {
 
     log(resultAnchors.length + " links found on " + targetPage, "pending");
 
+
+
     const start = async () => {
         await asyncForEach(resultAnchors, async anchor => {
             try {
-                let { origin, pathname, search } = new URL(anchor);
+                let { host, origin, pathname, search } = new URL(anchor);
+                pageOrigin = host;
                 let sanitizedURL = origin + pathname + search;
 
                 log("Navigating to: " + sanitizedURL, "default");
@@ -37,16 +42,40 @@ export default async targetPage => {
                     failedStatus.push(sanitizedURL, response.status());
             } catch (error) {
                 log("Error on page: " + anchor + error, "error");
-                errorPages.push(anchor, error);
+                errorPages.push({ anchor, error });
             }
         });
 
+
+        checkDirectorySync('./reports');
+        checkDirectorySync('./reports/' + pageOrigin);
+
         console.log("Done");
-        console.log("failedStatus", failedStatus);
-        console.log("errorPages", errorPages);
+
+        writeFile('./reports/' + pageOrigin + '/failedPageStatus.json', JSON.stringify(failedStatus))
+        writeFile('./reports/' + pageOrigin + '/errorPages.json', JSON.stringify(errorPages));
         await browser.close();
     };
     start();
+
+    const writeFile = function (path, data) {
+        fs.writeFile(path, data, 'utf8', e => {
+            if (e) {
+                log('Failed to save file to: ' + path + ' with error: ' + e, 'error');
+            } else {
+                log('Saving file to: ' + path, 'default');
+            }
+        });
+    };
+
+    const checkDirectorySync = function (dir) {
+        try {
+            fs.statSync(dir);
+        } catch (e) {
+            fs.mkdirSync(dir);
+            log('Creating Dir: ' + dir, 'default');
+        }
+    };
 
     async function asyncForEach(array, callback) {
         for (let index = 0; index < array.length; index++) {

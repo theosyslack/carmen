@@ -8,11 +8,11 @@ function traveledTo(destination: string) {
 }
 
 const allLinks = [
-    'https://retail.johnsonville.com/products/irish-o-garlic.html',
-    'https://retail.johnsonville.com/products/hot-italian-links.html',
-    'https://retail.johnsonville.com/products/hot-italian-ground-sausage.html',
-    'https://retail.johnsonville.com/products/garlic-summer-sausage.html'
+    'https://retail.johnsonville.com'
     // ,
+    // 'https://retail.johnsonville.com/products/hot-italian-links.html',
+    // 'https://retail.johnsonville.com/products/hot-italian-ground-sausage.html',
+    // 'https://retail.johnsonville.com/products/garlic-summer-sausage.html',
     // 'https://retail.johnsonville.com/products/four-cheese-italian-sausage.html',
     // 'https://retail.johnsonville.com/products/chicken-sausage-3-cheese.html',
     // 'https://retail.johnsonville.com/products/cheddar-and-beer.html',

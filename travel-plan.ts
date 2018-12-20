@@ -1,16 +1,16 @@
-const destinations = [
-  {
-    url: "not.johnsonville.com",
-    missions: [
-      "find404s",
-      async page => {
-        const title = await page.setViewport();
-        console.log(title);
-      }
-    ]
-  }
-];
-
 export default {
-  destinations
+  destinations: [
+    {
+      url: "not.johnsonville.com",
+      missions: [traveledTo]
+    },
+    {
+      url: "nope.johnsonville.com",
+      missions: [traveledTo]
+    }
+  ]
 };
+
+function traveledTo(destination: string) {
+  return `traveled to ${destination}`;
+}

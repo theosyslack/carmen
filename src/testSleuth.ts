@@ -6,6 +6,9 @@ import { sendSleuth } from "./actions/sleuth";
   const missions: any[] = [
     function(destination: string) {
       return `traveled to ${destination}`;
+    },
+    function(destination: string) {
+      return `went something other than ${destination}`;
     }
   ];
 

@@ -11,9 +11,9 @@ import { sendSleuth } from "./actions/sleuth";
 
   const destination: string = "http://localhost";
 
-  const results = sendSleuth(missions, destination);
+  const missionResult = sendSleuth(missions, destination);
 
-  for await (const result of results) {
+  for await (const result of missionResult) {
     console.log(result);
   }
 })();

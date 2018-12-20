@@ -7,15 +7,16 @@ export function sendSleuth(missions: any[], destination: string) {
   return {
     [Symbol.asyncIterator]: async function*() {
       let missionIndex: number = 0;
-      let results: any[];
+      let results: any[] = [];
       while (missionIndex < missions.length) {
-        const missionResults: object[] = await runMission(
-          missions[missionIndex],
-          destination
-        );
-
-        for await (const result of missionResults) {
-          results.push(yield result);
+        try {
+          const missionResults: object[] = await runMission(
+            missions[missionIndex],
+            destination
+          );
+          results.push(yield missionResults);
+        } catch (error) {
+          console.log(error);
         }
         missionIndex = missionIndex + 1;
       }

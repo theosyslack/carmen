@@ -13,3 +13,6 @@ user-data/
 
 #logs
 *.log
+
+.idea/
+*.iml

@@ -7,8 +7,9 @@ const main = async (args: string[]) => {
     console.log(action, pathToTravelPlan);
     switch (action) {
         default:
-            const { default: travelPlan } = await import(pathToTravelPlan);
-            console.table(travelPlan);
+            // const { default: travelPlan } = await import(pathToTravelPlan);
+            // console.table(travelPlan);
+            find404s();
             break;
     }
 };

@@ -12,7 +12,8 @@
         "lib": [
             "esnext",
             "es2015",
-            "esnext.asynciterable"
+            "esnext.asynciterable",
+            "dom"
         ],
         "allowJs": true
     },

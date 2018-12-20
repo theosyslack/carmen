@@ -8,10 +8,10 @@
     "@types/chalk": "^2.2.0",
     "@types/node": "^10.12.16",
     "chalk": "^2.4.1",
-    "p-queue": "^3.0.0",
+    "mx": "^1.0.0-0",
     "puppeteer": "^1.10.0",
     "puppeteer-core": "^1.10.0",
-    "ws": "^6.1.2"
+    "resemblejs": "^3.0.0"
   },
   "scripts": {
     "start": "ts-node src/main.ts",

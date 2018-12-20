@@ -16,7 +16,8 @@
   "scripts": {
     "start": "ts-node src/main.ts",
     "build": "tsc",
-    "compile": "tsc && npx nexe ./dist/main.js -o carmen && chmod +x carmen"
+    "compile": "tsc && npx nexe ./dist/main.js -o carmen && chmod +x carmen",
+    "test": "ts-node src/testSleuth.ts"
   },
   "devDependencies": {
     "nexe": "^2.0.0-rc.34",

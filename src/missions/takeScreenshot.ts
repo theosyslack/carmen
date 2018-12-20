@@ -2,9 +2,9 @@ import * as puppeteer from "puppeteer";
 import { URL } from 'url';
 import * as path from 'path';
 import * as fs from 'fs';
+import log from "../actions/log";
 
 export default async (url) => {
-    console.log(url)
     let { hostname, pathname } = new URL(url);
     let folderPath = pathname.replace(path.extname(pathname), "");
     let lastIndex = folderPath.lastIndexOf("/");
@@ -29,13 +29,26 @@ export default async (url) => {
 
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
-    await page.setViewport({
-        width: 1920,
-        height: 1024
+    await page.goto(url, {
+        waitUntil: 'domcontentloaded',
+        timeout: 6000
     });
 
-    await page.goto(url, { waitUntil: 'networkidle0' });
-    await page.screenshot({ path: finalPath + "/" + fileName + ".png" });
+    await page.setViewport({
+        width: 1920,
+        height: await page.evaluate(() => document.body.clientHeight)
+    });
+
+    log("Capturing Screen for: " + fileName, "default");
+
+    // TODO Allow user to inject CSS to ensure we dont run into issues with VH
+    // await page.addStyleTag({ content: '.home .homeHero .homeHeroVideo{height: 600px !important}' });
+
+    await page.screenshot({
+        fullPage: true,
+        path: finalPath + "/" + fileName + ".png"
+    });
+
     await page.close();
     await browser.close();
 };

@@ -13,7 +13,8 @@ const LOG_TYPES = {
 type LogType = "default" | "table" | "success" | "pending" | "error";
 
 export { clear };
-export default (message, type: LogType) => {
+
+export default (message, type?: LogType) => {
   if (!type) {
     log(message);
   } else {

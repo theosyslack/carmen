@@ -1,21 +1,23 @@
 {
-  "compileOnSave": true,
-  "compilerOptions": {
-    "module": "commonjs",
-    "removeComments": true,
-    "preserveConstEnums": true,
-    "outDir": "./dist",
-    "sourceMap": true,
-    "types": [
-      "node"
-    ],
-    "lib": [
-      "esnext",
-      "ES2015"
-    ],
-    "allowJs": true
-  },
-  "include": [
-       "src/**/*"
-   ]
+    "compileOnSave": true,
+    "compilerOptions": {
+        "module": "commonjs",
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "outDir": "./dist",
+        "sourceMap": true,
+        "types": [
+            "node"
+        ],
+        "lib": [
+            "esnext",
+            "es2015",
+            "esnext.asynciterable",
+            "dom"
+        ],
+        "allowJs": true
+    },
+    "include": [
+        "src/**/*"
+    ]
 }

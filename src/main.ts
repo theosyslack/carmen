@@ -1,5 +1,3 @@
-import takeScreenshot from "./missions/takeScreenshot";
-import find404s from "./missions/find404s";
 import { sendSleuth } from "./actions/sleuth";
 
 // add asyncIterator functionality - https://github.com/Microsoft/TypeScript/issues/14151

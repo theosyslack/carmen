@@ -12,21 +12,21 @@ export default async () => {
         return elements; // Return our data array
     });
 
-    // console.log(resultAnchors);
+    console.log(resultAnchors);
 
-    for (let anchor of resultAnchors) {
-        await page.goto(anchor);
-        await page.on('response', response => {
-            if (response.status() > 399)
-                console.log("response code: ", anchor, response.status());
-            // do something here
-        });
-        // let response = await page.on('response', resp => {
-        //     var header = resp.headers();
-        //     return header['content-disposition'];
-        // });
-        // console.log(response);
-    }
+    // for (let anchor of resultAnchors) {
+    //     await page.goto(anchor);
+    //     await page.on('response', response => {
+    //         if (response.status() > 399)
+    //             console.log("response code: ", anchor, response.status());
+    //         // do something here
+    //     });
+    //     // let response = await page.on('response', resp => {
+    //     //     var header = resp.headers();
+    //     //     return header['content-disposition'];
+    //     // });
+    //     // console.log(response);
+    // }
 
 
 

@@ -1,12 +1,8 @@
-// export default async (page: Page) => {
-//
-// }
-
 import * as puppeteer from "puppeteer";
 
-const sizeLimit = 2000000;
+// const sizeLimit = 2000000;
 
-const findLargeMedia = async () => {
+export default async () => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     page.on('response', response => {
@@ -18,8 +14,6 @@ const findLargeMedia = async () => {
             }
         }
     });
-    await page.goto('https://retail.johnsonville.com');
+    await page.goto('https://us.bona.com');
     await browser.close();
 };
-
-findLargeMedia();

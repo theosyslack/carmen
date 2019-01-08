@@ -1,5 +1,6 @@
 import { sendSleuth } from "./actions/sleuth";
 import log from "./actions/log";
+import { TravelPlan } from ".";
 
 const main = async (args: string[]) => {
   const [action = "follow", relativePathToTravelPlan = "travel-plan.js"] = args;
@@ -31,5 +32,10 @@ async function runMissions(travelPlan) {
   // TODO: Something cooler than console.log
   // console.log(results);
 }
+
+const findTravelPlans = async (pathToTravelPlan): Promise<TravelPlan> => {
+  const { default: travelPlan } = await import(pathToTravelPlan);
+  return travelPlan;
+};
 
 main(process.argv.splice(2));

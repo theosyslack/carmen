@@ -1,5 +1,5 @@
 import { sendSleuth } from "./actions/sleuth";
-import log, { globe } from "./actions/log";
+import log from "./actions/log";
 
 const main = async (args: string[]) => {
   const [action, pathToTravelPlan] = args;
@@ -30,7 +30,6 @@ async function runMissions(travelPlan) {
 
   // TODO: Something cooler than console.log
   // console.log(results);
-  globe();
 }
 
 main(process.argv.splice(2));

@@ -1,21 +1,29 @@
 import { sendSleuth } from "./actions/sleuth";
 import log from "./actions/log";
+import * as path from "path";
 import { TravelPlan } from ".";
 
 const main = async (args: string[]) => {
   const [action = "follow", relativePathToTravelPlan = "travel-plan.js"] = args;
   console.clear();
-  console.log(action, pathToTravelPlan);
+  const pathToTravelPlan = path.join(process.cwd(), relativePathToTravelPlan);
   switch (action) {
     case "follow":
-      const {
-        default: { destinations: travelPlan }
-      } = await import(pathToTravelPlan);
-      runMissions(travelPlan);
-      break;
     default:
-      log("You have to pass in a travel plan.", "error");
-      log("yarn start follow travel-plan.ts", "pending");
+      try {
+        const travelPlan = await findTravelPlans(pathToTravelPlan);
+
+        log(
+          `Traveling to ${travelPlan.destinations.length} destinations.`,
+          "pending"
+        );
+      } catch (e) {
+        if (e.code === "MODULE_NOT_FOUND") {
+          log(`No plan found at ${pathToTravelPlan}. ${e.code}`, "error");
+        } else {
+          log(e, "error");
+        }
+      }
       break;
   }
 };

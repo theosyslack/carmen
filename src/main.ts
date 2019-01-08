@@ -2,7 +2,7 @@ import { sendSleuth } from "./actions/sleuth";
 import log from "./actions/log";
 
 const main = async (args: string[]) => {
-  const [action, pathToTravelPlan] = args;
+  const [action = "follow", relativePathToTravelPlan = "travel-plan.js"] = args;
   console.clear();
   console.log(action, pathToTravelPlan);
   switch (action) {

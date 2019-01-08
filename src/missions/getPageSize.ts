@@ -1,6 +1,7 @@
 import * as puppeteer from "puppeteer";
+import log from "../actions/log";
 
-export default async targetPage => {
+export default async (page: puppeteer.Page) => {
   // const browser = await puppeteer.launch({
   //   headless: true
   // });
@@ -18,17 +19,12 @@ export default async targetPage => {
   // });
   //
   // console.log(perf);
+  const result = await page.evaluate(() => {
+    const perf = performance.getEntries()[0];
+    return perf.toJSON();
+  });
 
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-  await page.goto(targetPage);
-
-  console.log(
-    await page.evaluate(() => {
-      const perf = performance.getEntries()[0];
-      return JSON.stringify(perf);
-    })
-  );
+  return result;
   //
   // console.log("\n==== performance.toJSON() ====\n");
   // console.log(
@@ -38,6 +34,4 @@ export default async targetPage => {
   // console.log("\n==== page.metrics() ====\n");
   // const perf = await page.metrics();
   // console.log(JSON.stringify(perf, null, "  "));
-
-  browser.close();
 };

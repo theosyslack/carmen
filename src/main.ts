@@ -57,8 +57,17 @@ async function runMissions(
 }
 
 const findTravelPlans = async (pathToTravelPlan): Promise<TravelPlan> => {
-  const { default: travelPlan } = await import(pathToTravelPlan);
-  return travelPlan;
+  const asyncImport = await import(pathToTravelPlan).catch(e => {
+    if (e.code === "MODULE_NOT_FOUND") {
+      log(`No plan found at ${pathToTravelPlan}.`, "error");
+      process.exit(1);
+    } else {
+      log(e, "error");
+      process.exit(1);
+    }
+  });
+
+  return asyncImport.default;
 };
 
 main(process.argv.splice(2));

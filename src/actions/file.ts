@@ -12,13 +12,11 @@ export const sanitize = string => {
   return string.replace(regex, "-");
   //TODO: Write a sanitize function to make filename safe
 };
-export const doesExist = async path => {
-  const fullPath = joinPath(__dirname, path);
 
+export const exists = async path => {
   return await access(path, fs.constants.F_OK)
     .then(() => true)
     .catch(err => {
-      log(`${path} ${err ? "does not exist" : "exists"}`, "error");
       return false;
     });
 };

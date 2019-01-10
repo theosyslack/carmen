@@ -6,18 +6,26 @@ import * as puppeteer from "puppeteer";
   Symbol.asyncIterator || Symbol.for("Symbol.asyncIterator");
 
 (async function() {
-  const missions: any[] = [
-    function(destination: string) {
+  const browser = await puppeteer.launch({
+    devtools: true
+  });
+  const page = await browser.newPage();
+
+  const missions: Mission[] = [
+    function(page) {
       return `traveled to ${destination}`;
     },
-    function(destination: string) {
+    function(page) {
       return `went something other than ${destination}`;
     }
   ];
 
-  const destination: string = "http://localhost";
+  const destination: Destination = {
+    url: "http://localhost",
+    missions
+  };
 
-  const missionResult = sendSleuth(missions, destination);
+  const missionResult = sendSleuth(destination, page);
 
   for await (const result of missionResult) {
     console.log(result);

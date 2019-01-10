@@ -1,10 +1,9 @@
 # Dependancies and Dist
+.DS_Store
 node_modules/
-dist/
 
 #Config Files
 .vscode
-urls.json
 nodemon.json
 user-data/
 

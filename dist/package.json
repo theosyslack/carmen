@@ -2,31 +2,16 @@
   "name": "carmen",
   "version": "0.0.1",
   "description": "Carmen will sneak around a website, finding precious elements and returning them to you.",
+  "main": "main.js",
   "license": "MIT",
-  "files": [
-    "dist/**/*"
-  ],
+  "bin": {
+    "carmen": "main.js"
+  },
   "dependencies": {
-    "@types/chalk": "^2.2.0",
-    "@types/node": "^10.12.16",
     "chalk": "^2.4.1",
     "puppeteer": "^1.10.0",
     "puppeteer-core": "^1.10.0",
     "resemblejs": "^3.0.0"
-  },
-  "scripts": {
-    "start": "ts-node ./src/main.ts",
-    "build": "tsc",
-    "watch": "tsc -w",
-    "test": "ts-node src/testSleuth.ts",
-    "install": "tsc",
-    "link": "cd ./dist && yarn link"
-  },
-  "devDependencies": {
-    "@types/puppeteer": "^1.11.1",
-    "nexe": "^2.0.0-rc.34",
-    "ts-node": "^7.0.1",
-    "typescript": "~3.1.0"
   },
   "repository": {
     "type": "git",

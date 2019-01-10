@@ -6,10 +6,10 @@ import log from "./actions/log";
 import * as path from "path";
 import { TravelPlan } from ".";
 import { compareImages } from "./actions/compare";
+import { exists } from "./actions/file";
 
 const main = async (args: string[]) => {
   const [action = "follow", relativePathToTravelPlan = "travel-plan.js"] = args;
-  console.clear();
 
   const browser = await puppeteer.launch();
   const pathToTravelPlan = path.join(process.cwd(), relativePathToTravelPlan);
@@ -57,17 +57,22 @@ async function runMissions(
 }
 
 const findTravelPlans = async (pathToTravelPlan): Promise<TravelPlan> => {
-  const asyncImport = await import(pathToTravelPlan).catch(e => {
-    if (e.code === "MODULE_NOT_FOUND") {
-      log(`No plan found at ${pathToTravelPlan}.`, "error");
-      process.exit(1);
-    } else {
-      log(e, "error");
-      process.exit(1);
-    }
-  });
+  const travelPlanExists = await exists(pathToTravelPlan);
 
-  return asyncImport.default;
+  if (travelPlanExists) {
+    const asyncImport = await import(pathToTravelPlan)
+      .catch(reason => {
+        log(reason.toString(), "error");
+        console.log(reason);
+        process.exit(1);
+      })
+      .then();
+
+    return asyncImport.default;
+  } else {
+    log(`No plan found at ${pathToTravelPlan}.`, "error");
+    process.exit(1);
+  }
 };
 
 export { default as find404s } from "./missions/find404s";

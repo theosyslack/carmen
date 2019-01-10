@@ -75,9 +75,4 @@ const findTravelPlans = async (pathToTravelPlan): Promise<TravelPlan> => {
   }
 };
 
-export { default as find404s } from "./missions/find404s";
-export { default as findLargeMedia } from "./missions/findLargeMedia";
-export { default as getPageSize } from "./missions/getPageSize";
-export { default as takeScreenshot } from "./missions/takeScreenshot";
-
 main(process.argv.splice(2));

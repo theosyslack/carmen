@@ -28,19 +28,11 @@ const main = async (args: string[]) => {
           "pending"
         );
 
-        const missionResults = await runMissions(travelPlan, browser);
-        log(missionResults);
-        await browser.close();
-      } catch (e) {
-        if (e.code === "MODULE_NOT_FOUND") {
-          log(`No plan found at ${pathToTravelPlan}. ${e.code}`, "error");
-        } else {
-          log(e, "error");
-        }
-      }
-
+      await runMissions(travelPlan, browser);
       break;
   }
+
+  await browser.close();
 };
 
 async function runMissions(

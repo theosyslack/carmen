@@ -1,4 +1,7 @@
 import { sendSleuth } from "./actions/sleuth";
+import { Mission, Destination } from ".";
+import * as puppeteer from "puppeteer";
+
 (<any>Symbol).asyncIterator =
   Symbol.asyncIterator || Symbol.for("Symbol.asyncIterator");
 

@@ -5,6 +5,7 @@ import * as puppeteer from "puppeteer";
 import log from "./actions/log";
 import * as path from "path";
 import { TravelPlan } from ".";
+import { compareImages } from "./actions/compare";
 
 const main = async (args: string[]) => {
   const [action = "follow", relativePathToTravelPlan = "travel-plan.js"] = args;
@@ -14,9 +15,12 @@ const main = async (args: string[]) => {
   const pathToTravelPlan = path.join(process.cwd(), relativePathToTravelPlan);
 
   switch (action) {
+    case "compare":
+      //TODO: Pass in command line arguments (`carmen compare image.png image2.png`)
+      await compareImages();
+      break;
     case "follow":
     default:
-      try {
         const travelPlan = await findTravelPlans(pathToTravelPlan);
 
         log(

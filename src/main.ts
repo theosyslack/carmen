@@ -21,12 +21,12 @@ const main = async (args: string[]) => {
       break;
     case "follow":
     default:
-        const travelPlan = await findTravelPlans(pathToTravelPlan);
+      const travelPlan = await findTravelPlans(pathToTravelPlan);
 
-        log(
-          `Traveling to ${travelPlan.destinations.length} destinations.`,
-          "pending"
-        );
+      log(
+        `Traveling to ${travelPlan.destinations.length} destinations.`,
+        "pending"
+      );
 
       await runMissions(travelPlan, browser);
       break;
@@ -69,5 +69,10 @@ const findTravelPlans = async (pathToTravelPlan): Promise<TravelPlan> => {
 
   return asyncImport.default;
 };
+
+export { default as find404s } from "./missions/find404s";
+export { default as findLargeMedia } from "./missions/findLargeMedia";
+export { default as getPageSize } from "./missions/getPageSize";
+export { default as takeScreenshot } from "./missions/takeScreenshot";
 
 main(process.argv.splice(2));

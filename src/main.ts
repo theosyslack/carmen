@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { sendSleuth } from "./actions/sleuth";
 import * as puppeteer from "puppeteer";
 import log from "./actions/log";

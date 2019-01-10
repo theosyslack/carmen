@@ -14,7 +14,6 @@
     "@types/chalk": "^2.2.0",
     "@types/node": "^10.12.16",
     "chalk": "^2.4.1",
-    "mz": "^2.7.0",
     "puppeteer": "^1.10.0",
     "puppeteer-core": "^1.10.0",
     "resemblejs": "^3.0.0"

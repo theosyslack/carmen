@@ -4,6 +4,12 @@
   "description": "Carmen will sneak around a website, finding precious elements and returning them to you.",
   "main": "dist/main.js",
   "license": "MIT",
+  "bin": {
+    "carmen": "dist/main.js"
+  },
+  "files": [
+    "dist/**/*"
+  ],
   "dependencies": {
     "@types/chalk": "^2.2.0",
     "@types/node": "^10.12.16",
@@ -14,15 +20,21 @@
     "resemblejs": "^3.0.0"
   },
   "scripts": {
-    "start": "ts-node src/main.ts",
+    "start": "ts-node ./src/main.ts",
     "build": "tsc",
-    "compile": "tsc && npx nexe ./dist/main.js -o carmen && chmod +x carmen",
-    "test": "ts-node src/testSleuth.ts"
+    "test": "ts-node src/testSleuth.ts",
+    "install": "tsc"
   },
   "devDependencies": {
     "@types/puppeteer": "^1.11.1",
     "nexe": "^2.0.0-rc.34",
     "ts-node": "^7.0.1",
     "typescript": "~3.1.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/trillitech/carmen.git"
+  },
+  "author": "",
+  "homepage": "https://bitbucket.org/trillitech/carmen#readme"
 }

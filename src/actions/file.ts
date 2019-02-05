@@ -1,12 +1,11 @@
-import { join as joinPath, resolve as resolvePath } from "path";
+import { join as joinPath, resolve as resolvePath, parse } from "path";
 import { promisify } from "util";
 import * as fs from "fs";
 import log from "./log";
-
 export const access = promisify(fs.access);
+export const mkdir = promisify(fs.mkdir);
 export const read = promisify(fs.readFile);
 export const write = promisify(fs.writeFile);
-
 export const sanitize = string => {
   const regex = /[<>:"\/\\|?*\x00-\x1F]/g;
   return string.replace(regex, "-");
@@ -32,5 +31,22 @@ export const writeObjectToFile = async (object, filePath: string) => {
     filePath += ".json";
   }
   const resolvedPath = resolvePath(process.cwd(), filePath);
-  return await write(resolvedPath, JSON.stringify(object));
+  await createFolderForFile(resolvedPath);
+  log(`Saved ${filePath}`, "success");
+  return await write(resolvedPath, JSON.stringify(object, null, 2));
+};
+
+export const createFolderForFile = async (filePath: string) => {
+  const { dir } = parse(filePath);
+  return await mkdir(dir).catch(({ code }) => {
+    if (code === "EEXIST") {
+      // log(`${dir} already exists.`, "pending");
+      return;
+    }
+
+    if (code === "EACCES") {
+      // log(`${dir} cannot be accessed.`, "pending");
+      return;
+    }
+  });
 };

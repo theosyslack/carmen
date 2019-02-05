@@ -38,7 +38,7 @@ export const writeObjectToFile = async (object, filePath: string) => {
 
 export const createFolderForFile = async (filePath: string) => {
   const { dir } = parse(filePath);
-  return await mkdir(dir).catch(({ code }) => {
+  return await mkdir(dir, { recursive: true }).catch(({ code }) => {
     if (code === "EEXIST") {
       // log(`${dir} already exists.`, "pending");
       return;

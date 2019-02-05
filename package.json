@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "description": "Carmen will sneak around a website, finding precious elements and returning them to you.",
   "license": "MIT",
+  "engines": {
+    "node": "^11.9.0"
+  },
   "files": [
     "dist/**/*"
   ],

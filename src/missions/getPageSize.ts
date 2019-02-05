@@ -1,7 +1,18 @@
-import * as puppeteer from "puppeteer";
+import * as path from "path";
 import log from "../actions/log";
-
+import * as puppeteer from "puppeteer";
+import { writeObjectToFile, mkdir } from "../actions/file";
 export default async (page: puppeteer.Page) => {
+  const location = await page.url();
+  let { hostname, pathname } = new URL(location);
+  let folderPath = pathname.replace(path.extname(pathname), "");
+  let lastIndex = folderPath.lastIndexOf("/");
+  let fileName = folderPath.substring(lastIndex + 1);
+  folderPath = folderPath.substring(0, lastIndex);
+
+  let finalPath = "./page-size/" + hostname + folderPath;
+
+  await mkdir(finalPath);
   // const browser = await puppeteer.launch({
   //   headless: true
   // });
@@ -24,6 +35,7 @@ export default async (page: puppeteer.Page) => {
     return perf.toJSON();
   });
 
+  writeObjectToFile(result, finalPath + fileName);
   return result;
   //
   // console.log("\n==== performance.toJSON() ====\n");

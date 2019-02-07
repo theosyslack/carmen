@@ -8,8 +8,9 @@ nodemon.json
 user-data/
 travel-plan.js
 
-#screenshots
+#Reports
 /screenshots
+/reports
 
 #logs
 *.log

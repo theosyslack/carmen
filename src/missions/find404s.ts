@@ -1,7 +1,6 @@
 import * as puppeteer from "puppeteer";
 import { URL } from "url";
 import log from "../actions/log";
-import * as fs from "fs";
 import { __ } from "ramda";
 import {
   writeObjectToFile,
@@ -10,11 +9,16 @@ import {
 } from "../actions/file";
 
 export default async (page: puppeteer.Page) => {
+  log("Checking for a few 404s...", "pending");
+
   let failedStatus: any[] = [];
   let errorPages: any[] = [];
+  let successfulStatus: any = [];
   let pageOrigin;
 
   const targetPage = await page.url();
+  const { hostname, pathname } = new URL(targetPage);
+  const folderPath = `${hostname}/${pathname}`;
   let resultAnchors = await page.evaluate(() => {
     let elements = Array.from(document.querySelectorAll("a")).map(
       link => link.href
@@ -25,33 +29,49 @@ export default async (page: puppeteer.Page) => {
   log(resultAnchors.length + " links found on " + targetPage, "pending");
 
   await asyncForEach(resultAnchors, async anchor => {
-    let { host, origin, pathname, search } = new URL(anchor);
-    pageOrigin = host;
-    let sanitizedURL = origin + pathname + search;
-
-    log("Navigating to: " + sanitizedURL, "default");
     try {
+      let { host, origin, pathname, search } = new URL(anchor);
+      pageOrigin = host;
+      let sanitizedURL = origin + pathname + search;
+
       const response = await page.goto(sanitizedURL, {
         waitUntil: "domcontentloaded",
         timeout: 6000
       });
-      if (response.status() > 399)
-        failedStatus.push(sanitizedURL, response.status());
+      if (response.status() > 399) {
+        failedStatus.push({
+          url: targetPage,
+          anchor,
+          status: response.status()
+        });
+        log(sanitizedURL, "error");
+      } else {
+        successfulStatus.push({
+          url: targetPage,
+          status: response.status()
+        });
+        log(sanitizedURL, "success");
+      }
     } catch (error) {
-      log("Error on page: " + anchor + error, "error");
-      errorPages.push({ foundOn: sanitizedURL, url: anchor, error });
+      log(`${anchor} (${error})`, "error");
+      errorPages.push({ url: targetPage, anchor, error });
     }
   });
 
+  const writeSuccessfulResults = createReportWriter(
+    `find404s`,
+    `${folderPath}/succeeded.json`
+  );
   const writeFailedResults = createReportWriter(
     `find404s`,
-    `${pageOrigin}/failed.json`
+    `${folderPath}/failed.json`
   );
   const writeErrorResults = createReportWriter(
     `find404s`,
-    `${pageOrigin}/errors.json`
+    `${folderPath}/error.json`
   );
 
+  await writeSuccessfulResults(successfulStatus);
   await writeFailedResults(failedStatus);
   await writeErrorResults(errorPages);
 };

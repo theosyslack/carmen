@@ -8,7 +8,7 @@ const checkForADACompliance = async (page: puppeteer.Page) => {
   log("Checking for ADA issues...", "pending");
 
   const results = await new AxePuppeteer(page).analyze();
-  console.log(`${results.violations.length} issues found.`);
+  log(`${results.violations.length} issues found.`, "pending");
 
   const writeReport = createReportWriter(
     "checkForADACompliance",

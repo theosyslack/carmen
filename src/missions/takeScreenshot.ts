@@ -5,6 +5,7 @@ import * as fs from "fs";
 import log from "../actions/log";
 
 export default async (page: puppeteer.Page) => {
+  log("Taking a screenshot...", "pending");
   const location = await page.url();
   let { hostname, pathname } = new URL(location);
   let folderPath = pathname.replace(path.extname(pathname), "");

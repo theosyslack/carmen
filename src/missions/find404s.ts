@@ -2,11 +2,7 @@ import * as puppeteer from "puppeteer";
 import { URL } from "url";
 import log from "../actions/log";
 import { __ } from "ramda";
-import {
-  writeObjectToFile,
-  writeReport,
-  createReportWriter
-} from "../actions/file";
+import { createReportWriter } from "../actions/file";
 
 export default async (page: puppeteer.Page) => {
   log("Checking for a few 404s...", "pending");

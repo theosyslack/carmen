@@ -45,7 +45,14 @@ async function runMissions(
     destinations.map(async destination => {
       const page = await browser.newPage();
       const responses = sendSleuth(destination, page);
+
       for await (const response of responses) {
+        log(
+          `
+          
+Test Completed -----------------------------------------`,
+          "success"
+        );
         results.push(response);
       }
     })

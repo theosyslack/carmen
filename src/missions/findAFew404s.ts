@@ -30,7 +30,7 @@ export default async (page: puppeteer.Page) => {
 
   log(resultAnchors.length + " links found on " + targetPage, "pending");
 
-  await asyncForEach(resultAnchors.slice(0, 20), async anchor => {
+  await asyncForEach(resultAnchors.slice(0, 30), async anchor => {
     try {
       let { host, origin, pathname, search } = new URL(anchor);
       pageOrigin = host;
@@ -73,9 +73,11 @@ export default async (page: puppeteer.Page) => {
     `${folderPath}/error.json`
   );
 
-  log(successfulStatus.length, "success");
-  log(failedStatus.length + errorPages.length, "error");
-  delay(5000);
+  log(`${successfulStatus.length} links worked.`, "success");
+  log(
+    `${failedStatus.length + errorPages.length} links did not work. `,
+    "error"
+  );
 
   await writeSuccessfulResults(successfulStatus);
   await writeFailedResults(failedStatus);

@@ -16,7 +16,7 @@ export default async (page: puppeteer.Page) => {
     return perf.toJSON();
   });
 
-  let finalPath = hostname + folderPath + fileName;
+  let finalPath = hostname + folderPath + "/" + fileName;
 
   const writePageSizeReport = createReportWriter("getPageSize", finalPath);
 

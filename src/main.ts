@@ -69,9 +69,7 @@ const findTravelPlans = async (pathToTravelPlan): Promise<TravelPlan> => {
   if (travelPlanExists) {
     const asyncImport = await import(pathToTravelPlan)
       .catch(reason => {
-        log(reason.toString(), "error");
-        console.log(reason);
-        process.exit(1);
+        throw new Error(reason.toString());
       })
       .then();
 

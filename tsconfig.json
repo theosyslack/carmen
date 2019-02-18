@@ -4,6 +4,8 @@
     "module": "commonjs",
     "removeComments": true,
     "preserveConstEnums": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
     "outDir": "./dist",
     "sourceMap": true,
     "types": ["node"],

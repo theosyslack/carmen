@@ -16,9 +16,11 @@
     "axe-puppeteer": "^1.0.0",
     "chalk": "^2.4.1",
     "delay": "^4.1.0",
+    "json2md": "^1.6.3",
     "puppeteer": "^1.10.0",
     "ramda": "^0.26.1",
-    "resemblejs": "^3.0.0"
+    "resemblejs": "^3.0.0",
+    "tablemark": "^1.2.0"
   },
   "scripts": {
     "start": "ts-node ./src/main.ts",

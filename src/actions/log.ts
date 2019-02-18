@@ -1,4 +1,5 @@
 import chalk from "chalk";
+type LogType = "default" | "table" | "success" | "pending" | "error";
 
 const { log, table, clear } = console;
 
@@ -10,7 +11,6 @@ const LOG_TYPES = {
   error: message => log(chalk.red.bold(message))
 };
 
-type LogType = "default" | "table" | "success" | "pending" | "error";
 
 export { clear };
 

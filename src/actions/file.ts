@@ -16,20 +16,32 @@ export const sanitize = string => {
 ////////////
 /// Create
 
+export const writeToNewFile = async (
+  path: any,
+  data: any,
+  writeOptions: fs.WriteFileOptions = {}
+) => {
+  await createFolderForFile(path);
+  await write(path, data, writeOptions).catch(e => {
+    log(`Failed to save file to: ${path} with error: ${e}`);
+    return e;
+  });
+};
+
 export const writeObjectToFile = curry(
   async (object: object, filePath: string) => {
     if (!filePath.endsWith(".json")) {
       filePath += ".json";
     }
     const resolvedPath = resolvePath(process.cwd(), filePath);
-    await createFolderForFile(resolvedPath);
-    log(`Saved ${filePath}`, "success");
-    return await write(resolvedPath, JSON.stringify(object, null, 2)).catch(
-      e => {
-        log(`Failed to save file to: ${filePath} with error: ${e}`);
-        return e;
-      }
+
+    const file = await writeToNewFile(
+      resolvedPath,
+      JSON.stringify(object, null, 2)
     );
+    log(`Saved ${filePath}`, "success");
+
+    return file;
   }
 );
 

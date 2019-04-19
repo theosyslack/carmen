@@ -1,8 +1,10 @@
-import checkForADACompliance from "./src/missions/checkForADACompliance";
-import find404s from "./src/missions/find404s";
-import findLargeMedia from "./src/missions/findLargeMedia";
-import getPageSize from "./src/missions/getPageSize";
-import takeScreenshot from "./src/missions/takeScreenshot";
+const {
+  default: checkForADACompliance
+} = require("./dist/missions/checkForADACompliance");
+const { default: find404s } = require("./dist/missions/find404s");
+const { default: findLargeMedia } = require("./dist/missions/findLargeMedia");
+const { default: getPageSize } = require("./dist/missions/getPageSize");
+const { default: takeScreenshot } = require("./dist/missions/takeScreenshot");
 
 const destinations = [
   {
@@ -12,13 +14,9 @@ const destinations = [
   {
     url: "http://www.bing.com",
     missions: [checkForADACompliance, getPageSize, takeScreenshot]
-  },
-  {
-    url: "http://www.yahoo.com",
-    missions: [find404s, takeScreenshot]
   }
 ];
 
-export default {
+exports.default = {
   destinations
 };

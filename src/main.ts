@@ -49,7 +49,6 @@ async function runMissions(
       for await (const response of responses) {
         log(
           `
-          
 Test Completed -----------------------------------------`,
           "success"
         );
@@ -65,15 +64,15 @@ Test Completed -----------------------------------------`,
 
 const findTravelPlans = async (pathToTravelPlan): Promise<TravelPlan> => {
   const travelPlanExists = await exists(pathToTravelPlan);
-
   if (travelPlanExists) {
     const asyncImport = await import(pathToTravelPlan)
       .catch(reason => {
-        throw new Error(reason.toString());
+        log(reason.stack, 'error')
+        process.exit(1)
       })
       .then();
 
-    return asyncImport.default;
+    return asyncImport.default
   } else {
     log(`No plan found at ${pathToTravelPlan}.`, "error");
     process.exit(1);

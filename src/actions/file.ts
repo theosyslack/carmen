@@ -3,15 +3,6 @@ import { promisify } from "util";
 import { curry } from "ramda";
 import * as fs from "fs";
 import log from "./log";
-export const access = promisify(fs.access);
-export const mkdir = promisify(fs.mkdir);
-export const read = promisify(fs.readFile);
-export const write = promisify(fs.writeFile);
-export const sanitize = string => {
-  const regex = /[<>:"\/\\|?*\x00-\x1F]/g;
-  return string.replace(regex, "-");
-  //TODO: Write a sanitize function to make filename safe
-};
 
 ////////////
 /// Create
@@ -30,9 +21,9 @@ export const writeToNewFile = async (
 
 export const writeObjectToFile = curry(
   async (object: object, filePath: string) => {
-    if (!filePath.endsWith(".json")) {
-      filePath += ".json";
-    }
+    // if (!filePath.endsWith(".json") || !filePath.endsWith(".js")) {
+    //   filePath += ".json";
+    // }
     const resolvedPath = resolvePath(process.cwd(), filePath);
 
     const file = await writeToNewFile(
@@ -87,6 +78,15 @@ export const exists = async path => {
     });
 };
 
+export const access = promisify(fs.access);
+export const mkdir = promisify(fs.mkdir);
+export const read = promisify(fs.readFile);
+export const write = promisify(fs.writeFile);
+export const sanitize = string => {
+  const regex = /[<>:"\/\\|?*\x00-\x1F]/g;
+  return string.replace(regex, "-");
+  //TODO: Write a sanitize function to make filename safe
+};
 ////////////
 /// Update
 

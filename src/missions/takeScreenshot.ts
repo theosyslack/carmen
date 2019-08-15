@@ -13,7 +13,7 @@ export default async (page: puppeteer.Page) => {
   let fileName = folderPath.substring(lastIndex + 1);
   folderPath = folderPath.substring(0, lastIndex);
 
-  let finalPath = "screenshots/" + hostname + folderPath;
+  let finalPath = "./carmen-reports/takeScreenshot/" + hostname + folderPath;
 
   if (fileName == "") {
     fileName = "home";

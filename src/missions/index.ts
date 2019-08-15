@@ -1,6 +1,15 @@
-export { default as find404s } from "./find404s";
-export { default as findLargeMedia } from "./findLargeMedia";
-export { default as getPageSize } from "./getPageSize";
-export { default as takeScreenshot } from "./takeScreenshot";
-export { default as findAFew404s } from "./findAFew404s";
-export { default as checkForADACompliance } from "./checkForADACompliance";
+import find404s from "./find404s";
+import findLargeMedia from "./findLargeMedia";
+import getPageSize from "./getPageSize";
+import takeScreenshot from "./takeScreenshot";
+// import checkForADACompliance from "./checkForADACompliance";
+
+const Missions = {
+  find404s,
+  findLargeMedia,
+  getPageSize,
+  takeScreenshot
+  // checkForADACompliance
+};
+
+export default Missions;

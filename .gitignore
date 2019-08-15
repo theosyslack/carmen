@@ -1,6 +1,7 @@
 # Dependancies and Dist
 .DS_Store
 node_modules/
+dist/
 
 #Config Files
 .vscode
@@ -9,8 +10,7 @@ user-data/
 travel-plan.js
 
 #Reports
-/screenshots
-/reports
+/carmen-reports
 
 #logs
 *.log

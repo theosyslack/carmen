@@ -6,6 +6,9 @@
   "engines": {
     "node": "^11.9.0"
   },
+  "bin": {
+    "carmen": "./dist/main.js"
+  },
   "files": [
     "dist/**/*"
   ],
@@ -26,7 +29,7 @@
     "start": "ts-node ./src/main.ts",
     "build": "tsc",
     "watch": "tsc -w",
-    "test": "ts-node src/testSleuth.ts",
+    "test": "carmen",
     "install": "tsc",
     "link": "cd ./dist && yarn link"
   },

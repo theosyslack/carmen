@@ -1,6 +1,6 @@
 {
   "name": "@crescendo-collective/carmen",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Carmen will sneak around a website, finding precious elements and returning them to you.",
   "license": "MIT",
   "engines": {
@@ -47,9 +47,6 @@
   "author": "Crescendo Collective",
   "homepage": "https://bitbucket.org/trillitech/carmen#readme",
   "main": "dist/index.js",
-  "licenses": [
-    {}
-  ],
   "keywords": [
     "puppeeteer",
     "testing"

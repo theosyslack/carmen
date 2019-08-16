@@ -16,7 +16,10 @@ const createDestinationRunner = (browser: puppeteer.Browser) => async (
 };
 
 const __logDestinationStart = ({ url, missions }: Destination) => {
-  log(`${url} | ${missions.join(", ")}`, "pending");
+  const missionsString = missions
+    .map(mission => (typeof mission === "function" ? mission.name : mission))
+    .join(", ");
+  log(`${url} | ${missionsString}`, "pending");
   log("---", "pending");
 };
 export default createDestinationRunner;

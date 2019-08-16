@@ -1,23 +1,19 @@
 # Dependancies and Dist
 .DS_Store
+.cache
 node_modules
 dist
-.cache
 
 #Config Files
 .vscode
-nodemon.json
+.idea/
+./travel-plan.js
 user-data
-travel-plan.js
 
 #Reports
-/carmen-reports
+carmen-reports
 
 #logs
 *.log
-
-.idea/
 *.iml
 
-carmen
-screenshots/

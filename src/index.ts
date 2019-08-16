@@ -7,7 +7,7 @@ import findTravelPlan from "./scripts/findTravelPlans";
 export type Mission = (page: Page) => any;
 export type Destination = {
   url: string;
-  missions: string[];
+  missions: [string | Mission];
 };
 
 export type TravelPlan = {

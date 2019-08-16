@@ -1,9 +1,25 @@
 import { read, exists, writeToNewFile } from "../actions/file";
 import log from "../actions/log";
+import * as path from "path";
+
+const defaultTravelPlan = `
+// # Available Missions
+//   - find404s
+//   - findLargeMedia
+//   - getPageSize
+//   - takeScreenshot
+
+module.exports = {
+  destinations: [
+    {
+      url: 'http://google.com',
+      missions: ['getPageSize', 'takeScreenshot']
+    }
+  ]
+}
+`;
 
 const createDefaultTravelPlan = async () => {
-  const defaultTravelPlan = await read("src/templates/travel-plan.js");
-
   if (await exists("./travel-plan.js")) {
     log("travel-plan.js already exists, I won't overwrite.", "pending");
   } else {

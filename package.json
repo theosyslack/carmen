@@ -1,6 +1,6 @@
 {
-  "name": "carmen",
-  "version": "0.0.1",
+  "name": "@crescendo-collective/carmen",
+  "version": "1.0.0",
   "description": "Carmen will sneak around a website, finding precious elements and returning them to you.",
   "license": "MIT",
   "engines": {
@@ -30,7 +30,7 @@
     "build": "parcel build ./src/index.ts --target node",
     "watch": "parcel watch ./src/index.ts --target node",
     "test": "carmen",
-    "install": "parcel build ./src/index.ts --target node && chmod +x ./dist/main.js"
+    "install": "parcel build ./src/index.ts --target node && chmod +x ./dist/index.js"
   },
   "devDependencies": {
     "@types/puppeteer": "^1.11.1",
@@ -45,6 +45,11 @@
     "type": "git",
     "url": "git+ssh://git@bitbucket.org/trillitech/carmen.git"
   },
-  "author": "",
-  "homepage": "https://bitbucket.org/trillitech/carmen#readme"
+  "author": "Crescendo Collective",
+  "homepage": "https://bitbucket.org/trillitech/carmen#readme",
+  "main": "dist/index.js",
+  "keywords": [
+    "puppeeteer",
+    "testing"
+  ]
 }

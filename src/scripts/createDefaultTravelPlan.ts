@@ -2,21 +2,31 @@ import { read, exists, writeToNewFile } from "../actions/file";
 import log from "../actions/log";
 import * as path from "path";
 
-const defaultTravelPlan = `
-// # Available Missions
+const defaultTravelPlan = `// # Available Missions
 //   - find404s
 //   - findLargeMedia
 //   - getPageSize
 //   - takeScreenshot
 
+const { missions, helpers } = require('carmen')
+
+async function customMission (page) {
+  const writeReport = helpers.createReportWriter('custom-mission', \`title.json\`)
+
+  const title = await page.title()
+
+  await writeReport({ date: Date.now(), title })
+}
+
 module.exports = {
   destinations: [
     {
       url: 'http://google.com',
-      missions: ['getPageSize', 'takeScreenshot']
+      missions: ['getPageSize', missions.takeScreenshot, customMission]
     }
   ]
 }
+
 `;
 
 const createDefaultTravelPlan = async () => {

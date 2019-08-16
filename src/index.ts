@@ -4,6 +4,9 @@ import createDefaultTravelPlan from "./scripts/createDefaultTravelPlan";
 import followTravelPlan from "./scripts/followTravelPlan";
 import findTravelPlan from "./scripts/findTravelPlans";
 
+import missions from "./missions";
+import { createReportWriter } from "./actions/file";
+
 export type Mission = (page: Page) => any;
 export type Destination = {
   url: string;
@@ -36,5 +39,11 @@ const main = async (args: string[]) => {
       break;
   }
 };
+
+const helpers = {
+  createReportWriter
+};
+
+export { missions, helpers };
 
 main(process.argv.splice(2));

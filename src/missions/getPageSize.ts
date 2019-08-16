@@ -2,6 +2,7 @@ import * as path from "path";
 import * as puppeteer from "puppeteer";
 import { createReportWriter } from "../actions/file";
 import log from "../actions/log";
+
 export default async (page: puppeteer.Page) => {
   log("Getting Page Size...", "pending");
   const location = await page.url();

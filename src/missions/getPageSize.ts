@@ -1,10 +1,8 @@
 import * as path from "path";
 import * as puppeteer from "puppeteer";
 import { createReportWriter } from "../actions/file";
-import log from "../actions/log";
 
-export default async (page: puppeteer.Page) => {
-  log("Getting Page Size...", "pending");
+export default async function getPageSize(page: puppeteer.Page) {
   const location = await page.url();
   let { hostname, pathname } = new URL(location);
   let folderPath = pathname.replace(path.extname(pathname), "");
@@ -23,4 +21,4 @@ export default async (page: puppeteer.Page) => {
 
   writePageSizeReport(result);
   return result;
-};
+}

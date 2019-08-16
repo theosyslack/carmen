@@ -7,12 +7,10 @@ const findTravelPlan = async (
 ): Promise<TravelPlan> => {
   const pathToPlan = path.resolve(process.cwd(), relativePathOfTravelPlan);
   if (await exists(pathToPlan)) {
-    log(`Picked up travel plan from ${relativePathOfTravelPlan}.`, "success");
     return import(pathToPlan);
   } else {
     log(`No plan found at ${relativePathOfTravelPlan}.`, "error");
     log(`Try running \`carmen init\`.`, "error");
-
     return undefined;
   }
 };

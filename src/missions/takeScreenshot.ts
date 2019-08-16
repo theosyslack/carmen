@@ -2,10 +2,9 @@ import * as puppeteer from "puppeteer";
 import { URL } from "url";
 import * as path from "path";
 import * as fs from "fs";
-import log from "../actions/log";
 
 export default async function takeScreenshot(page: puppeteer.Page) {
-  log("Taking a screenshot...", "pending");
+  // log("Taking a screenshot...", "pending");
   const location = await page.url();
   let { hostname, pathname } = new URL(location);
   let folderPath = pathname.replace(path.extname(pathname), "");
@@ -32,9 +31,7 @@ export default async function takeScreenshot(page: puppeteer.Page) {
     height: await page.evaluate(() => document.body.clientHeight)
   });
 
-  log("Capturing Screen for: " + fileName, "default");
-
-  // TODO Allow user to inject CSS to ensure we dont run into issues with VH
+  // TODO Allow user to inject CSS to ensure we don't run into issues with VH
   // await page.addStyleTag({ content: '.home .homeHero .homeHeroVideo{height: 600px !important}' });
 
   await page.screenshot({

@@ -1,17 +1,17 @@
 import { read, exists, writeToNewFile } from "../actions/file";
 import log from "../actions/log";
-import * as path from "path";
 
+// TODO Move defaultTravelPlan into a separate file
 const defaultTravelPlan = `// # Available Missions
 //   - find404s
 //   - findLargeMedia
 //   - getPageSize
 //   - takeScreenshot
 
-const { missions, helpers } = require('carmen')
+const { missions, helpers } = require('@crescendo-collective/carmen')
 
 async function customMission (page) {
-  const writeReport = helpers.createReportWriter('custom-mission', \`title.json\`)
+  const writeReport = helpers.createReportWriter('custom-mission', 'title.json')
 
   const title = await page.title()
 
@@ -26,7 +26,6 @@ module.exports = {
     }
   ]
 }
-
 `;
 
 const createDefaultTravelPlan = async () => {

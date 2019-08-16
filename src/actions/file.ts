@@ -21,17 +21,12 @@ export const writeToNewFile = async (
 
 export const writeObjectToFile = curry(
   async (object: object, filePath: string) => {
-    // if (!filePath.endsWith(".json") || !filePath.endsWith(".js")) {
-    //   filePath += ".json";
-    // }
     const resolvedPath = resolvePath(process.cwd(), filePath);
 
     const file = await writeToNewFile(
       resolvedPath,
       JSON.stringify(object, null, 2)
     );
-    log(`Saved ${filePath}`, "success");
-
     return file;
   }
 );

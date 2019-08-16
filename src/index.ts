@@ -1,9 +1,18 @@
-#!/usr/bin/env node
-
+// #!/usr/bin/env node
+import { Page } from "puppeteer";
 import createDefaultTravelPlan from "./scripts/createDefaultTravelPlan";
 import followTravelPlan from "./scripts/followTravelPlan";
 import findTravelPlan from "./scripts/findTravelPlans";
-import { log } from "util";
+
+export type Mission = (page: Page) => any;
+export type Destination = {
+  url: string;
+  missions: string[];
+};
+
+export type TravelPlan = {
+  destinations: Destination[];
+};
 
 const main = async (args: string[]) => {
   const [action = "follow", pathToTravelPlan = "travel-plan.js"] = args;

@@ -1,12 +1,13 @@
 # Dependancies and Dist
 .DS_Store
-node_modules/
-dist/
+node_modules
+dist
+.cache
 
 #Config Files
 .vscode
 nodemon.json
-user-data/
+user-data
 travel-plan.js
 
 #Reports

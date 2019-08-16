@@ -1,6 +1,6 @@
 {
   "name": "@theosyslack/carmen",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "Carmen will sneak around a website, finding precious elements and returning them to you.",
   "license": "MIT",
   "engines": {
@@ -29,8 +29,7 @@
     "start": "parcel ./src/index.ts --target node",
     "build": "parcel build ./src/index.ts --target node",
     "watch": "parcel watch ./src/index.ts --target node",
-    "test": "carmen",
-    "install": "parcel build ./src/index.ts --target node && chmod +x ./dist/index.js"
+    "test": "carmen"
   },
   "devDependencies": {
     "@types/puppeteer": "^1.11.1",

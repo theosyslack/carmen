@@ -37,6 +37,7 @@
     "nexe": "^2.0.0-rc.34",
     "parcel": "^1.12.3",
     "parcel-bundler": "^1.12.3",
+    "parcel-plugin-shebang": "^1.2.8",
     "ts-node": "^7.0.1",
     "typescript": "~3.1.0"
   },

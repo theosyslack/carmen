@@ -1,5 +1,5 @@
 // #!/usr/bin/env node
-import { Page } from "puppeteer";
+import { Page, Browser } from "puppeteer";
 import createDefaultTravelPlan from "./scripts/createDefaultTravelPlan";
 import followTravelPlan from "./scripts/followTravelPlan";
 import findTravelPlan from "./scripts/findTravelPlans";
@@ -7,7 +7,7 @@ import findTravelPlan from "./scripts/findTravelPlans";
 import missions from "./missions";
 import { createReportWriter } from "./actions/file";
 
-export type Mission = (page: Page) => any;
+export type Mission = (page: Page, browser?: Browser) => any;
 export type Destination = {
   url: string;
   missions: [string | Mission];

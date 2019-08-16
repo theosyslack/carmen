@@ -10,7 +10,7 @@ const createDestinationRunner = (browser: puppeteer.Browser) => async (
   __logDestinationStart(destination);
   const { url, missions } = destination;
   const page = await browser.newPage();
-  const runMission = createMissionRunner(page);
+  const runMission = createMissionRunner(page, browser);
   await page.goto(url);
 
   return Promise.all(

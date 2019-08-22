@@ -5,7 +5,7 @@ import followTravelPlan from "./scripts/followTravelPlan";
 import findTravelPlan from "./scripts/findTravelPlans";
 
 import missions from "./missions";
-import { createReportWriter } from "./actions/file";
+import { createReportWriter, createFolderPathFromUrl } from "./actions/file";
 
 export type Mission = (page: Page, browser?: Browser) => any;
 export type Destination = {
@@ -41,7 +41,8 @@ const main = async (args: string[]) => {
 };
 
 const helpers = {
-  createReportWriter
+  createReportWriter,
+  createFolderPathFromUrl
 };
 
 export { missions, helpers };

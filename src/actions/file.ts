@@ -71,6 +71,15 @@ export const createReportWriter = (
   filePath: string = DEFAULT_REPORT_PATH
 ) => content => writeReport(reportType, content, filePath);
 
+export const createFolderPathFromUrl = url => {
+  const [urlWithoutParams] = url.split("?");
+  const cleanUrl = urlWithoutParams
+    .replace("http://", "")
+    .replace("https://", "");
+  console.log(cleanUrl);
+  return cleanUrl;
+};
+
 ////////////
 /// Read
 export const getContents = async path => {

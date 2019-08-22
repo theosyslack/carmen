@@ -4,6 +4,8 @@ import { curry } from "ramda";
 import * as fs from "fs";
 import log from "./log";
 
+const DEFAULT_REPORT_PATH = `${Date.now().toString()}.json`;
+
 ////////////
 /// Create
 
@@ -20,7 +22,7 @@ export const writeToNewFile = async (
 };
 
 export const writeObjectToFile = curry(
-  async (object: object, filePath: string) => {
+  async (filePath: string = DEFAULT_REPORT_PATH, object: object) => {
     const resolvedPath = resolvePath(process.cwd(), filePath);
 
     const file = await writeToNewFile(
@@ -48,14 +50,26 @@ export const createFolderForFile = async (filePath: string) => {
 
 export const writeReport = (
   reportType: string = "misc",
-  filePath: string = Date.now().toString(),
-  object: object = {}
-) => writeObjectToFile(object, `./carmen-reports/${reportType}/${filePath}`);
+  content: string | object,
+  filePath: string = DEFAULT_REPORT_PATH
+) => {
+  if (typeof content === "object") {
+    return writeObjectToFile(
+      `${createPathForReport(reportType)}${filePath}`,
+      content
+    );
+  } else {
+    return write(`${createPathForReport(reportType)}${filePath}`, content);
+  }
+};
+
+export const createPathForReport = reportType =>
+  `./carmen-reports/${reportType}/`;
 
 export const createReportWriter = (
   reportType: string,
-  filePath: string
-) => object => writeReport(reportType, filePath, object);
+  filePath: string = DEFAULT_REPORT_PATH
+) => content => writeReport(reportType, content, filePath);
 
 ////////////
 /// Read

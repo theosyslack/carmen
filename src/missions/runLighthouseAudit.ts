@@ -1,14 +1,19 @@
 import lighthouse from "lighthouse";
 import { createReportWriter } from "../actions/file";
+import { URL } from "url";
 
 export default async function runLighthouseAudit(page, browser) {
-  const writeReport = createReportWriter("lighthouse", "audit.json");
-  const { lhr } = await lighthouse(page.url(), {
+  const now = Date.now();
+  const writeAuditJSON = createReportWriter(
+    "lighthouse",
+    `${now}/lighthouse-results.json`
+  );
+  const writeAuditHTML = createReportWriter("lighthouse", `${now}/index.html`);
+  const { lhr, artifacts, report } = await lighthouse(page.url(), {
     port: new URL(browser.wsEndpoint()).port,
-    output: "json",
-    logLevel: "info"
+    output: "html"
   });
 
-  console.log(Object.keys(lhr.audits));
-  await writeReport(lhr);
+  await writeAuditJSON(lhr);
+  await writeAuditHTML(report);
 }

@@ -23,14 +23,12 @@
     "ramda": "^0.26.1"
   },
   "scripts": {
-    "prestart": "yarn",
     "start": "parcel ./src/index.ts --target node",
-    "prebuild": "yarn",
     "build": "parcel build ./src/index.ts --target node",
-    "prewatch": "yarn",
     "watch": "parcel watch ./src/index.ts --target node",
     "pretest": "yarn build",
-    "test": "node dist/index.js follow ./tests/travel-plan.js"
+    "test": "node dist/index.js follow ./tests/travel-plan.js",
+    "install": "yarn build"
   },
   "devDependencies": {
     "@types/puppeteer": "^1.11.1",

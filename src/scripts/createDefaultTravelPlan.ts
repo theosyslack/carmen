@@ -5,7 +5,7 @@ import log from "../actions/log";
 const defaultTravelPlan = `// # Available Missions
 //   - find404s
 //   - findLargeMedia
-//   - getPageSize
+//   - runPerformanceTest
 //   - takeScreenshot
 
 const { missions, helpers } = require('@crescendo-collective/carmen')
@@ -22,7 +22,7 @@ module.exports = {
   destinations: [
     {
       url: 'http://google.com',
-      missions: ['getPageSize', missions.takeScreenshot, customMission]
+      missions: ['runPerformanceTest', missions.takeScreenshot, customMission]
     }
   ]
 }

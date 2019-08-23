@@ -21,7 +21,7 @@ module.exports = {
   destinations: [
     {
       url: "http://google.com",
-      missions: ["runLighthouseAudit"]
+      missions: ["getPageSize"]
     }
   ]
 };

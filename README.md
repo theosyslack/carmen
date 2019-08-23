@@ -19,7 +19,7 @@ Carmen will sneak around the web and run scripts for you.
 3. `npm run carmen init` to generate a new travel plan.
 4. `npm run carmen` to run the travel plan.
 
-## Globally
+### Globally
 
 1. `npm install -g "@crescendo-collective/carmen"`
 2. `carmen init`

@@ -15,12 +15,17 @@
   "dependencies": {
     "@types/node": "^10.12.16",
     "@types/ramda": "^0.25.48",
-    "axe-puppeteer": "^1.0.0",
+    "@types/puppeteer": "^1.11.1",
     "chalk": "^2.4.1",
     "delay": "^4.1.0",
-    "lighthouse": "^5.2.0",
+    "ramda": "^0.26.1",
+    "parcel": "^1.12.3",
+    "ts-node": "^7.0.1",
     "puppeteer": "^1.10.0",
-    "ramda": "^0.26.1"
+    "typescript": "~3.1.0",
+    "lighthouse": "^5.2.0",
+    "parcel-bundler": "^1.12.3",
+    "parcel-plugin-shebang": "^1.2.8"
   },
   "scripts": {
     "start": "parcel ./src/index.ts --target node",
@@ -29,15 +34,6 @@
     "pretest": "yarn build",
     "test": "node dist/index.js follow ./tests/travel-plan.js",
     "postinstall": "yarn build"
-  },
-  "devDependencies": {
-    "@types/puppeteer": "^1.11.1",
-    "nexe": "^2.0.0-rc.34",
-    "parcel": "^1.12.3",
-    "parcel-bundler": "^1.12.3",
-    "parcel-plugin-shebang": "^1.2.8",
-    "ts-node": "^7.0.1",
-    "typescript": "~3.1.0"
   },
   "repository": {
     "type": "git",

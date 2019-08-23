@@ -21,10 +21,6 @@ const main = async (args: string[]) => {
   const [action = "follow", pathToTravelPlan = "travel-plan.js"] = args;
 
   switch (action) {
-    // case "compare":
-    // // TODO: Pass in command line arguments (`carmen compare image.png image2.png`)
-    //   await compareImages();
-    //   break;
     case "init":
       createDefaultTravelPlan();
       break;

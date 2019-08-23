@@ -13,18 +13,14 @@
     "dist/**/*"
   ],
   "dependencies": {
-    "@types/chalk": "^2.2.0",
     "@types/node": "^10.12.16",
     "@types/ramda": "^0.25.48",
     "axe-puppeteer": "^1.0.0",
     "chalk": "^2.4.1",
     "delay": "^4.1.0",
-    "json2md": "^1.6.3",
     "lighthouse": "^5.2.0",
     "puppeteer": "^1.10.0",
-    "ramda": "^0.26.1",
-    "resemblejs": "^3.0.0",
-    "tablemark": "^1.2.0"
+    "ramda": "^0.26.1"
   },
   "scripts": {
     "prestart": "yarn",

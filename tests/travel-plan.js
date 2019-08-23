@@ -4,7 +4,7 @@
 //   - getPageSize
 //   - takeScreenshot
 
-const { missions, helpers } = require("@crescendo-collective/carmen");
+const { missions, helpers } = require("../dist/index.js");
 
 async function customMission(page) {
   const writeReport = helpers.createReportWriter(

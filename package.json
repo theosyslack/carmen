@@ -1,6 +1,6 @@
 {
   "name": "@crescendo-collective/carmen",
-  "version": "0.0.21",
+  "version": "0.0.22",
   "description": "Carmen will sneak around a website, finding precious elements and returning them to you.",
   "license": "MIT",
   "engines": {

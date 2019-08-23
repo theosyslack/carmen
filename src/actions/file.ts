@@ -76,7 +76,6 @@ export const createFolderPathFromUrl = url => {
   const cleanUrl = urlWithoutParams
     .replace("http://", "")
     .replace("https://", "");
-  console.log(cleanUrl);
   return cleanUrl;
 };
 

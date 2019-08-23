@@ -7,21 +7,27 @@
 const { missions, helpers } = require("../dist/index.js");
 
 async function customMission(page) {
+  const now = Date.now();
   const writeReport = helpers.createReportWriter(
     "custom-mission",
-    "title.json"
+    `${now}.json`
   );
 
   const title = await page.title();
+  const performance = await missions.runPerformanceTest(page);
 
-  await writeReport({ date: Date.now(), title });
+  await writeReport({
+    date: now,
+    title,
+    performance
+  });
 }
 
 module.exports = {
   destinations: [
     {
       url: "http://google.com",
-      missions: ["getPageSize"]
+      missions: ["getPageSize", "takeScreenshot", customMission]
     }
   ]
 };

@@ -1,6 +1,6 @@
 {
   "name": "@crescendo-collective/carmen",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "Carmen will sneak around a website, finding precious elements and returning them to you.",
   "license": "MIT",
   "engines": {
@@ -14,18 +14,18 @@
   ],
   "dependencies": {
     "@types/node": "^10.12.16",
-    "@types/ramda": "^0.25.48",
     "@types/puppeteer": "^1.11.1",
+    "@types/ramda": "^0.25.48",
     "chalk": "^2.4.1",
     "delay": "^4.1.0",
-    "ramda": "^0.26.1",
-    "parcel": "^1.12.3",
-    "ts-node": "^7.0.1",
-    "puppeteer": "^1.10.0",
-    "typescript": "~3.1.0",
     "lighthouse": "^5.2.0",
+    "parcel": "^1.12.3",
     "parcel-bundler": "^1.12.3",
-    "parcel-plugin-shebang": "^1.2.8"
+    "parcel-plugin-shebang": "^1.2.8",
+    "puppeteer": "^1.10.0",
+    "ramda": "^0.26.1",
+    "ts-node": "^7.0.1",
+    "typescript": "~3.1.0"
   },
   "scripts": {
     "start": "parcel ./src/index.ts --target node",

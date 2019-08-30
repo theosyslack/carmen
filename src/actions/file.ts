@@ -3,15 +3,8 @@ import { promisify } from "util";
 import { curry } from "ramda";
 import * as fs from "fs";
 import log from "./log";
-export const access = promisify(fs.access);
-export const mkdir = promisify(fs.mkdir);
-export const read = promisify(fs.readFile);
-export const write = promisify(fs.writeFile);
-export const sanitize = string => {
-  const regex = /[<>:"\/\\|?*\x00-\x1F]/g;
-  return string.replace(regex, "-");
-  //TODO: Write a sanitize function to make filename safe
-};
+
+const DEFAULT_REPORT_PATH = `${Date.now().toString()}.json`;
 
 ////////////
 /// Create
@@ -29,18 +22,13 @@ export const writeToNewFile = async (
 };
 
 export const writeObjectToFile = curry(
-  async (object: object, filePath: string) => {
-    if (!filePath.endsWith(".json")) {
-      filePath += ".json";
-    }
+  async (filePath: string = DEFAULT_REPORT_PATH, object: object) => {
     const resolvedPath = resolvePath(process.cwd(), filePath);
 
     const file = await writeToNewFile(
       resolvedPath,
       JSON.stringify(object, null, 2)
     );
-    log(`Saved ${filePath}`, "success");
-
     return file;
   }
 );
@@ -62,14 +50,34 @@ export const createFolderForFile = async (filePath: string) => {
 
 export const writeReport = (
   reportType: string = "misc",
-  filePath: string = Date.now().toString(),
-  object: object = {}
-) => writeObjectToFile(object, `./reports/${reportType}/${filePath}`);
+  content: string | object,
+  filePath: string = DEFAULT_REPORT_PATH
+) => {
+  if (typeof content === "object") {
+    return writeObjectToFile(
+      `${createPathForReport(reportType)}${filePath}`,
+      content
+    );
+  } else {
+    return write(`${createPathForReport(reportType)}${filePath}`, content);
+  }
+};
+
+export const createPathForReport = reportType =>
+  `./carmen-reports/${reportType}/`;
 
 export const createReportWriter = (
   reportType: string,
-  filePath: string
-) => object => writeReport(reportType, filePath, object);
+  filePath: string = DEFAULT_REPORT_PATH
+) => content => writeReport(reportType, content, filePath);
+
+export const createFolderPathFromUrl = url => {
+  const [urlWithoutParams] = url.split("?");
+  const cleanUrl = urlWithoutParams
+    .replace("http://", "")
+    .replace("https://", "");
+  return cleanUrl;
+};
 
 ////////////
 /// Read
@@ -87,6 +95,15 @@ export const exists = async path => {
     });
 };
 
+export const access = promisify(fs.access);
+export const mkdir = promisify(fs.mkdir);
+export const read = promisify(fs.readFile);
+export const write = promisify(fs.writeFile);
+export const sanitize = string => {
+  const regex = /[<>:"\/\\|?*\x00-\x1F]/g;
+  return string.replace(regex, "-");
+  //TODO: Write a sanitize function to make filename safe
+};
 ////////////
 /// Update
 

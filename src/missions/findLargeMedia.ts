@@ -1,12 +1,13 @@
 import * as puppeteer from "puppeteer";
 import log from "../actions/log";
-import { writeReport } from "../actions/file";
+import { createReportWriter } from "../actions/file";
+import { URL } from "url";
 
 const sizeLimit = 2000000;
 
 export default async (page: puppeteer.Page) => {
   log("Finding large media...", "pending");
-
+  const writeReport = createReportWriter("findLargeMedia");
   let largeMedia = [];
   let targetPage = await page.url();
   const { hostname, pathname } = new URL(targetPage);
@@ -23,7 +24,7 @@ export default async (page: puppeteer.Page) => {
   });
 
   if (largeMedia.length > 0) {
-    writeReport("findLargeMedia", `${folderPath}/results.json`, largeMedia);
+    writeReport({ largeMedia });
   }
   return;
 };

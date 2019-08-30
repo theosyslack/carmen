@@ -1,12 +1,9 @@
 import * as puppeteer from "puppeteer";
 import { URL } from "url";
 import log from "../actions/log";
-import { __ } from "ramda";
 import { createReportWriter } from "../actions/file";
 
-export default async (page: puppeteer.Page) => {
-  log("Checking for a few 404s...", "pending");
-
+export default async function find404s(page: puppeteer.Page) {
   let failedStatus: any[] = [];
   let errorPages: any[] = [];
   let successfulStatus: any = [];
@@ -70,7 +67,7 @@ export default async (page: puppeteer.Page) => {
   await writeSuccessfulResults(successfulStatus);
   await writeFailedResults(failedStatus);
   await writeErrorResults(errorPages);
-};
+}
 
 const asyncForEach = async (array, callback) => {
   for (let index = 0; index < array.length; index++) {

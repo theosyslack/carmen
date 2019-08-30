@@ -1,45 +1,49 @@
 {
-  "name": "carmen",
-  "version": "0.0.1",
+  "name": "@crescendo-collective/carmen",
+  "version": "0.0.22",
   "description": "Carmen will sneak around a website, finding precious elements and returning them to you.",
   "license": "MIT",
   "engines": {
-    "node": "^11.9.0"
+    "node": "10 - 13"
+  },
+  "bin": {
+    "carmen": "./dist/index.js"
   },
   "files": [
     "dist/**/*"
   ],
   "dependencies": {
-    "@types/chalk": "^2.2.0",
     "@types/node": "^10.12.16",
+    "@types/puppeteer": "^1.11.1",
     "@types/ramda": "^0.25.48",
-    "axe-puppeteer": "^1.0.0",
     "chalk": "^2.4.1",
     "delay": "^4.1.0",
-    "json2md": "^1.6.3",
+    "lighthouse": "^5.2.0",
+    "parcel": "^1.12.3",
+    "parcel-bundler": "^1.12.3",
+    "parcel-plugin-shebang": "^1.2.8",
     "puppeteer": "^1.10.0",
     "ramda": "^0.26.1",
-    "resemblejs": "^3.0.0",
-    "tablemark": "^1.2.0"
-  },
-  "scripts": {
-    "start": "ts-node ./src/main.ts",
-    "build": "tsc",
-    "watch": "tsc -w",
-    "test": "ts-node src/testSleuth.ts",
-    "install": "tsc",
-    "link": "cd ./dist && yarn link"
-  },
-  "devDependencies": {
-    "@types/puppeteer": "^1.11.1",
-    "nexe": "^2.0.0-rc.34",
     "ts-node": "^7.0.1",
     "typescript": "~3.1.0"
+  },
+  "scripts": {
+    "pretest": "npm run build",
+    "prepublish": "npm run build",
+    "start": "parcel ./src/index.ts --target node",
+    "build": "parcel build ./src/index.ts --target node",
+    "watch": "parcel watch ./src/index.ts --target node",
+    "test": "node dist/index.js follow ./tests/travel-plan.js"
   },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@bitbucket.org/trillitech/carmen.git"
   },
-  "author": "",
-  "homepage": "https://bitbucket.org/trillitech/carmen#readme"
+  "author": "Crescendo Collective",
+  "homepage": "https://bitbucket.org/trillitech/carmen#readme",
+  "main": "dist/index.js",
+  "keywords": [
+    "puppeeteer",
+    "testing"
+  ]
 }

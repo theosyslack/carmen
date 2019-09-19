@@ -1,4 +1,4 @@
-import { write, read } from "./file";
+import { write, read, createFolderForFile } from "./file";
 import compare from "resemblejs/compareImages";
 import log from "./log";
 
@@ -22,5 +22,6 @@ export const compareImages = async (
     `Comparison Complete! | ${firstImagePath} ${secondImagePath} ${outputPath}`
   );
 
+  await createFolderForFile(outputPath);
   await write(outputPath, result.getBuffer());
 };

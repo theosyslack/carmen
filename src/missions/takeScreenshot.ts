@@ -14,7 +14,7 @@ export default async function takeScreenshot(page: puppeteer.Page) {
   const location = await page.url();
   const folderPath =
     createPathForReport("screenshots") + createFolderPathFromUrl(location);
-  const fileName = `.png`;
+  const fileName = `_screenshot.png`;
   const filePath = folderPath + fileName;
 
   await createFolderForFile(filePath);

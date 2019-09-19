@@ -1,24 +1,26 @@
-import * as resemblejs from "resemblejs";
-import { resolve as resolvePath } from "path";
-import { write } from "./file";
+import { write, read } from "./file";
+import compare from "resemblejs/compareImages";
 import log from "./log";
 
 export const compareImages = async (
-  imageOneRelativeFilePath: string = "johnsonville-1.png",
-  imageTwoRelativeFilePath: string = "johnsonville-2.png",
-  outputRelativePath: string = "diff.png"
+  firstImagePath: string = "./tests/1.png",
+  secondImagePath: string = "./tests/2.png",
+  outputPath: string = "./tests/3-diff.png"
 ) => {
-  const rootPath = process.cwd();
-  const imageOnePath = resolvePath(rootPath, imageOneRelativeFilePath);
-  const imageTwoPath = resolvePath(rootPath, imageTwoRelativeFilePath);
+  // console.log(firstImagePath, secondImagePath, outputPath);
+  // return;
 
-  log("Comparing", "pending");
-  log(`${imageOneRelativeFilePath} | ${imageTwoRelativeFilePath}`, "pending");
+  const [firstImage, secondImage] = [firstImagePath, secondImagePath].map(
+    path => read(path)
+  );
 
-  await resemblejs(imageOnePath)
-    .compareTo(imageTwoPath)
-    .onComplete(async data => {
-      log("Comparison complete!", "success");
-      return await write(outputRelativePath, await data.getBuffer());
-    });
+  const result = await compare(await firstImage, await secondImage, {
+    outputDiff: true
+  });
+
+  log(
+    `Comparison Complete! | ${firstImagePath} ${secondImagePath} ${outputPath}`
+  );
+
+  await write(outputPath, result.getBuffer());
 };

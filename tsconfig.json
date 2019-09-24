@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "module": "es2015",
+    "outDir": "./dist",
+    "sourceMap": true,
+    "declaration": true,
+    "removeComments": false,
+    "preserveConstEnums": true,
+    "baseUrl": "./src/",
+    "lib": ["esnext", "dom"]
+  },
+  "files": ["./src", "./src/index.d.ts"]
+}

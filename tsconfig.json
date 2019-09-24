@@ -11,5 +11,5 @@
     "baseUrl": "./src/",
     "lib": ["esnext", "dom"]
   },
-  "files": ["./src", "./src/index.d.ts"]
+  "files": ["./src/**/*.ts", "./src/index.d.ts"]
 }

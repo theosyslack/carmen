@@ -32,7 +32,7 @@ const initialize = async () => {
     .action(follow);
 
   program
-    .command("compare [firstImage] [secondImage] [diffImage]", {
+    .command("compare [firstImage] [secondImage]", {
       isDefault: true
     })
     .description(

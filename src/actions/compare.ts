@@ -1,45 +1,25 @@
-import { write, read, createFolderForFile } from "./file";
+import { write, read, createFolderForFile, writeReport } from "./file";
 import compare from "resemblejs/compareImages";
 import log from "./log";
 import inquirer from "inquirer";
-// import autocomplete from "inquirer-autocomplete-prompt";
-import fuzzyPath from "inquirer-fuzzy-path";
+import { parse } from "path";
 
-const askForImagePaths = async (first?, second?, output?) => {
-  console.log(process.cwd());
-  return;
-  return await inquirer.prompt([
+const askForOutputPathName = () => {
+  return inquirer.prompt([
     {
-      type: "fuzzypath",
-      name: "first",
-      message: "What's the first file path?",
-      default: process.cwd()
-    },
-    {
-      type: "fuzzypath",
-      name: "second",
-      message: "What's the second file path?",
-      default: process.cwd()
-    },
-    {
-      type: "fuzzypath",
-      name: "output",
-      message: "What's the output path?",
-      default: process.cwd()
+      name: "outputPath",
+      message: "What would you like to name this comparison?",
+      type: "input"
     }
   ]);
 };
 
 export const compareImages = async (
   firstImagePath: string = "./tests/1.png",
-  secondImagePath: string = "./tests/2.png",
-  outputPath: string = "./tests/3-diff.png"
+  secondImagePath: string = "./tests/2.png"
 ) => {
-  inquirer.registerPrompt("fuzzypath", fuzzyPath);
-  const { first, second, output } = await askForImagePaths();
-  console.log({ first, second, output });
-  // console.log(firstImagePath, secondImagePath, outputPath);
-  // return;
+  let { name } = parse(firstImagePath);
+  let { outputPath } = await askForOutputPathName();
 
   const [firstImage, secondImage] = [firstImagePath, secondImagePath].map(
     path => read(path)
@@ -53,6 +33,10 @@ export const compareImages = async (
     `Comparison Complete! | ${firstImagePath} ${secondImagePath} ${outputPath}`
   );
 
-  await createFolderForFile(outputPath);
-  await write(outputPath, result.getBuffer());
+  await createFolderForFile(`./carmen-reports/compare/${outputPath}`);
+  await writeReport("compare", result, `${outputPath}/${name}.json`);
+  await write(
+    `./carmen-reports/compare/${outputPath}/${name}.png`,
+    result.getBuffer()
+  );
 };

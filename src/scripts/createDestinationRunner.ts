@@ -1,4 +1,3 @@
-import { Destination, Mission } from "..";
 import log from "../actions/log";
 import * as puppeteer from "puppeteer";
 import createMissionRunner from "./createMissionRunner";
@@ -13,12 +12,16 @@ const createDestinationRunner = (browser: puppeteer.Browser) => async (
   const runMission = createMissionRunner(page, browser);
   await page.goto(url);
 
-  return Promise.all(
+  const results = await Promise.all(
     missions.map(mission => {
       log(`Running Mission: ${getMissionName(mission)}`, "pending");
       return runMission(mission);
     })
   );
+
+  await page.close();
+
+  return results;
 };
 
 const __logDestinationStart = ({ url, missions }: Destination) => {

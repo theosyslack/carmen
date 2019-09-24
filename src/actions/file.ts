@@ -3,6 +3,7 @@ import { promisify } from "util";
 import { curry } from "ramda";
 import * as fs from "fs";
 import log from "./log";
+import globWithCallback from "glob";
 
 const DEFAULT_REPORT_PATH = `${Date.now().toString()}.json`;
 
@@ -95,6 +96,7 @@ export const exists = async path => {
     });
 };
 
+export const glob = promisify(globWithCallback);
 export const access = promisify(fs.access);
 export const mkdir = promisify(fs.mkdir);
 export const read = promisify(fs.readFile);

@@ -1,7 +1,6 @@
 import log from "../actions/log";
-import puppeteer from "puppeteer";
+import * as puppeteer from "puppeteer";
 import createDestinationRunner from "./createDestinationRunner";
-import { TravelPlan } from "..";
 
 const followTravelPlan = async (plan: TravelPlan) => {
   const browser = await puppeteer.launch();

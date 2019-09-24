@@ -1,7 +1,4 @@
 import { Page, Browser } from "puppeteer";
-import { Url } from "url";
-import { URLLike } from "./common/utilities";
-
 // Type definitions for carmen
 // Project: carmen
 
@@ -30,6 +27,6 @@ declare global {
   export interface TravelPlan {
     destinations: Destination[];
   }
-}
 
-export {};
+  export type URLLike = URL | string;
+}

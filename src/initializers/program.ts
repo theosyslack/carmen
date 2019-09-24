@@ -5,7 +5,7 @@ import createDefaultTravelPlan from "../scripts/createDefaultTravelPlan";
 import log from "../actions/log";
 import { compareImages } from "../actions/compare";
 
-const follow = async (travelPlanPath = "./travel-plan.js", command?) => {
+const follow = async (travelPlanPath = "./travel-plan.js") => {
   const plan = await findTravelPlan(travelPlanPath);
   if (!plan) {
     process.exit(1);
@@ -32,7 +32,7 @@ const initialize = async () => {
     .action(follow);
 
   program
-    .command("compare <firstImage> <secondImage> <diffImage>", {
+    .command("compare [firstImage] [secondImage] [diffImage]", {
       isDefault: true
     })
     .description(

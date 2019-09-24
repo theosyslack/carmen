@@ -1,6 +1,6 @@
-import { Mission, missions } from "..";
+import missions from "../missions";
 
-export const getMissionName = (mission: Mission | string) => {
+export const getMissionName = (mission: Mission) => {
   if (typeof mission === "string") return mission;
   return mission.name || "[unnamedMission]";
 };

@@ -1,7 +1,4 @@
 import * as puppeteer from "puppeteer";
-import { URL } from "url";
-import * as path from "path";
-import * as fs from "fs";
 import {
   createFolderPathFromUrl,
   createFolderForFile,

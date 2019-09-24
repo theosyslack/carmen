@@ -1,4 +1,3 @@
-import { Mission, Destination } from "..";
 import log from "./log";
 import { Page } from "puppeteer";
 /*

@@ -1,4 +1,3 @@
-import { TravelPlan } from "..";
 import { exists } from "../actions/file";
 import log from "../actions/log";
 import * as path from "path";

@@ -1,4 +1,4 @@
-import { URLLike } from "./utilities";
+
 import pick from "ramda/es/pick";
 
 export const getPropertiesFromUrl = (

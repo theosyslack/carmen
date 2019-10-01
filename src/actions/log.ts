@@ -1,20 +1,22 @@
 import chalk from "chalk";
 type LogType = "default" | "table" | "success" | "pending" | "error";
-
+type Logger = (message: string | object) => void;
+type LogCollection = {
+  [type in LogType]: Logger;
+};
 const { log, table, clear } = console;
 
-const LOG_TYPES = {
-  default: message => log(chalk.green(message)),
-  table: message => table(message),
-  success: message => log(chalk.green(message)),
-  pending: message => log(chalk.yellow(message)),
-  error: message => log(chalk.red.bold(message))
+const LOG_TYPES: LogCollection = {
+  default: (message: string) => log(chalk.green(message)),
+  table: (message: object) => table(message),
+  success: (message: string) => log(chalk.green(message)),
+  pending: (message: string) => log(chalk.yellow(message)),
+  error: (message: string) => log(chalk.red.bold(message))
 };
-
 
 export { clear };
 
-export default (message, type?: LogType) => {
+export default (message: string, type?: LogType) => {
   if (!type) {
     log(message);
   } else {

@@ -1,4 +1,3 @@
-
 import pick from "ramda/es/pick";
 
 export const getPropertiesFromUrl = (
@@ -18,7 +17,7 @@ export const createURLFromURLLike = (urlLike: URLLike): URL => {
   }
 };
 
-export const createURLFromString = (string): URL => {
+export const createURLFromString = (string: string): URL => {
   try {
     return new URL(string);
   } catch {

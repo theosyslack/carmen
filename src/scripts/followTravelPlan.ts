@@ -1,9 +1,12 @@
 import log from "../actions/log";
-import * as puppeteer from "puppeteer";
+import puppeteer from "puppeteer";
 import createDestinationRunner from "./createDestinationRunner";
+import { CommanderStatic } from "commander";
 
-const followTravelPlan = async (plan: TravelPlan) => {
-  const browser = await puppeteer.launch();
+const followTravelPlan = async (plan: TravelPlan, program: CommanderStatic) => {
+  const browser = await puppeteer.launch({
+    devtools: !!program.parent.debug
+  });
   const runDestination = createDestinationRunner(browser);
   const { destinations } = plan;
 
@@ -35,7 +38,7 @@ const followTravelPlan = async (plan: TravelPlan) => {
   // await Promise.all(destinations.map());
   log(`Travel plan completed.`, "success");
 
-  await browser.close();
+  return browser.close();
 };
 
 export default followTravelPlan;

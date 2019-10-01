@@ -4,9 +4,9 @@ import { getMissionFromName } from "../common/mission";
 const createMissionRunner = (
   page: puppeteer.Page,
   browser?: puppeteer.Browser
-) => async (missionOrMissionTitle: Mission | string) => {
+) => async (missionOrMissionName: Mission | MissionName) => {
   try {
-    return getMissionFromName(missionOrMissionTitle)(page, browser);
+    return getMissionFromName(missionOrMissionName)(page, browser);
   } catch (e) {
     return e;
   }

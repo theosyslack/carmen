@@ -1,16 +1,26 @@
 import missions from "./missions";
-import { createReportWriter, createFolderPathFromUrl } from "./actions/file";
+import {
+  createFolderPathFromUrl,
+  createReportWriter,
+  getContentsAsObject,
+  writeReport
+} from "./actions/file";
 import program from "./initializers/program";
+import { carmen } from "..";
 
-const main = async () => {
+const main = async (): Promise<void> => {
   program.initialize();
 };
 
 const helpers = {
+  writeReport,
   createReportWriter,
-  createFolderPathFromUrl
+  createFolderPathFromUrl,
+  getContentsAsObject
 };
 
-export { missions, helpers };
+const returns = { missions, helpers };
+
+export default returns;
 
 main();

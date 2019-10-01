@@ -2,7 +2,7 @@ import { exists } from "../actions/file";
 import log from "../actions/log";
 import * as path from "path";
 const findTravelPlan = async (
-  relativePathOfTravelPlan
+  relativePathOfTravelPlan: string
 ): Promise<TravelPlan> => {
   const pathToPlan = path.resolve(process.cwd(), relativePathOfTravelPlan);
   if (await exists(pathToPlan)) {

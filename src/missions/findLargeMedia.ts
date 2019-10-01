@@ -8,7 +8,7 @@ const sizeLimit = 2000000;
 export default async (page: puppeteer.Page) => {
   log("Finding large media...", "pending");
   const writeReport = createReportWriter("findLargeMedia");
-  let largeMedia = [];
+  let largeMedia = <string[]>[];
   let targetPage = await page.url();
   const { hostname, pathname } = new URL(targetPage);
   const folderPath = `${hostname}/${pathname}`;

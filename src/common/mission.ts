@@ -5,11 +5,13 @@ export const getMissionName = (mission: Mission) => {
   return mission.name || "[unnamedMission]";
 };
 
-export const getMissionFromName = (missionTitle): Mission => {
-  if (typeof missionTitle === "function") {
-    return missionTitle;
+export const getMissionFromName = (
+  missionName: MissionName | Mission
+): Mission => {
+  if (typeof missionName === "function") {
+    return missionName;
   } else {
-    const defaultMission = () => {};
-    return missions[missionTitle] || defaultMission;
+    const defaultMission = async () => {};
+    return missions[missionName] || defaultMission;
   }
 };

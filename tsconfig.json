@@ -1,15 +1,18 @@
 {
   "compilerOptions": {
-    "moduleResolution": "node",
+    "module": "commonjs",
     "esModuleInterop": true,
-    "module": "es2015",
-    "outDir": "./dist",
+    "allowSyntheticDefaultImports": true,
+    "target": "es6",
+    "noImplicitAny": true,
+    "moduleResolution": "node",
     "sourceMap": true,
-    "declaration": true,
-    "removeComments": false,
-    "preserveConstEnums": true,
-    "baseUrl": "./src/",
-    "lib": ["esnext", "dom"]
+    "outDir": "dist",
+    "baseUrl": "./src",
+    "lib": ["es2015", "dom", "esnext.asynciterable"],
+    "paths": {
+      "*": ["node_modules/*", "src/types/*"]
+    }
   },
-  "files": ["./src/**/*.ts", "./src/index.d.ts"]
+  "include": ["src/**/*"]
 }

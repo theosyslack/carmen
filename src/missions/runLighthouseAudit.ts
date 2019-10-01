@@ -1,8 +1,9 @@
 import lighthouse from "lighthouse";
 import { createReportWriter, createFolderPathFromUrl } from "../actions/file";
 import { URL } from "url";
+import { Page, Browser } from "puppeteer";
 
-export default async function runLighthouseAudit(page, browser) {
+export default async function runLighthouseAudit(page: Page, browser: Browser) {
   const now = Date.now();
   const url = await page.url();
 

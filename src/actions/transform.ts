@@ -49,7 +49,7 @@ export namespace WCAG {
   };
 }
 
-export const transformStringToWcagRefId = (refId): WCAG.ID => {
+export const transformStringToWcagRefId = (refId: string): WCAG.ID => {
   let path = refId.split(".");
   if (path.length === 1) {
     path = refId.split("");

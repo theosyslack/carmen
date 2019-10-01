@@ -1,16 +1,19 @@
-import program from "commander";
+import program, { CommanderStatic } from "commander";
 import findTravelPlan from "../scripts/findTravelPlans";
 import followTravelPlan from "../scripts/followTravelPlan";
 import createDefaultTravelPlan from "../scripts/createDefaultTravelPlan";
 import log from "../actions/log";
 import { compareImages } from "../actions/compare";
 
-const follow = async (travelPlanPath = "./travel-plan.js") => {
+const follow = async (
+  travelPlanPath = "./travel-plan.js",
+  program: CommanderStatic
+) => {
   const plan = await findTravelPlan(travelPlanPath);
   if (!plan) {
     process.exit(1);
   } else {
-    followTravelPlan(plan);
+    followTravelPlan(plan, program);
   }
 };
 
@@ -32,7 +35,7 @@ const initialize = async () => {
     .action(follow);
 
   program
-    .command("compare [firstImage] [secondImage]", {
+    .command("compare [firstImage] [secondImage] [outputPath]", {
       isDefault: true
     })
     .description(
@@ -47,7 +50,7 @@ const initialize = async () => {
     return;
   }
 
-  if (!program.args.length) follow();
+  if (!program.args) follow(null, program);
 
   return program;
 };

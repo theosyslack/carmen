@@ -67,15 +67,15 @@ export const writeReport = (
   }
 };
 
-export const createPathForReport = reportType =>
+export const createPathForReport = (reportType: string) =>
   `./carmen-reports/${reportType}/`;
 
 export const createReportWriter = (
   reportType: string,
   filePath: string = DEFAULT_REPORT_PATH
-) => content => writeReport(reportType, content, filePath);
+) => (content: object) => writeReport(reportType, content, filePath);
 
-export const createFolderPathFromUrl = url => {
+export const createFolderPathFromUrl = (url: string) => {
   const [urlWithoutParams] = url.split("?");
   const cleanUrl = urlWithoutParams
     .replace("http://", "")
@@ -85,13 +85,16 @@ export const createFolderPathFromUrl = url => {
 
 ////////////
 /// Read
-export const getContents = async path => {
+export const getContents = async (path: string) => {
   const fullPath = joinPath(path);
 
   return await read(fullPath, { encoding: "utf-8" });
 };
 
-export const exists = async path => {
+export const getContentsAsObject = async (path: string) =>
+  JSON.parse(await getContents(path));
+
+export const exists = async (path: string) => {
   return await access(path, fs.constants.F_OK)
     .then(() => true)
     .catch(err => {
@@ -104,7 +107,7 @@ export const access = promisify(fs.access);
 export const mkdir = promisify(fs.mkdir);
 export const read = promisify(fs.readFile);
 export const write = promisify(fs.writeFile);
-export const sanitize = string => {
+export const sanitize = (string: string) => {
   const regex = /[<>:"\/\\|?*\x00-\x1F]/g;
   return string.replace(regex, "-");
   //TODO: Write a sanitize function to make filename safe

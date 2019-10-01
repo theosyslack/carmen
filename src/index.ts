@@ -5,12 +5,7 @@ import {
   getContentsAsObject,
   writeReport
 } from "./actions/file";
-import program from "./initializers/program";
-import { carmen } from "..";
-
-const main = async (): Promise<void> => {
-  program.initialize();
-};
+import "..";
 
 const helpers = {
   writeReport,
@@ -22,5 +17,3 @@ const helpers = {
 const returns = { missions, helpers };
 
 export default returns;
-
-main();

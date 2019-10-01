@@ -1,6 +1,8 @@
 import { exists } from "../actions/file";
 import log from "../actions/log";
 import * as path from "path";
+import { TravelPlan } from "../types/carmen";
+
 const findTravelPlan = async (
   relativePathOfTravelPlan: string
 ): Promise<TravelPlan> => {

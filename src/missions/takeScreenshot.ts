@@ -6,6 +6,7 @@ import {
   writeReport
 } from "../actions/file";
 import { createURLFromString } from "../common/utilities";
+import { MissionResult } from "../types/carmen";
 
 export default async function takeScreenshot(
   page: puppeteer.Page
@@ -31,7 +32,7 @@ export default async function takeScreenshot(
   // await page.addStyleTag({ content: '.home .homeHero .homeHeroVideo{height: 600px !important}' });
   await writeReport("screenshots", { url: url, title, now }, filename);
 
-  const buffer = page.screenshot({
+  const buffer = await page.screenshot({
     fullPage: true,
     path: filePath
   });

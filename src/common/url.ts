@@ -1,4 +1,5 @@
 import pick from "ramda/es/pick";
+import { URLLike } from "../types/carmen";
 
 export const getPropertiesFromUrl = (
   urlLike: URLLike,

@@ -2,10 +2,14 @@ import log from "../actions/log";
 import puppeteer from "puppeteer";
 import createDestinationRunner from "./createDestinationRunner";
 import { CommanderStatic } from "commander";
+import { TravelPlan } from "../types/carmen";
 
-const followTravelPlan = async (plan: TravelPlan, program: CommanderStatic) => {
+const followTravelPlan = async (
+  plan: TravelPlan,
+  program?: CommanderStatic
+) => {
   const browser = await puppeteer.launch({
-    devtools: !!program.parent.debug
+    // devtools: true
   });
   const runDestination = createDestinationRunner(browser);
   const { destinations } = plan;

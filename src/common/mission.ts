@@ -1,4 +1,5 @@
 import missions from "../missions";
+import { MissionName, Mission } from "../types/carmen";
 
 export const getMissionName = (mission: Mission) => {
   if (typeof mission === "string") return mission;

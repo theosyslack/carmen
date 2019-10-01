@@ -1,5 +1,6 @@
 import { pick } from "ramda";
 import * as path from "path";
+import { URLLike } from "../types/carmen";
 
 export const createFolderPathFromUrl = (urlLike: URLLike) => {
   const { hostname, pathname } = createURLFromURLLike(urlLike);

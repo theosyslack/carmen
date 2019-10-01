@@ -2,6 +2,7 @@ import log from "../actions/log";
 import * as puppeteer from "puppeteer";
 import createMissionRunner from "./createMissionRunner";
 import { getMissionName } from "../common/mission";
+import { Mission, Destination } from "../types/carmen";
 
 const createDestinationRunner = (browser: puppeteer.Browser) => async (
   destination: Destination
@@ -13,7 +14,7 @@ const createDestinationRunner = (browser: puppeteer.Browser) => async (
   await page.goto(url);
 
   const results = await Promise.all(
-    missions.map(mission => {
+    missions.map((mission: Mission) => {
       log(`Running Mission: ${getMissionName(mission)}`, "pending");
       return runMission(mission);
     })

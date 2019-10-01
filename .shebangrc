@@ -2,6 +2,7 @@
   {
     "interpreter": "node",
     "files": [
+      "./src/carmen.ts",
       "./src/index.ts"
     ]
   }

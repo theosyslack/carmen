@@ -5,6 +5,7 @@ import takeScreenshot from "./takeScreenshot";
 import runLighthouseAudit from "./runLighthouseAudit";
 import getLocalLinks from "./getLocalLinks";
 import getHTML from "./getHTML";
+import { MissionCollection } from "../types/carmen";
 
 const Missions: MissionCollection = {
   find404s,

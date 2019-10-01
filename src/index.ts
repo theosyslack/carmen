@@ -1,19 +1,22 @@
-import missions from "./missions";
+import allMissions from "./missions";
 import {
   createFolderPathFromUrl,
   createReportWriter,
   getContentsAsObject,
   writeReport
 } from "./actions/file";
-import "..";
+import { compareImages } from "./actions/compare";
+import followTravelPlan from "./scripts/followTravelPlan";
 
-const helpers = {
+export const helpers = {
   writeReport,
   createReportWriter,
   createFolderPathFromUrl,
   getContentsAsObject
 };
 
-const returns = { missions, helpers };
+export const missions = allMissions;
+export const follow = followTravelPlan;
+export const compare = compareImages;
 
-export default returns;
+export default { helpers, missions, follow, compare };

@@ -1,18 +1,15 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "umd",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "target": "es6",
+    "target": "es5",
+    "declaration": true,
     "noImplicitAny": true,
     "moduleResolution": "node",
     "sourceMap": true,
-    "outDir": "dist",
-    "baseUrl": "./src",
-    "lib": ["es2015", "dom", "esnext.asynciterable"],
-    "paths": {
-      "*": ["node_modules/*", "src/*"]
-    }
+    "outDir": "./dist",
+    "lib": ["dom", "esnext"]
   },
-  "include": ["src/**/*"]
+  "typeAcquisition": { "enable": true }
 }

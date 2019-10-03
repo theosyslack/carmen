@@ -51,18 +51,18 @@ export const createFolderForFile = async (filePath: string) => {
   });
 };
 
-export const writeReport = (
+export const writeReport = async (
   reportType: string = "misc",
   content: string | object,
   filePath: string = DEFAULT_REPORT_PATH
 ) => {
+  const finalPath = createPathForReport(reportType) + filePath;
+  log(`Creating ${finalPath}`, "pending");
+  await createFolderForFile(finalPath);
   if (typeof content === "object") {
-    return writeObjectToFile(
-      `${createPathForReport(reportType)}${filePath}`,
-      content
-    );
+    return writeObjectToFile(finalPath, content);
   } else {
-    return write(`${createPathForReport(reportType)}${filePath}`, content);
+    return write(finalPath, content);
   }
 };
 

@@ -1,6 +1,6 @@
 import { write, read, createFolderForFile, writeReport } from "./file";
 
-import { compare } from "resemblejs";
+import compare from "resemblejs/compareImages";
 import log from "./log";
 import inquirer from "inquirer";
 import { parse } from "path";
@@ -34,19 +34,26 @@ export const compareImages = async (
 
   const finalPath = `./carmen-reports/compare/${outputPath}`;
   await createFolderForFile(`${finalPath}/image1.png`);
+  log(`Created ${finalPath}.`, "pending");
   const [firstImage, secondImage] = [firstImagePath, secondImagePath].map(
     path => read(path)
   );
+  log(`Read ${firstImagePath}`, "pending");
+
+  log(`Read ${secondImagePath}`, "pending");
 
   await write(`${finalPath}/image1.png`, await firstImage);
   await write(`${finalPath}/image2.png`, await secondImage);
+  log(`Wrote ${finalPath}/image1.png`, "success");
+  log(`Wrote ${finalPath}/image2.png`, "success");
 
   const comparison = await compare(await firstImage, await secondImage, {
     outputDiff: true
   });
 
   log(
-    `Comparison Complete! | ${firstImagePath} ${secondImagePath} ${outputPath}`
+    `Comparison Complete! | ${firstImagePath} ${secondImagePath} ${outputPath}`,
+    "success"
   );
 
   let { name } = parse(firstImagePath);

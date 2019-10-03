@@ -36,17 +36,16 @@ export const writeObjectToFile = curry(
 
 export const createFolderForFile = async (filePath: string) => {
   let { dir } = parse(filePath);
-
   if (!dir) dir = filePath;
 
   return await mkdir(dir, { recursive: true }).catch(({ code }) => {
     if (code === "EEXIST") {
-      // log(`${dir} already exists.`, "pending");
+      log(`${dir} already exists.`, "error");
       return;
     }
 
     if (code === "EACCES") {
-      // log(`${dir} cannot be accessed.`, "pending");
+      log(`${dir} cannot be accessed.`, "error");
       return;
     }
   });

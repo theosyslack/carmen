@@ -3,19 +3,19 @@
   "version": "1.2.0",
   "description": "Carmen will sneak around a website, finding precious elements and returning them to you.",
   "license": "MIT",
+  "type": "module",
   "engines": {
     "node": "10 - 13"
   },
   "dependencies": {
     "@types/inquirer": "^6.5.0",
     "@types/node": "^10.12.16",
-    "@types/puppeteer": "^1.11.1",
+    "@types/puppeteer": "^1.20.1",
     "@types/ramda": "^0.25.48",
     "chalk": "^2.4.1",
     "commander": "^3.0.1",
     "concurrently": "^4.1.2",
     "delay": "^4.1.0",
-    "glob": "^7.1.4",
     "inquirer": "^7.0.0",
     "inquirer-autocomplete-prompt": "^1.0.1",
     "inquirer-fuzzy-path": "^2.1.0",
@@ -23,7 +23,8 @@
     "puppeteer": "^1.10.0",
     "ramda": "^0.26.1",
     "resemblejs": "^3.2.2",
-    "typescript": "~3.6.1"
+    "typescript": "~3.6.1",
+    "xstate": "^4.6.7"
   },
   "scripts": {
     "pretest": "tsc",

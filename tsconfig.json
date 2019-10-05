@@ -1,15 +1,25 @@
 {
   "compilerOptions": {
-    "module": "umd",
-    "esModuleInterop": true,
+    "module": "commonjs",
     "allowSyntheticDefaultImports": true,
-    "target": "es5",
+    "target": "esnext",
     "declaration": true,
     "noImplicitAny": true,
-    "moduleResolution": "node",
     "sourceMap": true,
     "outDir": "./dist",
+    "baseUrl": "src",
+    "paths": {
+      "*": ["*"],
+      "@missions": ["missions/missions"],
+      "@types/*": ["types/*"],
+      "@helpers/*": ["helpers/*"],
+      "@consts/*": ["consts/*"],
+      "@sleuths/*": ["sleuths/*"]
+    },
     "lib": ["dom", "esnext"]
   },
+  "compileOnSave": true,
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules"],
   "typeAcquisition": { "enable": true }
 }

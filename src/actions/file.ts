@@ -111,8 +111,5 @@ export const sanitize = (string: string) => {
   return string.replace(regex, "-");
   //TODO: Write a sanitize function to make filename safe
 };
-////////////
-/// Update
 
-////////////
-/// Delete
+

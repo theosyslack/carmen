@@ -8,14 +8,22 @@ export type Mission = (
   history?: MissionResult[]
 ) => Promise<MissionResult | void>;
 
-export type MissionResultStatus = "SUCCESS" | "FAILURE" | "PENDING";
+export type MissionResultStatus = "SUCCESS" | "FAILURE" | "PENDING" | "UNKNOWN";
 
 export interface MissionResult {
   status: MissionResultStatus;
   mission: Mission;
   url: URL;
-  message: string;
-  payload: object;
+  message?: string;
+  payload?: object;
+}
+
+export interface CreateMissionResult {
+  mission: Mission;
+  reportOptions?: {
+    type?: string;
+    fileName?: string;
+  };
 }
 
 export type MissionName =

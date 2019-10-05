@@ -6,6 +6,6 @@ export const writeReport = (
   object: object = {}
 ) => writeObjectToFile(`./reports/${reportType}/${filePath}`, object);
 
-export const createReportWriter = (reportType: string, filePath: string) => (
+export const createReportWriter = (reportType: string, filePath?: string) => (
   object: object
 ) => writeReport(reportType, filePath, object);

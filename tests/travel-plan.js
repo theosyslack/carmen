@@ -4,7 +4,7 @@
 //   - getPageSize
 //   - takeScreenshot
 
-const { missions, helpers } = require("../dist/index.js");
+const carmen = require("../dist/index.js");
 
 async function customMission(page) {
   const now = Date.now();
@@ -23,11 +23,9 @@ async function customMission(page) {
   });
 }
 
-module.exports = {
-  destinations: [
-    {
-      url: "http://google.com",
-      missions: ["getPageSize", "takeScreenshot", customMission]
-    }
-  ]
-};
+const destinations = [
+  {
+    url: "http://google.com",
+    missions: [createMission]
+  }
+];

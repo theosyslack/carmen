@@ -1,4 +1,4 @@
-import allMissions from "./missions";
+import allMissions, { createMission } from "./missions";
 import {
   createFolderPathFromUrl,
   createReportWriter,
@@ -15,8 +15,12 @@ export const helpers = {
   getContentsAsObject
 };
 
+export const create = {
+  mission: createMission
+};
+
 export const missions = allMissions;
 export const follow = followTravelPlan;
 export const compare = compareImages;
 
-export default { helpers, missions, follow, compare };
+export default { create, missions, follow, compare };

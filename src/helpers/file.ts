@@ -10,8 +10,8 @@ const DEFAULT_REPORT_PATH = `${Date.now().toString()}.json`;
 /// Create
 
 export const writeToNewFile = async (
-  path: any,
-  data: any,
+  path: string,
+  data: string | Buffer,
   writeOptions: fs.WriteFileOptions = {}
 ) => {
   await createFolderForFile(path);
@@ -78,7 +78,7 @@ export const createFolderPathFromUrl = (url: string) => {
   const cleanUrl = urlWithoutParams
     .replace("http://", "")
     .replace("https://", "");
-  return cleanUrl;
+  return joinPath(process.cwd(), cleanUrl, "/");
 };
 
 ////////////

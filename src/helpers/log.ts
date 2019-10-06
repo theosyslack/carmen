@@ -1,5 +1,5 @@
 import chalk from "chalk";
-type LogType = "default" | "table" | "success" | "pending" | "error";
+type LogType = "default" | "table" | "success" | "pending" | "error" | "info";
 type Logger = (message: string | object) => void;
 type LogCollection = {
   [type in LogType]: Logger;
@@ -7,11 +7,12 @@ type LogCollection = {
 const { log, table, clear } = console;
 
 const LOG_TYPES: LogCollection = {
-  default: (message: string) => log(chalk.green(message)),
+  default: (message: string) => log(chalk.blue(message)),
+  info: (message: string) => log(chalk.blue(`[INFO]    ${message}`)),
   table: (message: object) => table(message),
-  success: (message: string) => log(chalk.green(message)),
-  pending: (message: string) => log(chalk.yellow(message)),
-  error: (message: string) => log(chalk.red.bold(message))
+  success: (message: string) => log(chalk.green(`[SUCCESS] ${message}`)),
+  pending: (message: string) => log(chalk.yellow(`[PENDING] ${message}`)),
+  error: (message: string) => log(chalk.red(`[ERROR]   ${message}`))
 };
 
 export { clear };

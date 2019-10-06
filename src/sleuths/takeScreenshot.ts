@@ -14,7 +14,7 @@ const defaultViewpoint = {
 async function takeScreenshot({
   page,
   viewport = defaultViewpoint,
-  fullPage = false
+  fullPage = true
 }: TakeScreenshotConfig) {
   await page.setViewport(viewport);
 

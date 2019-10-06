@@ -1,28 +1,32 @@
 import takeScreenshot from "../sleuths/takeScreenshot";
 import { getBrowser } from "../state/Browser";
 import { Mission } from "../types/carmen";
-import { writeToNewFile } from "../helpers/file";
+import { writeToNewFile, createFolderPathFromUrl } from "../helpers/file";
 import { createMission } from "../helpers/mission";
 
-export const saveScreenshot = (url: string, name: string): Mission => {
-  return createMission(async () => {
+const createScreenshotPath = (url: string, name: string) => {
+  const path = createFolderPathFromUrl(url);
+  return path + name + ".png";
+};
+
+export const saveScreenshot = (url: string): Mission => {
+  return createMission(`Save Screenshot (${url})`, async () => {
     const browser = await getBrowser();
     const page = await browser.newPage();
+    const path = createScreenshotPath(url, "index");
+
     await page.goto(url);
 
-    return takeScreenshot({ page })
+    const report = await takeScreenshot({ page })
       .then(async screenshot => {
-        await writeToNewFile(name, screenshot);
-        await page.close();
-        return {
-          screenshot,
-          name,
-          url
-        };
+        await writeToNewFile(path, screenshot);
+        return { screenshot };
       })
-      .catch(async reason => {
-        await page.close();
-        return { reason };
+      .catch(async error => {
+        return { error: error.message };
       });
+
+    await page.close();
+    return report;
   });
 };

@@ -10,7 +10,7 @@ const defaultOptions: LaunchOptions = {
 
 export const getBrowser = async (options?: LaunchOptions): Promise<Browser> => {
   if (isUndefined(browser) && isUndefined(options)) {
-    log("Creating Browser with default options", "pending");
+    log("Creating Browser with default options", "info");
     browser = await launch(defaultOptions);
   } else if (isUndefined(browser)) {
     log("Creating Browser with custom options");

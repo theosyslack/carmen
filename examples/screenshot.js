@@ -1,7 +1,12 @@
 const carmen = require("../dist/index");
+const links = require("./links.json");
 
 const { saveScreenshot } = carmen.missions;
 
-(async () => {
-  await carmen.run([saveScreenshot("http://google.com", "./google.png")]);
-})();
+const plan = ["http://google.com", "turdddd", "http://google.com"].map(
+  saveScreenshot
+);
+
+// const plan = [saveScreenshot("http://google.com")];
+
+carmen.run(plan);

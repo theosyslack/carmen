@@ -14,14 +14,17 @@ export interface MissionReport {
   status: MissionStatus;
   timestamp: Date;
   name: string;
+  path: string;
   result: {
+    data?: object;
     error?: string;
   };
 }
 
-export type MissionResult = object;
-
-export type TravelPlan = {
-  urls: URL[];
-  missions: Mission[];
-};
+export interface MissionResult {
+  result: {
+    data?: object;
+    error?: string;
+  };
+  context?: {};
+}

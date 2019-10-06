@@ -1,32 +1,51 @@
 import takeScreenshot from "../sleuths/takeScreenshot";
+import getPageDimensions from "../sleuths/getPageDimensions";
 import { getBrowser } from "../state/Browser";
-import { Mission } from "../types/carmen";
+import { Mission, MissionResult } from "../types/carmen";
 import { writeToNewFile, createFolderPathFromUrl } from "../helpers/file";
 import { createMission } from "../helpers/mission";
 
-const createScreenshotPath = (url: string, name: string) => {
-  const path = createFolderPathFromUrl(url);
-  return path + name + ".png";
+const path = "./reports/Screenshots/";
+
+const createPaths = (url: string, name: string) => {
+  const urlPath = createFolderPathFromUrl(url);
+  const report = path + urlPath;
+  const screenshot = report + name + ".png";
+
+  return {
+    screenshot,
+    report
+  };
 };
 
 export const saveScreenshot = (url: string): Mission => {
-  return createMission(`Save Screenshot (${url})`, async () => {
-    const browser = await getBrowser();
-    const page = await browser.newPage();
-    const path = createScreenshotPath(url, "index");
+  const paths = createPaths(url, "index");
+  return createMission(
+    `Save Screenshot (${url})`,
+    paths.report,
+    async (): Promise<MissionResult> => {
+      const browser = await getBrowser();
+      const page = await browser.newPage();
 
-    await page.goto(url);
+      await page.goto(url);
 
-    const report = await takeScreenshot({ page })
-      .then(async screenshot => {
-        await writeToNewFile(path, screenshot);
-        return { screenshot };
-      })
-      .catch(async error => {
-        return { error: error.message };
-      });
+      const viewport = await getPageDimensions({ page });
+      const result = await takeScreenshot({ page })
+        .then(async (screenshot: Buffer) => {
+          await writeToNewFile(paths.screenshot, screenshot);
+          return {
+            result: { data: { viewport, url } },
+            context: { screenshot, url }
+          };
+        })
+        .catch(async (error: Error) => {
+          return { result: { error: error.message } };
+        });
 
-    await page.close();
-    return report;
-  });
+      await page.close();
+      return result;
+    }
+  );
 };
+
+export default saveScreenshot;

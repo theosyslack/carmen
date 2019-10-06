@@ -1,8 +1,10 @@
 const carmen = require("../dist/index");
-const links = require("./links.json");
+const links = require("./screenshot.json");
 
 const { saveScreenshot } = carmen.missions;
 
 const plan = links.map(saveScreenshot);
 
-carmen.run(plan);
+const result = carmen.run(plan);
+
+console.log(result);

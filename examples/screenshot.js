@@ -6,5 +6,3 @@ const { saveScreenshot } = carmen.missions;
 const plan = links.map(saveScreenshot);
 
 const result = carmen.run(plan);
-
-console.log(result);

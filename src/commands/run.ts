@@ -9,14 +9,20 @@ const logMissionReport = (report: MissionReport | null, progress: string) => {
 
   switch (status) {
     case "FAILURE":
-      log(`[${progress}] ${name}: ${result.error}`, "error");
+      log(`${progress} ${name}: ${result.error}`, "error");
       break;
     case "SUCCESS":
-      log(`[${progress}] ${name}. `, "success");
+      log(`${progress} ${name}. `, "success");
       break;
     default:
       break;
   }
+};
+
+const createProgressString = (count: number, total: number) => {
+  const totalString = total.toString();
+  const countString = count.toString().padStart(totalString.length, " ");
+  return `[${countString}/${totalString}]`;
 };
 
 const run = async (missions: Mission[]) => {
@@ -24,7 +30,7 @@ const run = async (missions: Mission[]) => {
 
   const queue = missions.reduce(
     async (previousMission, currentMission, currentIndex) => {
-      const progress = `${currentIndex + 1}/${missions.length}`;
+      const progress = createProgressString(currentIndex + 1, missions.length);
 
       await previousMission;
 

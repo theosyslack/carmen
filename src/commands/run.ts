@@ -1,4 +1,4 @@
-import { Mission, MissionReport, MissionResult } from "../types/carmen";
+import { Mission, MissionReport } from "../types/carmen";
 import close from "./close";
 import { getBrowser } from "../state/Browser";
 import log from "../helpers/log";
@@ -25,8 +25,10 @@ const createProgressString = (count: number, total: number) => {
   return `[${countString}/${totalString}]`;
 };
 
-const run = async (missions: Mission[]) => {
+const run = async (missions: Mission[]): Promise<MissionReport[]> => {
   await getBrowser(); // Initialize Browser, so it doesn't get initialized for each mission.
+
+  let reports: MissionReport[] = [];
 
   const queue = missions.reduce(
     async (previousMission, currentMission, currentIndex) => {
@@ -34,16 +36,19 @@ const run = async (missions: Mission[]) => {
 
       await previousMission;
 
-      return currentMission().then(report =>
-        logMissionReport(report, progress)
-      );
+      return currentMission().then(report => {
+        logMissionReport(report, progress);
+        reports.push(report);
+        return report;
+      });
     },
     Promise.resolve(null)
   );
 
   await queue;
-
   await close();
+
+  return reports;
 };
 
 export default run;

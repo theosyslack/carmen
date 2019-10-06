@@ -12,8 +12,10 @@ user-data
 
 #Reports
 carmen-reports
+reports/
 
 #logs
 *.log
 *.iml
+
 

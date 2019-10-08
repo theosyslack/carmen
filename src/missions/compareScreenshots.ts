@@ -65,12 +65,15 @@ export const compareScreenshots = (
       } = comparison;
 
       await writeToNewFile(path + "diff.png", diffImage);
+      await writeToNewFile(path + "first.png", first);
+      await writeToNewFile(path + "second.png", second);
 
       return {
         result: {
           data: {
             hasBuffers,
             hasUrls,
+            urls,
             isSameDimensions,
             dimensionDifference,
             misMatchPercentage,
@@ -78,9 +81,17 @@ export const compareScreenshots = (
           }
         },
         context: {
-          ...buffers,
+          firstImage: first,
+          secondImage: second,
           diffImage,
-          comparison
+          hasBuffers,
+          hasUrls,
+          urls,
+          buffers,
+          isSameDimensions,
+          dimensionDifference,
+          misMatchPercentage,
+          analysisTime
         }
       };
     }

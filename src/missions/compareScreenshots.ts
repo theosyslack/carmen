@@ -13,14 +13,14 @@ type BufferComparison = [Buffer, Buffer];
 
 type URLComparison = [string, string];
 
-type Comparsions = {
+type Comparisons = {
   buffers: BufferComparison;
   urls: URLComparison;
 };
 
 export const compareScreenshots = (
   name: string,
-  comparisons: Comparsions
+  comparisons: Comparisons
 ): Mission => {
   const path = pathBase + name + "/";
   const { buffers, urls } = comparisons;
@@ -44,7 +44,9 @@ export const compareScreenshots = (
           urls.map(async url => {
             const page = await browser.newPage();
             await page.goto(url);
-            return takeScreenshot({ page });
+            const screenshot = takeScreenshot({ page });
+            page.close();
+            return screenshot;
           })
         );
       } else if (hasBuffers) {

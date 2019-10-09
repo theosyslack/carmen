@@ -1,5 +1,4 @@
 import { Mission, MissionReport } from "../types/carmen";
-import close from "./close";
 import { getBrowser } from "../state/Browser";
 import log from "../helpers/log";
 
@@ -26,7 +25,7 @@ const createProgressString = (count: number, total: number) => {
 };
 
 const run = async (missions: Mission[]): Promise<MissionReport[]> => {
-  await getBrowser(); // Initialize Browser, so it doesn't get initialized for each mission.
+  const browser = await getBrowser(); // Initialize Browser, so it doesn't get initialized for each mission.
 
   let reports: MissionReport[] = [];
 
@@ -46,7 +45,8 @@ const run = async (missions: Mission[]): Promise<MissionReport[]> => {
   );
 
   await queue;
-  await close();
+
+  await browser.close();
 
   return reports;
 };

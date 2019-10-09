@@ -10,13 +10,18 @@ const defaultOptions: LaunchOptions = {
 
 export const getBrowser = async (options?: LaunchOptions): Promise<Browser> => {
   if (isUndefined(browser) && isUndefined(options)) {
-    log("Creating Browser with default options", "info");
+    log("Browser: Created With Default Options", "info");
     browser = await launch(defaultOptions);
   } else if (isUndefined(browser)) {
-    log("Creating Browser with custom options");
+    log("Browser: Created with custom options", "info");
     console.table(options);
     browser = await launch(defaultOptions);
   }
+
+  browser.on("targetcreated", () => log("Browser: targetcreated", "info"));
+  browser.on("disconnected", () => log("Browser: disconnected", "info"));
+  browser.on("targetchanged", () => log("Browser: targetchanged", "info"));
+  browser.on("targetdestroyed", () => log("Browser: targetdestroyed", "info"));
 
   return await browser;
 };

@@ -22,7 +22,6 @@ const LOG_TYPES: LogCollection = {
   warning: (message: string) => log(chalk.magenta(`[WARNING] ${message}`)),
   error: (message: string) => {
     log(chalk.red(`[ERROR]   ${message}`));
-    console.trace();
   }
 };
 

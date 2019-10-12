@@ -1,17 +1,14 @@
 import run from "./commands/run";
-import saveScreenshot from "./missions/saveScreenshot";
-import compareScreenshots from "./missions/compareScreenshots";
+import missions from "./missions";
+
 import * as file from "./helpers/file";
 import * as log from "./helpers/log";
-
-const missions = {
-  saveScreenshot,
-  compareScreenshots
-};
+import * as missionHelpers from "./helpers/mission";
 
 const helpers = {
   file,
-  log
+  log,
+  missions: missionHelpers
 };
 
 export { run, missions, helpers };

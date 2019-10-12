@@ -5,6 +5,7 @@ import {
   MissionResult
 } from "../types/carmen";
 import { writeObjectToFile } from "./file";
+import { Browser } from "puppeteer";
 
 const createMissionReport = (
   name: string,
@@ -32,8 +33,8 @@ const createMissionReport = (
 const onMissionSuccess = (name: string, path: string, result: MissionResult) =>
   createMissionReport(name, path, "SUCCESS", result);
 
-const onMissionFailure = (name: string, path: string, { message }: Error) => {
-  switch (message) {
+const onMissionFailure = (name: string, path: string, error: Error) => {
+  switch (error.message) {
     case "Protocol error (Page.navigate): Cannot navigate to invalid URL":
       return createMissionReport(name, path, "FAILURE", {
         result: { error: `Not a valid URL.` },
@@ -41,7 +42,7 @@ const onMissionFailure = (name: string, path: string, { message }: Error) => {
       });
     default:
       return createMissionReport(name, path, "FAILURE", {
-        result: { error: message },
+        result: { error: error.message },
         context: {}
       });
   }
@@ -50,10 +51,10 @@ const onMissionFailure = (name: string, path: string, { message }: Error) => {
 export const createMission = (
   name: string = "Generic Mission",
   path: string = "./reports/Generic",
-  callback: () => Promise<MissionResult>
+  callback: (browser: Browser) => Promise<MissionResult>
 ): Mission => {
-  return (...args) => {
-    return callback(...args)
+  return (browser: Browser, ...args) => {
+    return callback(browser, ...args)
       .then(result => onMissionSuccess(name, path, result))
       .catch(error => onMissionFailure(name, path, error));
   };

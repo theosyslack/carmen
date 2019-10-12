@@ -23,8 +23,7 @@ export const saveScreenshot = (url: string): Mission => {
   return createMission(
     `Save Screenshot (${url})`,
     paths.report,
-    async (): Promise<MissionResult> => {
-      const browser = await getBrowser();
+    async (browser): Promise<MissionResult> => {
       const page = await browser.newPage();
 
       await page.goto(url);

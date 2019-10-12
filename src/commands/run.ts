@@ -28,14 +28,14 @@ const run = async (missions: Mission[]): Promise<MissionReport[]> => {
   const browser = await getBrowser(); // Initialize Browser, so it doesn't get initialized for each mission.
 
   let reports: MissionReport[] = [];
+  log(`Running ${missions.length} missions`);
 
   const queue = missions.reduce(
     async (previousMission, currentMission, currentIndex) => {
       const progress = createProgressString(currentIndex + 1, missions.length);
-
       await previousMission;
 
-      return currentMission().then(report => {
+      return currentMission(browser).then(report => {
         logMissionReport(report, progress);
         reports.push(report);
         return report;

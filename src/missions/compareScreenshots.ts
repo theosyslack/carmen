@@ -35,20 +35,19 @@ export const compareScreenshots = (
   return createMission(
     missionName,
     path,
-    async (): Promise<MissionResult> => {
+    async (browser): Promise<MissionResult> => {
       let first, second: Buffer;
 
       if (hasUrls) {
-        const browser = await getBrowser();
+        const page = await browser.newPage();
         [first, second] = await Promise.all(
           urls.map(async url => {
-            const page = await browser.newPage();
             await page.goto(url);
-            const screenshot = takeScreenshot({ page });
-            page.close();
+            const screenshot = await takeScreenshot({ page });
             return screenshot;
           })
         );
+        await page.close();
       } else if (hasBuffers) {
         [first, second] = buffers;
       }

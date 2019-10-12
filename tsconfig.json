@@ -2,7 +2,7 @@
   "compilerOptions": {
     "module": "commonjs",
     "allowSyntheticDefaultImports": true,
-    "target": "esnext",
+    "target": "es5",
     "declaration": true,
     "noImplicitAny": true,
     "sourceMap": true,

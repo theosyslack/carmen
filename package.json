@@ -1,5 +1,5 @@
 {
-  "name": "@crescendo-collective/carmen",
+  "name": "carmen",
   "version": "2.1.0",
   "description": "Carmen will sneak around a website, finding precious elements and returning them to you.",
   "license": "MIT",

@@ -1,50 +1,21 @@
-import takeScreenshot from "../sleuths/takeScreenshot";
-import getPageDimensions from "../sleuths/getPageDimensions";
-import { getBrowser } from "../state/Browser";
-import { Mission, MissionResult } from "../types/carmen";
-import { writeToNewFile, createFolderPathFromUrl } from "../helpers/file";
+import { Mission } from "../types/carmen";
 import { createMission } from "../helpers/mission";
+import { createFolderPathFromUrl } from "../helpers/file";
+import getPageDimensions from "../sleuths/getPageDimensions";
+import takeScreenshot from "../sleuths/takeScreenshot";
 
-const path = "./reports/Screenshots/";
+const name = "Save Screenshot";
 
-const createPaths = (url: string, name: string) => {
-  const urlPath = createFolderPathFromUrl(url);
-  const report = path + urlPath;
-  const screenshot = report + name + ".png";
+const basePath = "./reports/Screenshots/";
 
-  return {
-    screenshot,
-    report
-  };
-};
-
-export const saveScreenshot = (url: string): Mission => {
-  const paths = createPaths(url, "index");
-  return createMission(
-    `Save Screenshot (${url})`,
-    paths.report,
-    async (browser): Promise<MissionResult> => {
-      const page = await browser.newPage();
-
-      await page.goto(url);
-
-      const viewport = await getPageDimensions({ page });
-      const result = await takeScreenshot({ page })
-        .then(async (screenshot: Buffer) => {
-          await writeToNewFile(paths.screenshot, screenshot);
-          return {
-            result: { data: { viewport, url } },
-            context: { screenshot, url }
-          };
-        })
-        .catch(async (error: Error) => {
-          return { result: { error: error.message } };
-        });
-
-      await page.close();
-      return result;
-    }
-  );
-};
+const saveScreenshot = (url: string) =>
+  createMission({
+    name,
+    url,
+    mission: ({ page, log, report }) => {
+      return report.update({ status: "SUCCESS" });
+    },
+    path: basePath + createFolderPathFromUrl(url)
+  });
 
 export default saveScreenshot;

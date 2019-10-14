@@ -1,4 +1,4 @@
-import { Mission, MissionResult } from "../types/carmen";
+import { MissionReport, Mission, MissionConfig } from "../types/carmen";
 import { createMission } from "../helpers/mission";
 import { createFolderPathFromUrl } from "../helpers/file";
 import { invert } from "ramda";
@@ -8,6 +8,10 @@ import axios from "axios";
 
 const missionName = "Find Broken Links";
 const pathBase = "./reports/FindBrokenLinks/";
+
+interface FindBrokenLinksMissionConfiguration {
+  url: string;
+}
 
 interface StatusCollection {
   [status: string]: string[];
@@ -73,19 +77,19 @@ const checkLinksSequentially = async (
   return invert(result);
 };
 
-export const findBrokenLinks = (url: string): Mission => {
+export const findBrokenLinks = ({
+  url
+}: FindBrokenLinksMissionConfiguration): MissionConfig => {
   const path = pathBase + createFolderPathFromUrl(url);
-  return createMission(
-    missionName,
-    path,
-    async (browser): Promise<MissionResult> => {
-      const page = await browser.newPage();
-      await page.goto(url);
 
+  return {
+    name: missionName,
+    path,
+    url,
+    mission: async ({ browser, log, page, report }) => {
       const links = await getLinks({ page });
       await page.close();
       const linksByStatus = await checkLinksSequentially(links);
-
       const statuses = Object.keys(linksByStatus);
       const counts = statuses.reduce((acc, status) => {
         const count = linksByStatus[status].length;
@@ -93,23 +97,15 @@ export const findBrokenLinks = (url: string): Mission => {
           [status]: count
         });
       }, {});
-
-      const data = {
+      const payload = {
         statuses,
         counts,
         ...linksByStatus
       };
 
-      return {
-        result: {
-          data
-        },
-        context: {
-          url
-        }
-      };
+      return { status: "SUCCESS", payload } as MissionReport;
     }
-  );
+  };
 };
 
 export default findBrokenLinks;

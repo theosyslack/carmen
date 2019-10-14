@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
+    "importHelpers": true,
+    "removeComments": true,
     "module": "commonjs",
+    "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
     "target": "es5",
     "declaration": true,

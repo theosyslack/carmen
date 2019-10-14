@@ -17,11 +17,15 @@ const establishBrowserEvents = (browser: Browser) => {
 };
 
 export const getBrowser = async (options?: LaunchOptions): Promise<Browser> => {
-  if (!isBrowserAvailable() && isUndefined(options)) {
+  const shouldMakeNewBrowser = !isBrowserAvailable() && isUndefined(options);
+  const shouldMakeNewBrowserWithCustomOptions =
+    !isBrowserAvailable() && !isUndefined(options);
+
+  if (shouldMakeNewBrowser) {
     log("Browser: Created With Default Options", "info");
     browser = await launch(defaultOptions);
     establishBrowserEvents(browser);
-  } else if (!isBrowserAvailable()) {
+  } else if (shouldMakeNewBrowserWithCustomOptions) {
     log("Browser: Created with custom options", "info");
     console.table(options);
     browser = await launch(defaultOptions);

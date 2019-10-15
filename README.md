@@ -12,7 +12,7 @@ Carmen will sneak around the web and run scripts for you.
 ### **Save A Screenshot**
 
 ```js
-const carmen = require("theosyslack/carmen");
+const carmen = require("@theosyslack/carmen");
 
 const { saveScreenshot } = carmen.missions;
 
@@ -22,7 +22,7 @@ carmen.run([saveScreenshot({ url: "http://example.com" })]);
 ### Compare Two Screenshots
 
 ```js
-const carmen = require("theosyslack/carmen");
+const carmen = require("@theosyslack/carmen");
 
 const { compareScreenshots } = carmen.missions;
 
@@ -39,7 +39,7 @@ carmen.run([
 ### Create A Custom Mission
 
 ```js
-const carmen = require("theosyslack/carmen");
+const carmen = require("@theosyslack/carmen");
 
 const customMission = {
   name: "Custom Mission",

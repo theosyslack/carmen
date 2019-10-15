@@ -1,8 +1,15 @@
-import { join as joinPath, resolve as resolvePath, parse } from "path";
+import {
+  join as joinPath,
+  resolve as resolvePath,
+  parse,
+  ParsedPath
+} from "path";
 import { promisify } from "util";
 import { curry } from "ramda";
 import * as fs from "fs";
 import log from "./log";
+import { FileConnection } from "../types/carmen";
+import { createBlankReport } from "./report";
 
 const DEFAULT_REPORT_PATH = `${Date.now().toString()}.json`;
 
@@ -33,11 +40,14 @@ export const writeObjectToFile = curry(
   }
 );
 
-export const createFolderForFile = async (filePath: string) => {
-  let { dir } = parse(filePath);
-  if (!dir) dir = filePath;
+export const createFolderForFile = async (
+  filePath: string
+): Promise<ParsedPath> => {
+  const parsedPath = parse(filePath);
+  let { dir, ext } = parsedPath;
+  if (!ext) dir = filePath;
 
-  return await mkdir(dir, { recursive: true }).catch(({ code }) => {
+  await mkdir(dir, { recursive: true }).catch(({ code }) => {
     if (code === "EEXIST") {
       log(`${dir} already exists.`, "error");
       return;
@@ -48,6 +58,8 @@ export const createFolderForFile = async (filePath: string) => {
       return;
     }
   });
+
+  return parsedPath;
 };
 
 export const writeReport = async (
@@ -89,7 +101,7 @@ export const getContents = async (path: string) => {
   return await read(fullPath, { encoding: "utf-8" });
 };
 
-export const getContentsAsObject = async (path: string) =>
+export const getContentsAsObject = async <T>(path: string): Promise<T> =>
   JSON.parse(await getContents(path));
 
 export const exists = async (path: string) => {
@@ -100,6 +112,7 @@ export const exists = async (path: string) => {
     });
 };
 
+export const stat = promisify(fs.stat);
 export const access = promisify(fs.access);
 export const mkdir = promisify(fs.mkdir);
 export const read = promisify(fs.readFile);
@@ -108,4 +121,40 @@ export const sanitize = (string: string) => {
   const regex = /[<>:"\/\\|?*\x00-\x1F]/g;
   return string.replace(regex, "-");
   //TODO: Write a sanitize function to make filename safe
+};
+
+const isFile = (path: string) => {
+  const { ext } = parse(path);
+  return ext !== "";
+};
+
+export const openFileConnection = async <T>(
+  path: string
+): Promise<FileConnection<T>> => {
+  if (!isFile(path)) {
+    path = path + "report.json";
+  }
+
+  if (!(await exists(path))) {
+    await writeToNewFile(path, "{}");
+  }
+
+  const { dir, name } = await parse(path);
+
+  return {
+    path,
+    dir,
+    name,
+    exists: () => exists(path),
+    read: () => getContentsAsObject(path),
+    update: async update => {
+      log(`${path} | Updating`, "pending");
+      const timestamp = new Date();
+      const content: T = await getContentsAsObject(path);
+      const updated = Object.assign({}, content, { ...update, timestamp });
+      await writeObjectToFile(path, updated);
+      return updated;
+    },
+    create: (name: string, data: object) => write(dir + name, data)
+  };
 };

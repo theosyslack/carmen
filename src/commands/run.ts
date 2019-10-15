@@ -1,22 +1,34 @@
-import { Mission, MissionReport } from "../types/carmen";
+import {
+  Mission,
+  MissionReport,
+  Reportable,
+  Runnable,
+  RunnableMission,
+  MissionConfig
+} from "../types/carmen";
 import { getBrowser } from "../state/Browser";
 import log from "../helpers/log";
+import { createBlankReport } from "../helpers/report";
+import { createMission } from "../helpers/mission";
 
-const logMissionReport = (report: MissionReport | null, progress: string) => {
-  if (report === null) return;
-  const { status, name, result } = report;
+// const logMissionReport = (
+//   report: MissionReport | null,
+//   progress: string
+// ) => {
+//   if (report === null) return;
+//   const { status, name, result } = report;
 
-  switch (status) {
-    case "FAILURE":
-      log(`${progress} ${name}: ${result.error}`, "error");
-      break;
-    case "SUCCESS":
-      log(`${progress} ${name}. `, "success");
-      break;
-    default:
-      break;
-  }
-};
+//   switch (status) {
+//     case "FAILURE":
+//       log(`${progress} ${name}: ${result.error}`, "error");
+//       break;
+//     case "SUCCESS":
+//       log(`${progress} ${name}. `, "success");
+//       break;
+//     default:
+//       break;
+//   }
+// };
 
 const createProgressString = (count: number, total: number) => {
   const totalString = total.toString();
@@ -24,31 +36,43 @@ const createProgressString = (count: number, total: number) => {
   return `[${countString}/${totalString}]`;
 };
 
-const run = async (missions: Mission[]): Promise<MissionReport[]> => {
-  const browser = await getBrowser(); // Initialize Browser, so it doesn't get initialized for each mission.
+const EmptyRunnableMission: RunnableMission = async () =>
+  await createBlankReport();
 
-  let reports: MissionReport[] = [];
-  log(`Running ${missions.length} missions`);
+const run = async (configs: MissionConfig[]) => {
+  try {
+    const browser = await getBrowser();
 
-  const queue = missions.reduce(
-    async (previousMission, currentMission, currentIndex) => {
-      const progress = createProgressString(currentIndex + 1, missions.length);
-      await previousMission;
+    let reports: MissionReport[] = [];
+    let count = 0;
+    log(`Running ${configs.length} missions`, "info");
 
-      return currentMission(browser).then(report => {
-        logMissionReport(report, progress);
-        reports.push(report);
-        return report;
-      });
-    },
-    Promise.resolve(null)
-  );
+    for (const config of configs) {
+      ++count;
+      const logString = `Mission #${count} ${config.name} ${
+        config.url ? `(${config.url})` : ""
+      }`;
+      const mission = await createMission(config);
+      log(logString, "pending");
+      const report = await mission();
 
-  await queue;
+      if (report.status === "SUCCESS") {
+        log(logString, "success");
+      } else {
+        log(logString, "error");
+      }
+      reports.push(report);
+    }
 
-  await browser.close();
-
-  return reports;
+    await browser.close();
+    log(`Completed All Missions.`, "success");
+    return reports;
+  } catch (e) {
+    console.error(e);
+    log("Failed. Aww shoot.", "error");
+    process.exit(1);
+  }
+  process.exit(1);
 };
 
 export default run;

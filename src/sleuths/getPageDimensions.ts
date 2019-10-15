@@ -1,13 +1,13 @@
 import { Viewport } from "puppeteer";
-import { SleuthConfig } from "../types/carmen";
+import { Sleuth } from "../types/carmen";
 
-async function getPageDimensions({ page }: SleuthConfig): Promise<Viewport> {
+const getPageDimensions: Sleuth<Viewport> = async ({ page }) => {
   return await page.evaluate(() => {
     return {
       height: document.body.clientHeight,
       width: document.body.clientWidth
     };
   });
-}
+};
 
 export default getPageDimensions;

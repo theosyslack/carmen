@@ -1,5 +1,5 @@
 import * as puppeteer from "puppeteer";
-import { SleuthConfig } from "../types/carmen";
+import { SleuthConfig, Sleuth } from "../types/carmen";
 
 interface TakeScreenshotConfig extends SleuthConfig {
   viewport?: puppeteer.Viewport;
@@ -11,16 +11,16 @@ const defaultViewpoint = {
   height: 1080
 };
 
-async function takeScreenshot({
+const takeScreenshot: Sleuth<Buffer> = async ({
   page,
   viewport = defaultViewpoint,
   fullPage = true
-}: TakeScreenshotConfig) {
+}: TakeScreenshotConfig) => {
   await page.setViewport(viewport);
 
   return await page.screenshot({
     fullPage
   });
-}
+};
 
 export default takeScreenshot;

@@ -1,9 +1,15 @@
 const carmen = require("../dist/index");
-const links = require("./compare.json");
 
 const { saveScreenshot, compareScreenshots } = carmen.missions;
 
-const plan = [compareScreenshots("example-comparison", { urls: links })];
+const plan = [
+  compareScreenshots({
+    urls: [
+      "https://github.com/theosyslack/carmen",
+      "https://github.com/GoogleChrome/puppeteer"
+    ]
+  })
+];
 
 (async () => {
   const results = await carmen.run(plan);

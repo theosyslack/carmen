@@ -1,21 +1,33 @@
-import { Mission } from "../types/carmen";
-import { createMission } from "../helpers/mission";
+import { MissionPayload, MissionConfig } from "../types/carmen";
 import { createFolderPathFromUrl } from "../helpers/file";
-import getPageDimensions from "../sleuths/getPageDimensions";
+
 import takeScreenshot from "../sleuths/takeScreenshot";
 
 const name = "Save Screenshot";
-
 const basePath = "./reports/Screenshots/";
+export interface SaveScreenshotConfiguration {
+  url: string;
+}
 
-const saveScreenshot = (url: string) =>
-  createMission({
+const saveScreenshot = ({
+  url
+}: SaveScreenshotConfiguration): MissionConfig => {
+  const path = basePath + createFolderPathFromUrl(url);
+  return {
     name,
     url,
-    mission: ({ page, log, report }) => {
-      return report.update({ status: "SUCCESS" });
-    },
-    path: basePath + createFolderPathFromUrl(url)
-  });
+    path,
+    mission: async ({ page, log, report }: MissionPayload) => {
+      const screenshot = await takeScreenshot({ page });
+      await report.create("/screenshot.png", screenshot);
+      return report.update({
+        status: "SUCCESS",
+        payload: {
+          url
+        }
+      });
+    }
+  };
+};
 
 export default saveScreenshot;

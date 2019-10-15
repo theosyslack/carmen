@@ -44,8 +44,8 @@ export const createFolderForFile = async (
   filePath: string
 ): Promise<ParsedPath> => {
   const parsedPath = parse(filePath);
-  let { dir } = parsedPath;
-  if (!dir) dir = filePath;
+  let { dir, ext } = parsedPath;
+  if (!ext) dir = filePath;
 
   await mkdir(dir, { recursive: true }).catch(({ code }) => {
     if (code === "EEXIST") {
@@ -112,6 +112,7 @@ export const exists = async (path: string) => {
     });
 };
 
+export const stat = promisify(fs.stat);
 export const access = promisify(fs.access);
 export const mkdir = promisify(fs.mkdir);
 export const read = promisify(fs.readFile);
@@ -122,10 +123,23 @@ export const sanitize = (string: string) => {
   //TODO: Write a sanitize function to make filename safe
 };
 
+const isFile = (path: string) => {
+  const { ext } = parse(path);
+  return ext !== "";
+};
+
 export const openFileConnection = async <T>(
   path: string
 ): Promise<FileConnection<T>> => {
-  const { dir, name } = await createFolderForFile(path);
+  if (!isFile(path)) {
+    path = path + "report.json";
+  }
+
+  if (!(await exists(path))) {
+    await writeToNewFile(path, "{}");
+  }
+
+  const { dir, name } = await parse(path);
 
   return {
     path,
@@ -135,8 +149,8 @@ export const openFileConnection = async <T>(
     read: () => getContentsAsObject(path),
     update: async update => {
       log(`${path} | Updating`, "pending");
-      const content: T = await getContentsAsObject(path);
       const timestamp = new Date();
+      const content: T = await getContentsAsObject(path);
       const updated = Object.assign({}, content, { ...update, timestamp });
       await writeObjectToFile(path, updated);
       return updated;

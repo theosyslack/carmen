@@ -1,5 +1,4 @@
 const carmen = require("../dist/index");
-const links = require("./screenshot.json");
 
 const { BasicMission } = carmen.missions;
 

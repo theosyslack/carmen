@@ -43,6 +43,8 @@ const constructMission = async (
     log
   };
 
+  report.update({ config });
+
   return () => {
     return config.mission(Object.assign(payload));
   };

@@ -23,7 +23,9 @@ export interface FileConnection<T> {
 interface Reportable<T> {
   timestamp: Date;
   status: T;
+  config: MissionConfig;
   payload?: object;
+  context?: object;
   error?: Error;
 }
 
@@ -33,7 +35,6 @@ interface Reportable<T> {
 //
 // ////////
 export type Mission = (payload: MissionPayload) => Promise<MissionReport>;
-// Promise<Reportable<MissionReportStatus>>
 export type RunnableMission = Runnable<Promise<MissionReport>>;
 export type MissionReport = Reportable<MissionReportStatus>;
 export type MissionCreator = Creator<MissionConfig, Promise<Mission>>;

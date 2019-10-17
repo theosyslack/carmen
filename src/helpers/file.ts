@@ -9,7 +9,7 @@ import { curry } from "ramda";
 import * as fs from "fs";
 import log from "./log";
 import { FileConnection } from "../types/carmen";
-import { createBlankReport } from "./report";
+import { mergeDeepRight } from "ramda";
 
 const DEFAULT_REPORT_PATH = `${Date.now().toString()}.json`;
 
@@ -131,10 +131,6 @@ const isFile = (path: string) => {
 export const openFileConnection = async <T>(
   path: string
 ): Promise<FileConnection<T>> => {
-  if (!path.endsWith("/")) {
-    path = path + "/";
-  }
-
   if (!isFile(path)) {
     path = path + "report.json";
   }
@@ -152,13 +148,12 @@ export const openFileConnection = async <T>(
     exists: () => exists(path),
     read: () => getContentsAsObject(path),
     update: async update => {
-      log(`${path} | Updating`, "pending");
       const timestamp = new Date();
       const content: T = await getContentsAsObject(path);
-      const updated = Object.assign({}, content, { ...update, timestamp });
+      const updated = mergeDeepRight(content, { ...update, timestamp });
       await writeObjectToFile(path, updated);
       return updated;
     },
-    create: (name: string, data: object) => write(dir + name, data)
+    create: (name: string, data: object) => write(dir + "/" + name, data)
   };
 };

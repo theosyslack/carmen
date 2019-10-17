@@ -1,4 +1,4 @@
-import { MissionReport, Mission, MissionConfig } from "../types/carmen";
+import { MissionReport, MissionConfig, FileConnection } from "../types/carmen";
 import { createMission } from "../helpers/mission";
 import { createFolderPathFromUrl } from "../helpers/file";
 import { invert } from "ramda";
@@ -62,9 +62,12 @@ const getStatusForLink = async (link: string): Promise<string> => {
 };
 
 const checkLinksSequentially = async (
-  links: string[]
+  links: string[],
+  report: FileConnection<MissionReport>
 ): Promise<StatusCollection> => {
   let result = {};
+
+  await report.update({ payload: { all: links } });
 
   for (const link of links) {
     const status = await getStatusForLink(link);
@@ -73,6 +76,8 @@ const checkLinksSequentially = async (
       [link]: status
     });
   }
+
+  await report.update({ payload: invert(result) });
 
   return invert(result);
 };
@@ -89,7 +94,7 @@ export const findBrokenLinks = ({
     mission: async ({ browser, log, page, report }) => {
       const links = await getLinks({ page });
       await page.close();
-      const linksByStatus = await checkLinksSequentially(links);
+      const linksByStatus = await checkLinksSequentially(links, report);
       const statuses = Object.keys(linksByStatus);
       const counts = statuses.reduce((acc, status) => {
         const count = linksByStatus[status].length;
@@ -103,7 +108,7 @@ export const findBrokenLinks = ({
         ...linksByStatus
       };
 
-      return { status: "SUCCESS", payload } as MissionReport;
+      return report.update({ status: "SUCCESS", payload });
     }
   };
 };

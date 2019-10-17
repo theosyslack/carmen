@@ -49,7 +49,8 @@ const run = async (configs: MissionConfig[]) => {
 
     for (const config of configs) {
       ++count;
-      const logString = `Mission #${count} ${config.name} ${
+      console.clear();
+      const logString = `Mission #${count}/${configs.length} ${config.name} ${
         config.url ? `(${config.url})` : ""
       }`;
       const mission = await createMission(config);

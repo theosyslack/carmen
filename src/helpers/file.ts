@@ -131,7 +131,7 @@ const isFile = (path: string) => {
 export const openFileConnection = async <T>(
   path: string
 ): Promise<FileConnection<T>> => {
-  if (!path.endsWith('/')) {
+  if (!path.endsWith("/")) {
     path = path + "/";
   }
 

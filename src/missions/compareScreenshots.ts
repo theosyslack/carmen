@@ -60,9 +60,9 @@ export const compareScreenshots = ({
         analysisTime
       } = comparison;
 
-      await writeToNewFile(path + "diff.png", diffImage);
-      await writeToNewFile(path + "first.png", first);
-      await writeToNewFile(path + "second.png", second);
+      await writeToNewFile(path + "/diff.png", diffImage);
+      await writeToNewFile(path + "/first.png", first);
+      await writeToNewFile(path + "/second.png", second);
 
       const data = {
         hasBuffers,

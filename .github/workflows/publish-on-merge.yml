@@ -1,4 +1,4 @@
-name: Node.js Package
+name: Publish Package on Merge To Master
 
 on:
   push:
@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org/
-      - run: npm publish
+      - run: yarn publish --patch
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
 
@@ -38,6 +38,6 @@ jobs:
           node-version: 12
           registry-url: https://npm.pkg.github.com/
           scope: '@theosyslack'
-      - run: npm publish
+      - run: yarn publish --patch
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}

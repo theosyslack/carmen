@@ -24,6 +24,7 @@ jobs:
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org/
+      - run: yarn
       - run: yarn publish --patch
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
@@ -38,6 +39,8 @@ jobs:
           node-version: 12
           registry-url: https://npm.pkg.github.com/
           scope: '@theosyslack'
+      - run: yarn
       - run: yarn publish --patch
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+  

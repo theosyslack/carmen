@@ -1,16 +1,9 @@
-import {
-  Mission,
-  MissionReport,
-  Reportable,
-  Runnable,
-  RunnableMission,
-  MissionConfig
-} from "../types/carmen";
 import { getBrowser } from "../state/Browser";
 import log from "../helpers/log";
 import { createBlankReport } from "../helpers/report";
 import { createMission } from "../helpers/mission";
-import { LaunchOptions, launch } from "puppeteer";
+import { LaunchOptions } from "puppeteer";
+import { RunnableMission, MissionConfig, MissionReport } from "../types/carmen";
 
 export interface RunOptions {
   launchOptions: LaunchOptions;

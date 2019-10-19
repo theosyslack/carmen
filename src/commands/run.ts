@@ -44,12 +44,9 @@ const createProgressString = (count: number, total: number) => {
 const EmptyRunnableMission: RunnableMission = async () =>
   await createBlankReport();
 
-const run = async (
-  configs: MissionConfig[],
-  { launchOptions = {} }: RunOptions
-) => {
+const run = async (configs: MissionConfig[], options?: RunOptions) => {
   try {
-    const browser = await getBrowser(launchOptions);
+    const browser = await getBrowser(options.launchOptions);
 
     let reports: MissionReport[] = [];
     let count = 0;

@@ -10,6 +10,11 @@ import { getBrowser } from "../state/Browser";
 import log from "../helpers/log";
 import { createBlankReport } from "../helpers/report";
 import { createMission } from "../helpers/mission";
+import { LaunchOptions, launch } from "puppeteer";
+
+export interface RunOptions {
+  launchOptions: LaunchOptions;
+}
 
 // const logMissionReport = (
 //   report: MissionReport | null,
@@ -39,9 +44,12 @@ const createProgressString = (count: number, total: number) => {
 const EmptyRunnableMission: RunnableMission = async () =>
   await createBlankReport();
 
-const run = async (configs: MissionConfig[]) => {
+const run = async (
+  configs: MissionConfig[],
+  { launchOptions = {} }: RunOptions
+) => {
   try {
-    const browser = await getBrowser();
+    const browser = await getBrowser(launchOptions);
 
     let reports: MissionReport[] = [];
     let count = 0;

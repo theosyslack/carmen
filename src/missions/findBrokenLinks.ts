@@ -1,4 +1,4 @@
-import { Mission, MissionResult } from "../types/carmen";
+import { MissionReport, MissionConfig, FileConnection } from "../types/carmen";
 import { createMission } from "../helpers/mission";
 import { createFolderPathFromUrl } from "../helpers/file";
 import { invert } from "ramda";
@@ -8,6 +8,10 @@ import axios from "axios";
 
 const missionName = "Find Broken Links";
 const pathBase = "./reports/FindBrokenLinks/";
+
+interface FindBrokenLinksMissionConfiguration {
+  url: string;
+}
 
 interface StatusCollection {
   [status: string]: string[];
@@ -58,9 +62,12 @@ const getStatusForLink = async (link: string): Promise<string> => {
 };
 
 const checkLinksSequentially = async (
-  links: string[]
+  links: string[],
+  report: FileConnection<MissionReport>
 ): Promise<StatusCollection> => {
   let result = {};
+
+  await report.update({ payload: { all: links } });
 
   for (const link of links) {
     const status = await getStatusForLink(link);
@@ -70,22 +77,24 @@ const checkLinksSequentially = async (
     });
   }
 
+  await report.update({ payload: invert(result) });
+
   return invert(result);
 };
 
-export const findBrokenLinks = (url: string): Mission => {
+export const findBrokenLinks = ({
+  url
+}: FindBrokenLinksMissionConfiguration): MissionConfig => {
   const path = pathBase + createFolderPathFromUrl(url);
-  return createMission(
-    missionName,
-    path,
-    async (browser): Promise<MissionResult> => {
-      const page = await browser.newPage();
-      await page.goto(url);
 
+  return {
+    name: missionName,
+    path,
+    url,
+    mission: async ({ browser, log, page, report }) => {
       const links = await getLinks({ page });
       await page.close();
-      const linksByStatus = await checkLinksSequentially(links);
-
+      const linksByStatus = await checkLinksSequentially(links, report);
       const statuses = Object.keys(linksByStatus);
       const counts = statuses.reduce((acc, status) => {
         const count = linksByStatus[status].length;
@@ -93,23 +102,15 @@ export const findBrokenLinks = (url: string): Mission => {
           [status]: count
         });
       }, {});
-
-      const data = {
+      const payload = {
         statuses,
         counts,
         ...linksByStatus
       };
 
-      return {
-        result: {
-          data
-        },
-        context: {
-          url
-        }
-      };
+      return report.update({ status: "SUCCESS", payload });
     }
-  );
+  };
 };
 
 export default findBrokenLinks;

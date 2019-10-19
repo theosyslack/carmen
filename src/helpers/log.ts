@@ -1,5 +1,5 @@
 import chalk from "chalk";
-type LogType =
+export type LogType =
   | "default"
   | "table"
   | "success"
@@ -7,27 +7,31 @@ type LogType =
   | "error"
   | "info"
   | "warning";
-type Logger = (message: string | object) => void;
-type LogCollection = {
+export type Logger = (message: string) => void;
+export type LoggerWithType = (message: string, type?: LogType) => void;
+export type LogCollection = {
   [type in LogType]: Logger;
 };
 const { log, table, clear } = console;
 
 const LOG_TYPES: LogCollection = {
-  default: (message: string) => log(chalk.blue(message)),
-  info: (message: string) => log(chalk.blue(`[INFO]    ${message}`)),
-  table: (message: object) => table(message),
-  success: (message: string) => log(chalk.green(`[SUCCESS] ${message}`)),
-  pending: (message: string) => log(chalk.yellow(`[PENDING] ${message}`)),
-  warning: (message: string) => log(chalk.magenta(`[WARNING] ${message}`)),
-  error: (message: string) => {
+  default: message => log(chalk.blue(message)),
+  info: message => log(chalk.blue(`[INFO]    ${message}`)),
+  table: message => table(message),
+  success: message => log(chalk.green(`[SUCCESS] ${message}`)),
+  pending: message => log(chalk.yellow(`[PENDING] ${message}`)),
+  warning: message => log(chalk.magenta(`[WARNING] ${message}`)),
+  error: message => {
     log(chalk.red(`[ERROR]   ${message}`));
   }
 };
 
 export { clear };
 
-export default (message: string, type?: LogType) => {
+export const logWithType: LoggerWithType = (
+  message: string,
+  type?: LogType
+): void => {
   if (!type) {
     log(message);
   } else {
@@ -38,32 +42,4 @@ export default (message: string, type?: LogType) => {
   }
 };
 
-export const globe = () => {
-  log(chalk.red.bold`
-
-               _-o#&&*''''?d:>b\_
-          _o/"\`''  '',, dMF9MMMMMHo_
-       .o&#'        \`"MbHMMMMMMMMMMMHo.
-     .o"" '         vodM*$&&HMMMMMMMMMM?.
-    ,'              $M&ood,~'\`(&##MMMMMMHH
-   /               ,MMMMMMM#b?#bobMMMMHMMML
-  &              ?MMMMMMMMMMMMMMMMM7MMM$R*Hk
- ?$.            :MMMMMMMMMMMMMMMMMMM/HMMM|\`*L
-|               |MMMMMMMMMMMMMMMMMMMMbMH'   T,
-$H#:            \`*MMMMMMMMMMMMMMMMMMMMb#}'  \`?
-]MMH#             ""*""""*#MMMMMMMMMMMMM'    -
-MMMMMb_                   |MMMMMMMMMMMP'     :
-HMMMMMMMHo                 \`MMMMMMMMMT       .
-?MMMMMMMMP                  9MMMMMMMM}       -
--?MMMMMMM                  |MMMMMMMMM?,d-    '
- :|MMMMMM-                 \`MMMMMMMT .M|.   :
-  .9MMM[                    &MMMMM*' \`'    .
-   :9MMk                    \`MMM#"        -
-     &M}                     \`          .-
-      \`&.                             .
-        \`~,   .                     ./
-            . _                  .-
-              '\`--._,dd###pp=""'
-
-  `);
-};
+export default logWithType;

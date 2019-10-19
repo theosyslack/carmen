@@ -1,7 +1,7 @@
-import { SleuthConfig } from "../types/carmen";
+import { Sleuth } from "../types/carmen";
 import { uniq } from "ramda";
 
-async function getLinks({ page }: SleuthConfig) {
+const getLinks: Sleuth<string[]> = async ({ page }) => {
   const LOCAL_URLS_SELECTOR = "a";
 
   const links = await page.$$eval(
@@ -10,6 +10,6 @@ async function getLinks({ page }: SleuthConfig) {
   );
 
   return uniq(links.filter(link => link !== ""));
-}
+};
 
 export default getLinks;

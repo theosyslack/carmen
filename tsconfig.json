@@ -1,12 +1,16 @@
 {
   "compilerOptions": {
+    "importHelpers": true,
+    "removeComments": true,
     "module": "commonjs",
+    "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
     "target": "es5",
     "declaration": true,
     "noImplicitAny": true,
     "sourceMap": true,
     "outDir": "./dist",
+    "typeRoots": ["src/types/"],
     "lib": ["dom", "esnext"]
   },
   "compileOnSave": true,

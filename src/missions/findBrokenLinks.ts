@@ -92,7 +92,12 @@ export const findBrokenLinks = ({
     path,
     url,
     mission: async ({ browser, log, page, report }) => {
-      const links = await getLinks({ page });
+      const allLinks = await getLinks({ page });
+      const links = allLinks.filter(link => {
+        const isEmail = link.startsWith("mailto:");
+        const isJavascript = link.startsWith("javascript:");
+        return !isEmail && !isJavascript;
+      });
       await page.close();
       const linksByStatus = await checkLinksSequentially(links, report);
       const statuses = Object.keys(linksByStatus);

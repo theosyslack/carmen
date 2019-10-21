@@ -1,15 +1,13 @@
-import {
-  Mission,
-  MissionReport,
-  Reportable,
-  Runnable,
-  RunnableMission,
-  MissionConfig
-} from "../types/carmen";
 import { getBrowser } from "../state/Browser";
 import log from "../helpers/log";
 import { createBlankReport } from "../helpers/report";
 import { createMission } from "../helpers/mission";
+import { LaunchOptions } from "puppeteer";
+import { RunnableMission, MissionConfig, MissionReport } from "../types/carmen";
+
+export interface RunOptions {
+  launchOptions: LaunchOptions;
+}
 
 // const logMissionReport = (
 //   report: MissionReport | null,
@@ -39,9 +37,9 @@ const createProgressString = (count: number, total: number) => {
 const EmptyRunnableMission: RunnableMission = async () =>
   await createBlankReport();
 
-const run = async (configs: MissionConfig[]) => {
+const run = async (configs: MissionConfig[], options?: RunOptions) => {
   try {
-    const browser = await getBrowser();
+    const browser = await getBrowser(options.launchOptions);
 
     let reports: MissionReport[] = [];
     let count = 0;

@@ -5,7 +5,6 @@ import {
   ParsedPath
 } from "path";
 import { promisify } from "util";
-import { curry } from "ramda";
 import * as fs from "fs";
 import log from "./log";
 import { FileConnection } from "../types/carmen";
@@ -28,17 +27,18 @@ export const writeToNewFile = async (
   });
 };
 
-export const writeObjectToFile = curry(
-  async (filePath: string = DEFAULT_REPORT_PATH, object: object) => {
-    const resolvedPath = resolvePath(process.cwd(), filePath);
+export const writeObjectToFile = async (
+  filePath: string = DEFAULT_REPORT_PATH,
+  object: object
+) => {
+  const resolvedPath = resolvePath(process.cwd(), filePath);
 
-    const file = await writeToNewFile(
-      resolvedPath,
-      JSON.stringify(object, null, 2)
-    );
-    return file;
-  }
-);
+  const file = await writeToNewFile(
+    resolvedPath,
+    JSON.stringify(object, null, 2)
+  );
+  return file;
+};
 
 export const createFolderForFile = async (
   filePath: string

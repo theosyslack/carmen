@@ -88,7 +88,7 @@ export const createReportWriter = (
 export const createFolderPathFromUrl = (url: string) => {
   const [urlWithoutParams] = url.split("?");
   const cleanUrl = urlWithoutParams
-    .replace(".", "/")
+    .replace(/\.*/g, "/")
     .replace("http://", "")
     .replace("https://", "");
   return joinPath(cleanUrl, "/");

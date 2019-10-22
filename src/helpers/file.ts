@@ -86,12 +86,11 @@ export const createReportWriter = (
 ) => (content: object) => writeReport(reportType, content, filePath);
 
 export const createFolderPathFromUrl = (url: string) => {
-  const [urlWithoutParams] = url.split("?");
-  const cleanUrl = urlWithoutParams
-    .replace(/\.*/g, "/")
-    .replace("http://", "")
-    .replace("https://", "");
-  return joinPath(cleanUrl, "/");
+  const { hostname, pathname, ...rest } = new URL(url);
+  const [host, tld] = hostname.split(".");
+  const test = host + "/" + tld + "/" + pathname + "/";
+  const joined = joinPath(test);
+  return joined;
 };
 
 ////////////
@@ -119,26 +118,25 @@ export const mkdir = promisify(fs.mkdir);
 export const read = promisify(fs.readFile);
 export const write = promisify(fs.writeFile);
 export const sanitize = (string: string) => {
-  const regex = /[<>:"\/\\|?*\x00-\x1F]/g;
+  const regex = /^[A-Za-z0-9]+/g;
   return string.replace(regex, "-");
   //TODO: Write a sanitize function to make filename safe
-};
-
-const isFile = (path: string) => {
-  const { ext } = parse(path);
-  return ext !== "";
 };
 
 export const openFileConnection = async <T>(
   path: string
 ): Promise<FileConnection<T>> => {
-  if (!isFile(path)) {
+  if (path.endsWith("/")) {
     path = path + "report.json";
   }
+  console.log(path);
+  await createFolderForFile(path);
 
   if (!(await exists(path))) {
     await writeToNewFile(path, "{}");
   }
+
+  writeToNewFile;
 
   const { dir, name } = await parse(path);
 

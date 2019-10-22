@@ -5,6 +5,7 @@
     "module": "commonjs",
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
     "target": "es5",
     "declaration": true,
     "noImplicitAny": true,
@@ -14,7 +15,7 @@
     "lib": ["dom", "esnext"]
   },
   "compileOnSave": true,
-  "include": ["./src/**/*"],
+  "include": ["./src/**/*", "./package.json"],
   "exclude": ["node_modules"],
   "typeAcquisition": { "enable": true }
 }

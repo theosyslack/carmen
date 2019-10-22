@@ -1,6 +1,6 @@
 {
   "name": "@theosyslack/carmen",
-  "version": "2.8.15",
+  "version": "2.8.16",
   "description": "Carmen will sneak around a website, finding precious elements and returning them to you.",
   "license": "MIT",
   "type": "module",
@@ -33,7 +33,7 @@
   },
   "author": "Theo Syslack",
   "homepage": "https://github.com/theosyslack/carmen",
-  "main": "./src/index.js",
+  "main": "./dist/index.js",
   "keywords": [
     "puppeeteer",
     "integration testing",

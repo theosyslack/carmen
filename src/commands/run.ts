@@ -9,25 +9,6 @@ export interface RunOptions {
   launchOptions?: LaunchOptions;
 }
 
-// const logMissionReport = (
-//   report: MissionReport | null,
-//   progress: string
-// ) => {
-//   if (report === null) return;
-//   const { status, name, result } = report;
-
-//   switch (status) {
-//     case "FAILURE":
-//       log(`${progress} ${name}: ${result.error}`, "error");
-//       break;
-//     case "SUCCESS":
-//       log(`${progress} ${name}. `, "success");
-//       break;
-//     default:
-//       break;
-//   }
-// };
-
 const createProgressString = (count: number, total: number) => {
   const totalString = total.toString();
   const countString = count.toString().padStart(totalString.length, " ");

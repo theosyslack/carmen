@@ -23,6 +23,7 @@
   "scripts": {
     "install": "tsc",
     "build": "tsc",
+    "prepublish": "tsc",
     "start": "tsc -w",
     "test": "node --inspect ./examples/compare.js"
   },

@@ -46,6 +46,13 @@ const constructMission = async (
   report.update({ config });
 
   return () => {
-    return config.mission(Object.assign(payload));
+    return config.mission(Object.assign(payload)).catch(error => {
+      return report.update({
+        status: 'FAILURE',
+        payload: {
+          error
+        }
+      })
+    });
   };
 };

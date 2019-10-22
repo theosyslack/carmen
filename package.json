@@ -1,6 +1,6 @@
 {
   "name": "@theosyslack/carmen",
-  "version": "2.8.17",
+  "version": "2.8.18",
   "description": "Carmen will sneak around a website, finding precious elements and returning them to you.",
   "license": "MIT",
   "type": "module",

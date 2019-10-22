@@ -22,3 +22,4 @@ jobs:
       - run: yarn publish --patch
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+      - run: git commit -m "Patch"

@@ -18,8 +18,7 @@ jobs:
           scope: '@theosyslack'
       - run: git config --global user.name "${{ secrets.GIT_CONFIG_NAME }}"
       - run: git config --global user.email "${{ secrets.GIT_CONFIG_EMAIL }}"
-      - run: npm install
-      - run: npm version patch
-      - run: npm publish
+      - run: yarn
+      - run: yarn publish --patch                                                                                                                                                                                [11:27:33]
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}

@@ -6,7 +6,7 @@ import { LaunchOptions } from "puppeteer";
 import { RunnableMission, MissionConfig, MissionReport } from "../types/carmen";
 
 export interface RunOptions {
-  launchOptions: LaunchOptions;
+  launchOptions?: LaunchOptions;
 }
 
 // const logMissionReport = (
@@ -37,7 +37,7 @@ const createProgressString = (count: number, total: number) => {
 const EmptyRunnableMission: RunnableMission = async () =>
   await createBlankReport();
 
-const run = async (configs: MissionConfig[], options?: RunOptions) => {
+const run = async (configs: MissionConfig[], options: RunOptions = {}) => {
   try {
     const browser = await getBrowser(options.launchOptions);
 

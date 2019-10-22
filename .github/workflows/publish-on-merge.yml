@@ -19,6 +19,6 @@ jobs:
       - run: git config --global user.name "${{ secrets.GIT_CONFIG_NAME }}"
       - run: git config --global user.email "${{ secrets.GIT_CONFIG_EMAIL }}"
       - run: yarn
-      - run: yarn publish --patch                                                                                                                                                                                [11:27:33]
+      - run: yarn publish --patch
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}

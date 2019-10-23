@@ -27,7 +27,7 @@ const run = async (configs: MissionConfig[], options: RunOptions = {}) => {
 
       const logString = `${createProgressString(count, configs.length)} ${
         config.name
-      } ${config.url ? `[${config.url}]` : ""}`;
+      } ${config.url ? `[ ${config.url} ]` : ""}`;
       const mission = await createMission(config);
       log(logString, "pending");
       const report = await mission();
@@ -35,13 +35,13 @@ const run = async (configs: MissionConfig[], options: RunOptions = {}) => {
       if (report.status === "SUCCESS") {
         log(logString, "success");
       } else {
-        log(logString, "error");
+        log(logString + ` ${report.error}`, "error");
       }
       reports.push(report);
     }
 
-    await browser.close();
     log(`Completed All Missions.`, "success");
+    await browser.close();
     return reports;
   } catch (e) {
     console.error(e);

@@ -7,7 +7,7 @@ import {
 import { promisify } from "util";
 import * as fs from "fs";
 import log from "./log";
-import { FileConnection } from "../types/carmen";
+import { FileConnection, MissionReport } from "../types/carmen";
 import { mergeDeepRight } from "ramda";
 
 const DEFAULT_REPORT_PATH = `${Date.now().toString()}.json`;
@@ -101,7 +101,7 @@ export const getContents = async (path: string) => {
   return await read(fullPath, { encoding: "utf-8" });
 };
 
-export const getContentsAsObject = async <T>(path: string): Promise<T> =>
+export const getContentsAsObject = async (path: string): Promise<object> =>
   JSON.parse(await getContents(path));
 
 export const exists = async (path: string) => {
@@ -123,9 +123,9 @@ export const sanitize = (string: string) => {
   //TODO: Write a sanitize function to make filename safe
 };
 
-export const openFileConnection = async <T>(
+export const openFileConnection = async (
   path: string
-): Promise<FileConnection<T>> => {
+): Promise<FileConnection<MissionReport>> => {
   if (!path) throw new Error("A path is required to open a file connection.");
   if (!path.endsWith("/"))
     throw new Error(`A path must end in a slash. You provided ${path}`);
@@ -147,9 +147,11 @@ export const openFileConnection = async <T>(
     exists: () => exists(path),
     read: () => getContentsAsObject(path),
     update: async update => {
-      const timestamp = new Date();
-      const content: T = await getContentsAsObject(path);
-      const updated = mergeDeepRight(content, { ...update, timestamp });
+      const base = {
+        timestamp: new Date()
+      };
+      const content = await getContentsAsObject(path);
+      const updated = mergeDeepRight(content, Object.assign({}, base, update));
       // TODO: use writeObjectToFile, once i figure out how to properly handle I/O ops in node
       fs.writeFileSync(path, JSON.stringify(updated, null, 2));
       // await writeObjectToFile(path, updated);

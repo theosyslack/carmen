@@ -7,12 +7,10 @@ interface BasicMissionConfiguration {
   url: string;
 }
 
-export const BasicMission = ({
-  url
-}: BasicMissionConfiguration): MissionConfig => {
+export const BasicMission = ({ url }: BasicMissionConfiguration) => {
   return {
     name,
-    path: basePath + "report.json",
+    path: basePath,
     url,
     mission: async ({ page, log, report, url }: MissionPayload) => {
       log("You did it!", "success");

@@ -16,18 +16,9 @@ export interface FileConnection<T> {
   dir: string;
   name: string;
   exists: () => Promise<boolean>;
-  read: () => Promise<T>;
-  update: (update: Partial<T>) => Promise<T>;
+  read: () => Promise<object>;
+  update: (update: Partial<T>) => Promise<Partial<T>>;
   create: (name: string, data: object) => Promise<void>;
-}
-
-interface Reportable<T> {
-  timestamp: Date;
-  status: T;
-  config: MissionConfig;
-  payload?: object;
-  context?: object;
-  error?: Error;
 }
 
 // ////////
@@ -35,17 +26,24 @@ interface Reportable<T> {
 // Missions
 //
 // ////////
-export type Mission = (payload: MissionPayload) => Promise<MissionResult>;
-export type MissionResult = object;
-export type RunnableMission = Runnable<Promise<MissionReport>>;
-export type MissionReport = Reportable<MissionReportStatus>;
-export type MissionCreator = Creator<MissionConfig, Promise<Mission>>;
 export type MissionReportStatus =
   | "IN QUEUE"
   | "PENDING"
   | "SUCCESS"
   | "FAILURE"
   | "ERROR";
+export interface MissionReport {
+  timestamp: Date;
+  status: MissionReportStatus;
+  config: MissionConfig;
+  payload?: object;
+  context?: object;
+  error?: string;
+}
+export type Mission = (payload: MissionPayload) => Promise<MissionResult>;
+export type MissionResult = any;
+export type RunnableMission = Runnable<Promise<MissionReport>>;
+export type MissionCreator = Creator<MissionConfig, Promise<Mission>>;
 
 export interface MissionConfig {
   name: string;

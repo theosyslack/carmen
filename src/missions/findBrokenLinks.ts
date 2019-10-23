@@ -112,7 +112,7 @@ export const findBrokenLinks = ({
         ...linksByStatus
       };
 
-      return report.update({ status: "SUCCESS", payload });
+      return payload;
     }
   };
 };

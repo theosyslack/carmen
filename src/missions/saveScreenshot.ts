@@ -20,12 +20,7 @@ const saveScreenshot = ({
     mission: async ({ page, log, report }: MissionPayload) => {
       const screenshot = await takeScreenshot({ page });
       await report.create("/screenshot.png", screenshot);
-      return report.update({
-        status: "SUCCESS",
-        payload: {
-          url
-        }
-      });
+      return { url };
     }
   };
 };

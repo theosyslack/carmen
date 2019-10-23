@@ -74,7 +74,7 @@ export const compareScreenshots = ({
         analysisTime
       };
 
-      return await report.update({ status: "SUCCESS", payload: data });
+      return data;
     }
   };
 };

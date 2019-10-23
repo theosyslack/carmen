@@ -1,9 +1,8 @@
-import { getBrowser } from "../state/Browser";
 import log from "../helpers/log";
-import { createBlankReport } from "../helpers/report";
+import { getBrowser } from "../state/Browser";
 import { createMission } from "../helpers/mission";
 import { LaunchOptions } from "puppeteer";
-import { RunnableMission, MissionConfig, MissionReport } from "../types/carmen";
+import { MissionConfig, MissionReport } from "../types/carmen";
 
 export interface RunOptions {
   launchOptions?: LaunchOptions;
@@ -15,9 +14,6 @@ const createProgressString = (count: number, total: number) => {
   return `[${countString}/${totalString}]`;
 };
 
-const EmptyRunnableMission: RunnableMission = async () =>
-  await createBlankReport();
-
 const run = async (configs: MissionConfig[], options: RunOptions = {}) => {
   try {
     const browser = await getBrowser(options.launchOptions);
@@ -28,10 +24,10 @@ const run = async (configs: MissionConfig[], options: RunOptions = {}) => {
 
     for (const config of configs) {
       ++count;
-      console.clear();
-      const logString = `Mission #${count}/${configs.length} ${config.name} ${
-        config.url ? `(${config.url})` : ""
-      }`;
+
+      const logString = `${createProgressString(count, configs.length)} ${
+        config.name
+      } ${config.url ? `[${config.url}]` : ""}`;
       const mission = await createMission(config);
       log(logString, "pending");
       const report = await mission();
@@ -50,7 +46,6 @@ const run = async (configs: MissionConfig[], options: RunOptions = {}) => {
   } catch (e) {
     console.error(e);
     log("Failed. Aww shoot.", "error");
-    process.exit(1);
   }
   process.exit(1);
 };

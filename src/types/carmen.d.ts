@@ -1,6 +1,7 @@
 import { Page, Browser } from "puppeteer";
 import { Logger, LogCollection, LoggerWithType } from "../helpers/log";
 import { PathLike } from "fs";
+import { EventEmitter } from "events";
 
 // ////////
 //
@@ -34,7 +35,8 @@ interface Reportable<T> {
 // Missions
 //
 // ////////
-export type Mission = (payload: MissionPayload) => Promise<MissionReport>;
+export type Mission = (payload: MissionPayload) => Promise<MissionResult>;
+export type MissionResult = object;
 export type RunnableMission = Runnable<Promise<MissionReport>>;
 export type MissionReport = Reportable<MissionReportStatus>;
 export type MissionCreator = Creator<MissionConfig, Promise<Mission>>;
@@ -55,6 +57,7 @@ export interface MissionPayload extends MissionConfig {
   browser: Browser;
   page: Page;
   log: LoggerWithType;
+  events: EventEmitter;
   report: FileConnection<MissionReport>;
 }
 

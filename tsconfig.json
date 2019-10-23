@@ -16,6 +16,6 @@
   },
   "compileOnSave": true,
   "include": ["./src/**/*"],
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules/**/*"],
   "typeAcquisition": { "enable": true }
 }

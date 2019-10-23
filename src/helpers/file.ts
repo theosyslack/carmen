@@ -126,10 +126,10 @@ export const sanitize = (string: string) => {
 export const openFileConnection = async <T>(
   path: string
 ): Promise<FileConnection<T>> => {
-  if (path.endsWith("/")) {
-    path = path + "report.json";
-  }
-  console.log(path);
+  if (!path) throw new Error("A path is required to open a file connection.");
+  if (!path.endsWith("/"))
+    throw new Error(`A path must end in a slash. You provided ${path}`);
+  path = path + "report.json";
   await createFolderForFile(path);
 
   if (!(await exists(path))) {
@@ -150,7 +150,9 @@ export const openFileConnection = async <T>(
       const timestamp = new Date();
       const content: T = await getContentsAsObject(path);
       const updated = mergeDeepRight(content, { ...update, timestamp });
-      await writeObjectToFile(path, updated);
+      // TODO: use writeObjectToFile, once i figure out how to properly handle I/O ops in node
+      fs.writeFileSync(path, JSON.stringify(updated, null, 2));
+      // await writeObjectToFile(path, updated);
       return updated;
     },
     create: (name: string, data: object) => write(dir + "/" + name, data)

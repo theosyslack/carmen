@@ -1,4 +1,3 @@
-import { createMission } from "../helpers/mission";
 import { MissionPayload, MissionConfig } from "../types/carmen";
 
 const name = "Basic";
@@ -24,11 +23,7 @@ export const BasicMission = ({
 
       await page.screenshot({ path, fullPage: true });
 
-      const result = await report.update({
-        status: "SUCCESS",
-        payload: { message: "Hello from BasicMission!", url }
-      });
-      return result;
+      return { message: "Hello from BasicMission!", url };
     }
   };
 };

@@ -28,7 +28,7 @@ export const getBrowser = async (options?: LaunchOptions): Promise<Browser> => {
   } else if (shouldMakeNewBrowserWithCustomOptions) {
     log("Browser: Created with custom options", "info");
     console.table(options);
-    browser = await launch(defaultOptions);
+    browser = await launch(options);
     establishBrowserEvents(browser);
   }
 

@@ -14,7 +14,6 @@ import getEventEmitter from "../events/getEvents";
 export const createMission = (
   config: MissionConfig
 ): Promise<RunnableMission> => {
-  debugger;
   const isMissionValid = config.mission && typeof config.mission === "function";
   const isNameValid = typeof config.name === "string";
   const isPathValid =

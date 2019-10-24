@@ -12,6 +12,6 @@ const { BasicMission } = carmen.missions;
       BasicMission({ url: "https://github.com/" }),
       BasicMission({ url: "https://github.com/" })
     ],
-    { launchOptions: { headless: false } }
+    { launchOptions: { headless: true } }
   );
 })();

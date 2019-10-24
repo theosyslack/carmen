@@ -3,6 +3,7 @@ import { getBrowser } from "../state/Browser";
 import { createMission } from "../helpers/mission";
 import { LaunchOptions } from "puppeteer";
 import { MissionConfig, MissionReport } from "../types/carmen";
+import { version } from "..";
 
 export interface RunOptions {
   launchOptions?: LaunchOptions;
@@ -20,6 +21,8 @@ const run = async (configs: MissionConfig[], options: RunOptions = {}) => {
 
     let reports: MissionReport[] = [];
     let count = 0;
+
+    log(`CARMEN: Version ${version}`, "info");
     log(`Running ${configs.length} missions`, "info");
 
     for (const config of configs) {

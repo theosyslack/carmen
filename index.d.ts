@@ -3,11 +3,11 @@ import { PathLike } from "fs";
 import { EventEmitter } from "events";
 
 
-export interface Carmen {
-  run: Runner,
-  missions: MissionConfigCollection,
-  version: string,
-  events: EventEmitter
+declare namespace Carmen {
+  export type run = Runner;
+  export type missions = MissionConfigCollection;
+  export type version = string;
+  export type events = EventEmitter;
 }
 export type Runner = (configs: MissionConfig[], options: RunOptions) => Promise<MissionReport[]>
 

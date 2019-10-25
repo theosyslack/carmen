@@ -1,17 +1,6 @@
 import chalk from "chalk";
-export type LogType =
-  | "default"
-  | "table"
-  | "success"
-  | "pending"
-  | "error"
-  | "info"
-  | "warning";
-export type Logger = (message: string) => void;
-export type LoggerWithType = (message: string, type?: LogType) => void;
-export type LogCollection = {
-  [type in LogType]: Logger;
-};
+import { LogCollection, LoggerWithType, LogType } from '../..';
+
 const { log, table, clear } = console;
 
 const LOG_TYPES: LogCollection = {

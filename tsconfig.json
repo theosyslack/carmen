@@ -10,12 +10,11 @@
     "declaration": true,
     "noImplicitAny": true,
     "sourceMap": true,
-    "typeRoots": ["./src/types/"],
     "outDir": "./dist",
     "lib": ["dom", "esnext"]
   },
   "compileOnSave": true,
-  "include": ["./src/**/*"],
+  "include": ["./src/**/*", "index.d.ts"],
   "exclude": ["node_modules/**/*"],
   "typeAcquisition": { "enable": true }
 }

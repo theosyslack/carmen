@@ -1,4 +1,4 @@
-import { MissionPayload, MissionConfig } from "../types/carmen";
+import { MissionPayload, MissionConfig } from "../..";
 
 const name = "Basic";
 const basePath = "./reports/Basic/";

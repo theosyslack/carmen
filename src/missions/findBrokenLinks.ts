@@ -1,4 +1,4 @@
-import { MissionReport, MissionConfig, FileConnection } from "../types/carmen";
+import { MissionReport, MissionConfig, FileConnection } from "../..";
 import { createFolderPathFromUrl } from "../helpers/file";
 import { invert } from "ramda";
 import log from "../helpers/log";

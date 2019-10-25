@@ -6,7 +6,7 @@ import {
   FileConnection,
   MissionPayload,
   RunnableMission
-} from "../types/carmen";
+} from "../..";
 import { openFileConnection } from "./file";
 import { getBrowser } from "../state/Browser";
 import getEventEmitter from "../events/getEvents";

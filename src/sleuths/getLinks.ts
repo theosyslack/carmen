@@ -1,4 +1,4 @@
-import { Sleuth } from "../types/carmen";
+import { Sleuth } from "../..";
 import { uniq } from "ramda";
 
 const getLinks: Sleuth<string[]> = async ({ page }) => {

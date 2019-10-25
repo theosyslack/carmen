@@ -1,4 +1,4 @@
-import { MissionPayload, MissionConfig } from "../types/carmen";
+import { MissionPayload, MissionConfig } from "../..";
 import { createFolderPathFromUrl } from "../helpers/file";
 
 import takeScreenshot from "../sleuths/takeScreenshot";

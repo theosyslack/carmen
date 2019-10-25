@@ -1,5 +1,5 @@
 import { Viewport } from "puppeteer";
-import { Sleuth } from "../types/carmen";
+import { Sleuth } from "../..";
 
 const getPageDimensions: Sleuth<Viewport> = async ({ page }) => {
   return await page.evaluate(() => {

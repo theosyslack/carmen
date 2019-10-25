@@ -1,7 +1,15 @@
-import { Page, Browser } from "puppeteer";
-import { Logger, LogCollection, LoggerWithType } from "../helpers/log";
+import { Page, Browser, LaunchOptions } from "puppeteer";
 import { PathLike } from "fs";
 import { EventEmitter } from "events";
+
+
+export interface Carmen {
+  run: Runner,
+  missions: MissionConfigCollection,
+  version: string,
+  events: EventEmitter
+}
+export type Runner = (configs: MissionConfig[], options: RunOptions) => Promise<MissionReport[]>
 
 // ////////
 //
@@ -10,6 +18,22 @@ import { EventEmitter } from "events";
 // ////////
 export type Creator<T, U> = (config: T | Partial<T>) => U | Creator<T, U>;
 export type Runnable<T> = () => T;
+
+export type LogType =
+  | "default"
+  | "table"
+  | "success"
+  | "pending"
+  | "error"
+  | "info"
+  | "warning";
+
+export type Logger = (message: string) => void;
+export type LoggerWithType = (message: string, type?: LogType) => void;
+export type LogCollection = {
+  [type in LogType]: Logger;
+};
+
 
 export interface FileConnection<T> {
   path: PathLike;
@@ -20,6 +44,13 @@ export interface FileConnection<T> {
   update: (update: Partial<T>) => Promise<Partial<T>>;
   create: (name: string, data: object) => Promise<void>;
 }
+
+export interface RunOptions {
+  launchOptions?: LaunchOptions;
+}
+
+
+
 
 // ////////
 //

@@ -36,6 +36,7 @@
   "author": "Theo Syslack",
   "homepage": "https://github.com/theosyslack/carmen",
   "main": "./dist/index.js",
+  "types": "./src/types/carmen.d.ts",
   "keywords": [
     "puppeeteer",
     "integration testing",

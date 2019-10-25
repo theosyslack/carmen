@@ -1,4 +1,4 @@
-import { MissionReport, MissionConfig } from "../types/carmen";
+import { MissionReport, MissionConfig } from "../..";
 
 export const createBlankReport = (config?: MissionConfig): MissionReport => {
   const timestamp = new Date();

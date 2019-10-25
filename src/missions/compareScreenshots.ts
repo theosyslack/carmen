@@ -1,4 +1,4 @@
-import { MissionConfig, MissionPayload } from "../types/carmen";
+import { MissionConfig, MissionPayload } from "../..";
 import * as compare from "resemblejs/compareImages";
 import { writeToNewFile } from "../helpers/file";
 import takeScreenshot from "../sleuths/takeScreenshot";

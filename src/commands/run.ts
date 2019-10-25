@@ -1,13 +1,9 @@
 import log from "../helpers/log";
 import { getBrowser } from "../state/Browser";
 import { createMission } from "../helpers/mission";
-import { LaunchOptions } from "puppeteer";
-import { MissionConfig, MissionReport } from "../types/carmen";
-import { version } from "..";
+import { MissionConfig, MissionReport, Runner } from "../..";
+import { version } from '..';
 
-export interface RunOptions {
-  launchOptions?: LaunchOptions;
-}
 
 const createProgressString = (count: number, total: number) => {
   const totalString = total.toString();
@@ -15,7 +11,7 @@ const createProgressString = (count: number, total: number) => {
   return `[${countString}/${totalString}]`;
 };
 
-const run = async (configs: MissionConfig[], options: RunOptions = {}) => {
+const run: Runner = async (configs: MissionConfig[], options = {}) => {
   try {
     const browser = await getBrowser(options.launchOptions);
 
@@ -30,7 +26,7 @@ const run = async (configs: MissionConfig[], options: RunOptions = {}) => {
 
       const logString = `${createProgressString(count, configs.length)} ${
         config.name
-      } ${config.url ? `[ ${config.url} ]` : ""}`;
+        } ${config.url ? `[ ${config.url} ]` : ""}`;
       const mission = await createMission(config);
       log(logString, "pending");
       const report = await mission();

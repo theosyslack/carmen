@@ -7,7 +7,7 @@ import {
 import { promisify } from "util";
 import * as fs from "fs";
 import log from "./log";
-import { FileConnection, MissionReport } from "../types/carmen";
+import { FileConnection, MissionReport } from "../..";
 import { mergeDeepRight } from "ramda";
 
 const DEFAULT_REPORT_PATH = `${Date.now().toString()}.json`;

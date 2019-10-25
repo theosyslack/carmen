@@ -1,5 +1,5 @@
 import * as puppeteer from "puppeteer";
-import { SleuthConfig, Sleuth } from "../types/carmen";
+import { SleuthConfig, Sleuth } from "../..";
 
 interface TakeScreenshotConfig extends SleuthConfig {
   viewport?: puppeteer.Viewport;

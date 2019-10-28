@@ -1,7 +1,7 @@
 import { MissionConfig, MissionPayload } from "../..";
-import * as compare from "resemblejs/compareImages";
 import { writeToNewFile } from "../helpers/file";
-import sharp from "sharp";
+import * as compare from "resemblejs/compareImages";
+import * as sharp from "sharp";
 import takeScreenshot from "../sleuths/takeScreenshot";
 
 const name = "Compare Screenshots";
@@ -47,6 +47,14 @@ export const compareScreenshots = ({
       } else if (hasBuffers) {
         [first, second] = buffers;
       }
+
+      [first, second] = await Promise.all(
+        [first, second].map(buffer => {
+          return sharp(buffer)
+            .resize(500)
+            .toBuffer();
+        })
+      );
 
       const comparison = await compare(first, second, {
         outputDiff: true

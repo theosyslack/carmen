@@ -18,6 +18,7 @@
     "puppeteer": "^1.20.0",
     "ramda": "^0.26.1",
     "resemblejs": "^3.2.3",
+    "sharp": "^0.23.2",
     "tslib": "^1.10.0",
     "typescript": "~3.6.4",
     "xstate": "^4.6.7"

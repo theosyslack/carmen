@@ -1,6 +1,7 @@
 import { MissionConfig, MissionPayload } from "../..";
 import * as compare from "resemblejs/compareImages";
 import { writeToNewFile } from "../helpers/file";
+import sharp from "sharp";
 import takeScreenshot from "../sleuths/takeScreenshot";
 
 const name = "Compare Screenshots";

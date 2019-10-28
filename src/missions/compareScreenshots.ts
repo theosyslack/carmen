@@ -48,6 +48,7 @@ export const compareScreenshots = ({
         [first, second] = buffers;
       }
 
+      // Make the images a little bit smaller
       [first, second] = await Promise.all(
         [first, second].map(buffer => {
           return sharp(buffer)

@@ -2,9 +2,12 @@ import { Sleuth } from "../..";
 
 const getMetaKeywords: Sleuth<string> = async ({ page }) => {
   return await page.evaluate(() => {
-    return document
-      .querySelector("meta[name=keywords]")
-      .getAttribute("content");
+    const element: Element = document.querySelector("meta[name=keywords]");
+    let result: string = "";
+    if (element) {
+      result = element.getAttribute("content").trim() || "";
+    }
+    return result;
   });
 };
 

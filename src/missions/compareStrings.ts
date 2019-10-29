@@ -23,7 +23,7 @@ export const compareStrings = ({
       [first, second] = await Promise.all(
         urls.map(async url => {
           const page = await browser.newPage();
-          await page.goto(url);
+          await page.goto(url, { waitUntil: "domcontentloaded" });
           const description = await getMetaDescription({ page });
           await page.close();
           return description;
@@ -31,20 +31,18 @@ export const compareStrings = ({
       );
 
       const comparison = (first: string, second: string) => {
-        if (first === second) {
-          return true;
-        }
-        return false;
+        return {
+          match: first === second,
+          values: [
+            { url: urls[0], value: first },
+            { url: urls[1], value: second }
+          ]
+        };
       };
 
-      const result: boolean = comparison(first, second);
+      const result: object = comparison(first, second);
 
-      const data = {
-        urls,
-        result
-      };
-
-      return data;
+      return result;
     }
   };
 };

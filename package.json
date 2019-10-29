@@ -27,7 +27,7 @@
     "build": "tsc",
     "prepare": "tsc",
     "start": "tsc -w",
-    "test": "node --inspect ./examples/compareStrings.js"
+    "test": "node --inspect ./examples/compare.js"
   },
   "repository": {
     "type": "git",

@@ -11,9 +11,9 @@ import { openFileConnection } from "./file";
 import { getBrowser } from "../state/Browser";
 import getEventEmitter from "../events/getEvents";
 
-export const createMission = (
-  config: MissionConfig
-): Promise<RunnableMission> => {
+export const createMission = <T>(
+  config: MissionConfig<T>
+): Promise<RunnableMission<T>> => {
   const isMissionValid = config.mission && typeof config.mission === "function";
   const isNameValid = typeof config.name === "string";
   const isPathValid =
@@ -44,13 +44,13 @@ export const createMission = (
     process.exit(1);
   }
 
-  return constructMission(<MissionConfig>config);
+  return constructMission(<MissionConfig<T>>config);
 };
 
-const constructMission = async (
-  config: MissionConfig
-): Promise<RunnableMission> => {
-  const report: FileConnection<MissionReport> = await openFileConnection(
+const constructMission = async <T>(
+  config: MissionConfig<T>
+): Promise<RunnableMission<T>> => {
+  const report: FileConnection<MissionReport<T>> = await openFileConnection(
     config.path
   );
 
@@ -60,7 +60,7 @@ const constructMission = async (
 
   if (config.url) await page.goto(config.url);
 
-  const payload: MissionPayload = {
+  const payload: MissionPayload<T> = {
     ...config,
     browser,
     page,
@@ -88,7 +88,7 @@ const constructMission = async (
         });
         await page.close();
         events.emit("mission-success", latestReport);
-        return latestReport as Promise<MissionReport>;
+        return latestReport as Promise<MissionReport<T>>;
       },
       async (error: Error) => {
         const latestReport = await report.update({
@@ -102,7 +102,7 @@ const constructMission = async (
         });
         events.emit("mission-failure", latestReport);
         await page.close();
-        return latestReport as Promise<MissionReport>;
+        return latestReport as Promise<MissionReport<T>>;
       }
     );
   };

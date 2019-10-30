@@ -13,18 +13,34 @@ export interface CompareScreenshotsConfiguration {
   path?: string;
 }
 
+export interface CompareScreenshotsPayload {
+  hasBuffers: boolean;
+  hasUrls: boolean;
+  urls: [string, string];
+  isSameDimensions: any;
+  dimensionDifference: any;
+  misMatchPercentage: any;
+  analysisTime: any;
+}
+
 export const compareScreenshots = ({
   buffers,
   urls,
   path = pathBase + Date.now() + "/"
-}: CompareScreenshotsConfiguration): MissionConfig => {
+}: CompareScreenshotsConfiguration): MissionConfig<
+  CompareScreenshotsPayload
+> => {
   const hasBuffers = buffers && buffers.length === 2;
   const hasUrls = urls && urls.length === 2;
 
   return {
     name,
     path,
-    mission: async ({ browser, log, report }: MissionPayload) => {
+    mission: async ({
+      browser,
+      log,
+      report
+    }: MissionPayload<CompareScreenshotsPayload>) => {
       let first, second: Buffer;
 
       if (hasBuffers && hasUrls) {
@@ -74,7 +90,7 @@ export const compareScreenshots = ({
       await writeToNewFile(path + "/first.png", first);
       await writeToNewFile(path + "/second.png", second);
 
-      const data = {
+      const data: CompareScreenshotsPayload = {
         hasBuffers,
         hasUrls,
         urls,

@@ -1,6 +1,7 @@
 const carmen = require("../dist/index");
 
 const { saveScreenshot } = carmen.missions;
-const result = carmen.run([
-  saveScreenshot({ url: "https://github.com/theosyslack/carmen" })
-]);
+
+const mission = saveScreenshot({ url: "http://example.com" });
+
+const results = carmen.run([mission]);

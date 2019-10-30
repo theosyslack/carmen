@@ -2,8 +2,7 @@ import log from "../helpers/log";
 import { getBrowser } from "../state/Browser";
 import { createMission } from "../helpers/mission";
 import { MissionConfig, MissionReport, Runner } from "../..";
-import { version } from '..';
-
+import { version } from "..";
 
 const createProgressString = (count: number, total: number) => {
   const totalString = total.toString();
@@ -11,11 +10,11 @@ const createProgressString = (count: number, total: number) => {
   return `[${countString}/${totalString}]`;
 };
 
-const run: Runner = async (configs: MissionConfig[], options = {}) => {
+const run: Runner = async (configs, options = {}) => {
   try {
     const browser = await getBrowser(options.launchOptions);
 
-    let reports: MissionReport[] = [];
+    let reports: MissionReport<any>[] = [];
     let count = 0;
 
     log(`CARMEN: Version ${version}`, "info");
@@ -26,7 +25,7 @@ const run: Runner = async (configs: MissionConfig[], options = {}) => {
 
       const logString = `${createProgressString(count, configs.length)} ${
         config.name
-        } ${config.url ? `[ ${config.url} ]` : ""}`;
+      } ${config.url ? `[ ${config.url} ]` : ""}`;
       const mission = await createMission(config);
       log(logString, "pending");
       const report = await mission();

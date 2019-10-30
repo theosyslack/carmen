@@ -1,4 +1,9 @@
-import { MissionReport, MissionConfig, FileConnection } from "../..";
+import {
+  MissionReport,
+  MissionConfig,
+  FileConnection,
+  MissionPayload
+} from "../..";
 import { createFolderPathFromUrl } from "../helpers/file";
 import { invert } from "ramda";
 import log from "../helpers/log";
@@ -10,6 +15,12 @@ const pathBase = "./reports/FindBrokenLinks/";
 
 interface FindBrokenLinksMissionConfiguration {
   url: string;
+}
+
+interface FindBrokenLinksMissionPayload {
+  statuses?: string[];
+  counts?: LinkCollection;
+  all?: string[];
 }
 
 interface StatusCollection {
@@ -62,7 +73,7 @@ const getStatusForLink = async (link: string): Promise<string> => {
 
 const checkLinksSequentially = async (
   links: string[],
-  report: FileConnection<MissionReport>
+  report: FileConnection<MissionReport<FindBrokenLinksMissionPayload>>
 ): Promise<StatusCollection> => {
   let result = {};
 
@@ -83,7 +94,9 @@ const checkLinksSequentially = async (
 
 export const findBrokenLinks = ({
   url
-}: FindBrokenLinksMissionConfiguration): MissionConfig => {
+}: FindBrokenLinksMissionConfiguration): MissionConfig<
+  FindBrokenLinksMissionPayload
+> => {
   const path = pathBase + createFolderPathFromUrl(url);
 
   return {

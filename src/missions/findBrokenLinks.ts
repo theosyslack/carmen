@@ -110,7 +110,7 @@ export const findBrokenLinks = ({
         const isJavascript = link.startsWith("javascript:");
         return !isEmail && !isJavascript;
       });
-      await page.close();
+
       const linksByStatus = await checkLinksSequentially(links, report);
       const statuses = Object.keys(linksByStatus);
       const counts = statuses.reduce((acc, status) => {

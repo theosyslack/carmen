@@ -9,15 +9,22 @@ export interface SaveScreenshotConfiguration {
   url: string;
 }
 
+export interface ScanScreenshotPayload {
+  url: string;
+}
+
 const saveScreenshot = ({
   url
-}: SaveScreenshotConfiguration): MissionConfig => {
+}: SaveScreenshotConfiguration): MissionConfig<ScanScreenshotPayload> => {
   const path = basePath + createFolderPathFromUrl(url);
   return {
     name,
     url,
     path,
-    mission: async ({ page, log, report }: MissionPayload) => {
+    mission: async ({
+      page,
+      report
+    }: MissionPayload<ScanScreenshotPayload>) => {
       const screenshot = await takeScreenshot({ page });
       await report.create("/screenshot.png", screenshot);
       return { url };

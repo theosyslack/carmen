@@ -123,9 +123,9 @@ export const sanitize = (string: string) => {
   //TODO: Write a sanitize function to make filename safe
 };
 
-export const openFileConnection = async (
+export const openFileConnection = async <T>(
   path: string
-): Promise<FileConnection<MissionReport>> => {
+): Promise<FileConnection<MissionReport<T>>> => {
   if (!path) throw new Error("A path is required to open a file connection.");
   if (!path.endsWith("/"))
     throw new Error(`A path must end in a slash. You provided ${path}`);

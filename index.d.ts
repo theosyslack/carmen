@@ -2,14 +2,16 @@ import { Page, Browser, LaunchOptions } from "puppeteer";
 import { PathLike } from "fs";
 import { EventEmitter } from "events";
 
-
 declare namespace Carmen {
   export type run = Runner;
   export type missions = MissionConfigCollection;
   export type version = string;
   export type events = EventEmitter;
 }
-export type Runner = (configs: MissionConfig[], options: RunOptions) => Promise<MissionReport[]>
+export type Runner = (
+  configs: MissionConfig<any>[],
+  options: RunOptions
+) => Promise<MissionReport<any>[]>;
 
 // ////////
 //
@@ -34,23 +36,19 @@ export type LogCollection = {
   [type in LogType]: Logger;
 };
 
-
 export interface FileConnection<T> {
   path: PathLike;
   dir: string;
   name: string;
   exists: () => Promise<boolean>;
-  read: () => Promise<object>;
-  update: (update: Partial<T>) => Promise<Partial<T>>;
+  read: () => Promise<Partial<T> | T>;
+  update: (update: Partial<T>) => Promise<Partial<T> | T>;
   create: (name: string, data: object) => Promise<void>;
 }
 
 export interface RunOptions {
   launchOptions?: LaunchOptions;
 }
-
-
-
 
 // ////////
 //
@@ -63,35 +61,37 @@ export type MissionReportStatus =
   | "SUCCESS"
   | "FAILURE"
   | "ERROR";
-export interface MissionReport {
+export interface MissionReport<T> {
   timestamp: Date;
   status: MissionReportStatus;
-  config: MissionConfig;
-  payload?: object;
+  config: MissionConfig<T>;
+  payload?: T | Error;
   context?: object;
   error?: string;
 }
-export type Mission = (payload: MissionPayload) => Promise<MissionResult>;
-export type MissionResult = any;
-export type RunnableMission = Runnable<Promise<MissionReport>>;
-export type MissionCreator = Creator<MissionConfig, Promise<Mission>>;
+export type Mission<T> = (
+  payload: MissionPayload<T>
+) => Promise<MissionResult<T>>;
+export type MissionResult<T> = T;
+export type RunnableMission<T> = Runnable<Promise<MissionReport<T>>>;
+export type MissionCreator<T> = Creator<MissionConfig<T>, Promise<Mission<T>>>;
 
-export interface MissionConfig {
+export interface MissionConfig<T> {
   name: string;
   path: string;
   url?: string;
-  mission: Mission;
+  mission: Mission<T>;
 }
-export interface MissionPayload extends MissionConfig {
+export interface MissionPayload<T> extends MissionConfig<T> {
   browser: Browser;
   page: Page;
   log: LoggerWithType;
   events: EventEmitter;
-  report: FileConnection<MissionReport>;
+  report: FileConnection<MissionReport<T>>;
 }
 
 export interface MissionConfigCollection {
-  [name: string]: (...args: any[]) => MissionConfig;
+  [name: string]: (...args: any[]) => MissionConfig<any>;
 }
 
 export type Sleuth<T> = (config: SleuthConfig) => Promise<T>;

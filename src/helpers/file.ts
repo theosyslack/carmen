@@ -136,8 +136,6 @@ export const openFileConnection = async <T>(
     await writeToNewFile(path, "{}");
   }
 
-  writeToNewFile;
-
   const { dir, name } = await parse(path);
 
   return {

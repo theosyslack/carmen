@@ -4,7 +4,7 @@ Carmen will sneak around the web and run scripts for you.
 
 ## Installation
 
-1. `yarn install "@theosyslack/carmen"`
+1. `yarn add "@theosyslack/carmen"`
 2. Create a travel plan, or base it off of one from `examples`.
 
 ## Examples

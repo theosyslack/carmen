@@ -1,7 +1,7 @@
 import { PageAction } from '../types/PageAction'
 import open from './open';
 
-const pipe = async (actions: PageAction<any, any>[]) => {
+const pipe = async (...actions: PageAction<any, any>[]) => {
     const page = await open();
 
     let results = [];

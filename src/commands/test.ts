@@ -23,7 +23,7 @@ export default class Test extends Command {
 
       if (title.ok) {
         const formattedTitle = formatAsFileName(title.unwrap())
-        const result = await screenshot({ path: formattedTitle + ".png" })(page);
+        const result = await screenshot({ path: formattedTitle + ".png", fullPage: true })(page);
 
         return result
       } else {

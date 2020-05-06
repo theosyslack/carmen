@@ -19,7 +19,7 @@ $ npm install -g carmen
 $ carmen COMMAND
 running command...
 $ carmen (-v|--version|version)
-carmen/3.0.0 darwin-x64 node-v12.16.1
+carmen/3.0.1 darwin-x64 node-v12.16.1
 $ carmen --help [COMMAND]
 USAGE
   $ carmen COMMAND
@@ -28,5 +28,51 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
+* [`carmen help [COMMAND]`](#carmen-help-command)
+* [`carmen screenshot [URL]`](#carmen-screenshot-url)
+* [`carmen test [URL]`](#carmen-test-url)
 
+## `carmen help [COMMAND]`
+
+display help for carmen
+
+```
+USAGE
+  $ carmen help [COMMAND]
+
+ARGUMENTS
+  COMMAND  command to show help for
+
+OPTIONS
+  --all  see all commands in CLI
+```
+
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
+
+## `carmen screenshot [URL]`
+
+describe the command here
+
+```
+USAGE
+  $ carmen screenshot [URL]
+
+OPTIONS
+  -h, --help     show CLI help
+  -o, --out=out  [default: 1,588,806,720,216] Name of the output file. If no extension is specified, .png will be used.
+  -s, --silent
+```
+
+_See code: [src/commands/screenshot.ts](https://github.com/theosyslack/carmen/blob/v3.0.1/src/commands/screenshot.ts)_
+
+## `carmen test [URL]`
+
+test out some pipeline
+
+```
+USAGE
+  $ carmen test [URL]
+```
+
+_See code: [src/commands/test.ts](https://github.com/theosyslack/carmen/blob/v3.0.1/src/commands/test.ts)_
 <!-- commandsstop -->

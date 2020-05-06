@@ -1,5 +1,5 @@
 {
-  "name": "carmen",
+  "name": "@theosyslack/carmen",
   "version": "3.0.1",
   "author": "Theo Syslack @theosyslack",
   "bin": {

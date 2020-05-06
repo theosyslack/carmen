@@ -1,36 +1,41 @@
-carmen
-======
-
-
+# carmen
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-[![Version](https://img.shields.io/npm/v/carmen.svg)](https://npmjs.org/package/carmen)
-[![Downloads/week](https://img.shields.io/npm/dw/carmen.svg)](https://npmjs.org/package/carmen)
-[![License](https://img.shields.io/npm/l/carmen.svg)](https://github.com/theosyslack/carmen/blob/master/package.json)
+[![Version](https://img.shields.io/npm/v/@theosyslack/carmen.svg)](https://npmjs.org/package/@theosyslack/carmen)
+[![Downloads/week](https://img.shields.io/npm/dw/@theosyslack/carmen.svg)](https://npmjs.org/package/@theosyslack/carmen)
+[![License](https://img.shields.io/npm/l/@theosyslack/carmen.svg)](https://github.com/theosyslack/carmen/blob/master/package.json)
 
 <!-- toc -->
-* [Usage](#usage)
-* [Commands](#commands)
+
+- [Usage](#usage)
+- [Commands](#commands)
 <!-- tocstop -->
+
 # Usage
+
 <!-- usage -->
+
 ```sh-session
-$ npm install -g carmen
+$ npm install -g @theosyslack/carmen
 $ carmen COMMAND
 running command...
 $ carmen (-v|--version|version)
-carmen/3.0.1 darwin-x64 node-v12.16.1
+@theosyslack/carmen/3.0.1 darwin-x64 node-v12.16.1
 $ carmen --help [COMMAND]
 USAGE
   $ carmen COMMAND
 ...
 ```
+
 <!-- usagestop -->
+
 # Commands
+
 <!-- commands -->
-* [`carmen help [COMMAND]`](#carmen-help-command)
-* [`carmen screenshot [URL]`](#carmen-screenshot-url)
-* [`carmen test [URL]`](#carmen-test-url)
+
+- [`carmen help [COMMAND]`](#carmen-help-command)
+- [`carmen screenshot [URL]`](#carmen-screenshot-url)
+- [`carmen test [URL]`](#carmen-test-url)
 
 ## `carmen help [COMMAND]`
 
@@ -59,7 +64,7 @@ USAGE
 
 OPTIONS
   -h, --help     show CLI help
-  -o, --out=out  [default: 1,588,806,720,216] Name of the output file. If no extension is specified, .png will be used.
+  -o, --out=out  [default: 1,588,807,239,432] Name of the output file. If no extension is specified, .png will be used.
   -s, --silent
 ```
 
@@ -75,4 +80,5 @@ USAGE
 ```
 
 _See code: [src/commands/test.ts](https://github.com/theosyslack/carmen/blob/v3.0.1/src/commands/test.ts)_
+
 <!-- commandsstop -->

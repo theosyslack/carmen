@@ -3,10 +3,11 @@ import pipe from '../page/pipe';
 import go from '../page/go';
 import screenshot from '../page/screenshot';
 import getTitle from '../page/getTitle';
-import closeBrowser from '../browser/close';
+import openBrowser from '../browser/open';
 import { PageAction } from '../types/PageAction';
 import { PathLike } from 'fs';
-import { err } from '../labs/Result';
+import { homedir } from 'os';
+import { closeBrowser } from '../browser';
 
 export default class Test extends Command {
   static description = 'test out some pipeline'
@@ -17,6 +18,8 @@ export default class Test extends Command {
   static args = [{ name: 'url' }]
 
   async run() {
+    const userDataDir = homedir() + "/.carmen/userdata";
+    await openBrowser({ headless: false, userDataDir, defaultViewport: { height: 900, width: 1440 } })
 
     const saveScreenshotAsTitle: PageAction<PathLike, Error> = async (page) => {
       const title = await getTitle(page);

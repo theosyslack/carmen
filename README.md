@@ -61,7 +61,7 @@ USAGE
 
 OPTIONS
   -h, --help     show CLI help
-  -o, --out=out  [default: 1,588,812,113,083] Name of the output file. If no extension is specified, .png will be used.
+  -o, --out=out  [default: 1,588,812,125,689] Name of the output file. If no extension is specified, .png will be used.
   -s, --silent
 ```
 

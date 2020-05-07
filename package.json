@@ -51,6 +51,7 @@
   "scripts": {
     "posttest": "eslint . --ext .ts --config .eslintrc",
     "prepack": "rm -rf lib && tsc -b && oclif-dev readme",
+    "build": "tsc -b",
     "test": "echo NO TESTS",
     "version": "oclif-dev readme && git add README.md"
   },

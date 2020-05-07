@@ -6,36 +6,33 @@
 [![License](https://img.shields.io/npm/l/@theosyslack/carmen.svg)](https://github.com/theosyslack/carmen/blob/master/package.json)
 
 <!-- toc -->
-
-- [Usage](#usage)
-- [Commands](#commands)
+* [carmen](#carmen)
+* [Usage](#usage)
+* [Commands](#commands)
 <!-- tocstop -->
 
 # Usage
 
 <!-- usage -->
-
 ```sh-session
 $ npm install -g @theosyslack/carmen
 $ carmen COMMAND
 running command...
 $ carmen (-v|--version|version)
-@theosyslack/carmen/3.0.1 darwin-x64 node-v12.16.1
+@theosyslack/carmen/3.0.2 darwin-x64 node-v12.16.1
 $ carmen --help [COMMAND]
 USAGE
   $ carmen COMMAND
 ...
 ```
-
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
-
-- [`carmen help [COMMAND]`](#carmen-help-command)
-- [`carmen screenshot [URL]`](#carmen-screenshot-url)
-- [`carmen test [URL]`](#carmen-test-url)
+* [`carmen help [COMMAND]`](#carmen-help-command)
+* [`carmen screenshot [URL]`](#carmen-screenshot-url)
+* [`carmen test [URL]`](#carmen-test-url)
 
 ## `carmen help [COMMAND]`
 
@@ -64,11 +61,11 @@ USAGE
 
 OPTIONS
   -h, --help     show CLI help
-  -o, --out=out  [default: 1,588,807,239,432] Name of the output file. If no extension is specified, .png will be used.
+  -o, --out=out  [default: 1,588,809,700,753] Name of the output file. If no extension is specified, .png will be used.
   -s, --silent
 ```
 
-_See code: [src/commands/screenshot.ts](https://github.com/theosyslack/carmen/blob/v3.0.1/src/commands/screenshot.ts)_
+_See code: [src/commands/screenshot.ts](https://github.com/theosyslack/carmen/blob/v3.0.2/src/commands/screenshot.ts)_
 
 ## `carmen test [URL]`
 
@@ -79,6 +76,5 @@ USAGE
   $ carmen test [URL]
 ```
 
-_See code: [src/commands/test.ts](https://github.com/theosyslack/carmen/blob/v3.0.1/src/commands/test.ts)_
-
+_See code: [src/commands/test.ts](https://github.com/theosyslack/carmen/blob/v3.0.2/src/commands/test.ts)_
 <!-- commandsstop -->

@@ -19,7 +19,7 @@ $ npm install -g @theosyslack/carmen
 $ carmen COMMAND
 running command...
 $ carmen (-v|--version|version)
-@theosyslack/carmen/3.0.2 darwin-x64 node-v12.16.1
+@theosyslack/carmen/3.0.3 darwin-x64 node-v12.16.1
 $ carmen --help [COMMAND]
 USAGE
   $ carmen COMMAND
@@ -61,11 +61,11 @@ USAGE
 
 OPTIONS
   -h, --help     show CLI help
-  -o, --out=out  [default: 1,588,809,708,921] Name of the output file. If no extension is specified, .png will be used.
+  -o, --out=out  [default: 1,588,811,320,787] Name of the output file. If no extension is specified, .png will be used.
   -s, --silent
 ```
 
-_See code: [src/commands/screenshot.ts](https://github.com/theosyslack/carmen/blob/v3.0.2/src/commands/screenshot.ts)_
+_See code: [src/commands/screenshot.ts](https://github.com/theosyslack/carmen/blob/v3.0.3/src/commands/screenshot.ts)_
 
 ## `carmen test [URL]`
 
@@ -76,5 +76,5 @@ USAGE
   $ carmen test [URL]
 ```
 
-_See code: [src/commands/test.ts](https://github.com/theosyslack/carmen/blob/v3.0.2/src/commands/test.ts)_
+_See code: [src/commands/test.ts](https://github.com/theosyslack/carmen/blob/v3.0.3/src/commands/test.ts)_
 <!-- commandsstop -->

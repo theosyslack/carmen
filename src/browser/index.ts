@@ -1,5 +1,5 @@
-import open from "./open";
-import close from './close';
 
-export { open as openBrowser }
-export { close as closeBrowser }
+
+export { default as openBrowser } from './open'
+export { default as closeBrowser } from './close'
+export { default as createBrowserPipeline } from './pipe'

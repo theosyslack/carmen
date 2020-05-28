@@ -4,7 +4,7 @@ import close from './close';
 import { LaunchOptions } from 'puppeteer';
 import { createPagePipeline } from '../page';
 
-const pipe = async (options?: LaunchOptions, ...actions: PageAction<any, any>[]) => {
+const pipe = async (actions: PageAction<any, any>[], options?: LaunchOptions, ) => {
     await open(options);
 
     const results = await createPagePipeline(...actions)

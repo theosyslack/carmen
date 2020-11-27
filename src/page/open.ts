@@ -9,7 +9,6 @@ const open = async (destination?: string): Promise<Page> => {
 
     if (maybeUrl.ok) {
         const url = maybeUrl.unwrap();
-        console.log(`Navigating to ${url.hostname}`)
         await page.goto(url.toString());
     }
 

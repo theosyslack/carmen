@@ -27,9 +27,7 @@ export default class Scan extends Command {
       const meta = await getMeta(page)
 
       if (meta.ok) {
-        // this.log(JSON.stringify(meta.unwrap(), null, 2))
         !silent && console.log(meta.unwrap())
-        // this.log(meta.unwrap().toString())
       } else {
         !silent && this.error(meta.unwrap().toString())
       }

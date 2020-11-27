@@ -19,7 +19,7 @@ $ npm install -g @theosyslack/carmen
 $ carmen COMMAND
 running command...
 $ carmen (-v|--version|version)
-@theosyslack/carmen/3.0.4 darwin-x64 node-v12.16.1
+@theosyslack/carmen/3.0.5 darwin-x64 node-v12.16.1
 $ carmen --help [COMMAND]
 USAGE
   $ carmen COMMAND
@@ -61,12 +61,11 @@ USAGE
   $ carmen scan [URL]
 
 OPTIONS
-  -h, --help     show CLI help
-  -o, --out=out  [default: 1,606,517,022,165] Name of the output file. If no extension is specified, .png will be used.
+  -h, --help    show CLI help
   -s, --silent
 ```
 
-_See code: [src/commands/scan.ts](https://github.com/theosyslack/carmen/blob/v3.0.4/src/commands/scan.ts)_
+_See code: [src/commands/scan.ts](https://github.com/theosyslack/carmen/blob/v3.0.5/src/commands/scan.ts)_
 
 ## `carmen screenshot [URL]`
 
@@ -78,11 +77,11 @@ USAGE
 
 OPTIONS
   -h, --help     show CLI help
-  -o, --out=out  [default: 1,606,517,022,198] Name of the output file. If no extension is specified, .png will be used.
+  -o, --out=out  [default: 1,606,518,659,687] Name of the output file. If no extension is specified, .png will be used.
   -s, --silent
 ```
 
-_See code: [src/commands/screenshot.ts](https://github.com/theosyslack/carmen/blob/v3.0.4/src/commands/screenshot.ts)_
+_See code: [src/commands/screenshot.ts](https://github.com/theosyslack/carmen/blob/v3.0.5/src/commands/screenshot.ts)_
 
 ## `carmen test [URL]`
 
@@ -93,5 +92,5 @@ USAGE
   $ carmen test [URL]
 ```
 
-_See code: [src/commands/test.ts](https://github.com/theosyslack/carmen/blob/v3.0.4/src/commands/test.ts)_
+_See code: [src/commands/test.ts](https://github.com/theosyslack/carmen/blob/v3.0.5/src/commands/test.ts)_
 <!-- commandsstop -->

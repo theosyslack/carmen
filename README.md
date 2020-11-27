@@ -31,6 +31,7 @@ USAGE
 
 <!-- commands -->
 * [`carmen help [COMMAND]`](#carmen-help-command)
+* [`carmen scan [URL]`](#carmen-scan-url)
 * [`carmen screenshot [URL]`](#carmen-screenshot-url)
 * [`carmen test [URL]`](#carmen-test-url)
 
@@ -51,6 +52,22 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
 
+## `carmen scan [URL]`
+
+describe the command here
+
+```
+USAGE
+  $ carmen scan [URL]
+
+OPTIONS
+  -h, --help     show CLI help
+  -o, --out=out  [default: 1,606,517,022,165] Name of the output file. If no extension is specified, .png will be used.
+  -s, --silent
+```
+
+_See code: [src/commands/scan.ts](https://github.com/theosyslack/carmen/blob/v3.0.4/src/commands/scan.ts)_
+
 ## `carmen screenshot [URL]`
 
 describe the command here
@@ -61,7 +78,7 @@ USAGE
 
 OPTIONS
   -h, --help     show CLI help
-  -o, --out=out  [default: 1,588,812,125,689] Name of the output file. If no extension is specified, .png will be used.
+  -o, --out=out  [default: 1,606,517,022,198] Name of the output file. If no extension is specified, .png will be used.
   -s, --silent
 ```
 

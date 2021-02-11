@@ -2,20 +2,3 @@
 .DS_Store
 .cache
 node_modules
-dist
-
-#Config Files
-.vscode
-.idea/
-./travel-plan.js
-user-data
-
-#Reports
-carmen-reports
-reports/
-
-#logs
-*.log
-*.iml
-
-

@@ -2,8 +2,9 @@ import fs from 'fs';
 import puppeteer from "puppeteer";
 import compareScreenshots from './actions/compareScreenshots.js'
 import setViewport from './actions/setViewport.js'
-import waitForLoading from './actions/waitForLoading.js';
+import waitForLoading from './actions/waitForLoading.js'
 import takeScreenshot from './actions/takeScreenshot.js'
+import scrollTo from './actions/scrollTo.js'
 import changeText from './actions/changeText.js'
 import goTo from './actions/goTo.js'
 
@@ -43,6 +44,7 @@ export const actions = {
   takeScreenshot,
   setViewport,
   changeText,
+  scrollTo,
   goTo
 }
 

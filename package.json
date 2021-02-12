@@ -1,9 +1,12 @@
 {
-  "name": "carmen",
+  "name": "@theosyslack/carmen",
   "version": "3.0.0",
   "description": "Carmen will sneak around the web and run scripts for you.",
-  "main": "index.js",
+  "main": "module/index.js",
   "type": "module",
+  "bin": {
+    "carmen": "./bin/index.js"
+  },
   "engines": {
     "node": "15"
   },

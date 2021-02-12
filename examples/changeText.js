@@ -1,4 +1,4 @@
-import carmen, {actions} from '../index.js'
+import carmen, {actions} from '../module/index.js'
 
 const takeScreenshot = actions.takeScreenshot({path: "theosyslack.png"})
 const takeSecondScreenshot = actions.takeScreenshot({path: "theosyslack-2.png"})
